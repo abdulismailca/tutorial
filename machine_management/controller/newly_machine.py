@@ -17,5 +17,5 @@ class WebsiteProduct(http.Controller):
                 'description':m.description,
 
             })
-        print(result)
+
         return result

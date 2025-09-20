@@ -431,7 +431,14 @@
 
 
                     </div>
-                         <form action="/web" enctype="multipart/form-data" class="o_mark_required">
+
+
+                    </t>
+
+                </div>
+
+            </t>
+            <form action="/web"  class="o_mark_required">
                            <!-- back Button njan coduthu -->
                            <div class="form-group col-12" style="margin-top:10px">
                                <div style="width: 200px;"></div>
@@ -440,12 +447,6 @@
                                </button>
                            </div>
                 </form>
-
-                    </t>
-
-                </div>
-
-            </t>
 
         </div>
     </t>
