@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    list view-->
+    <record id="estate_types_list_view" model="ir.ui.view">
+        <field name="name">property.types.list</field>
+        <field name="model">property.types</field>
+        <field name="arch" type="xml">
+            <list string="Types">
+                <field name="name" readonly="1"/>
+                <field name="sequence" widget="handle"/>
+            </list>
+        </field>
+    </record>
+
+
+<!--    form view-->
+
+    <record id="estate_types_form_view" model="ir.ui.view">
+        <field name="name">property.types.list</field>
+        <field name="model">property.types</field>
+        <field name="arch" type="xml">
+            <form string="Types">
+                <sheet>
+                    <h1>
+                        <field name="name"/>
+
+                    </h1>
+                     <field name="sequence" />
+                    <notebook>
+                        <page string="Properties">
+                            <field name="types_data">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="expected_price"/>
+                                    <field name="stage"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="estate_property_types" model="ir.actions.act_window">
+        <field name="name">Property</field>
+        <field name="res_model">property.types</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
+

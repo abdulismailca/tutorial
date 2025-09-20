@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="employee_transfer_reject_action" model="ir.actions.act_window">
+        <field name="name">Reject</field>
+        <field name="res_model">employee.transfer</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">
+            [('state','=','reject')]
+        </field>
+
+    </record>
+
+
+</odoo>
+
+
+

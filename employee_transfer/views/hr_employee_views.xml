@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    employee transfer action-->
+    <record id="employee_transfer_employee_action"
+            model="ir.actions.act_window">
+        <field name="name">Employee</field>
+        <field name="res_model">hr.employee</field>
+        <field name="domain">
+            [('count_of_transfer','!=','0')]
+        </field>
+        <field name="view_mode">list</field>
+
+    </record>
+</odoo>
+
+
+

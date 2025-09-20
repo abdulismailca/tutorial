@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Main Menu-->
+    <menuitem id="employee_menu_root" name="Employee Transfer" sequence="1"/>
+
+
+    <!--   men transfer sub menu-->
+    <menuitem id="transfer_menu_child" name="Transfer"
+              parent="employee_menu_root"
+              sequence="1"/>
+
+
+    <!--    transfer sub menu child all-->
+
+    <menuitem id="transfer_menu_all_child" name="All"
+              parent="transfer_menu_child"
+              action="employee_transfer_action"
+              sequence="1"/>
+
+
+    <!--    transfer menu child-->
+
+    <menuitem id="transfer_menu_draft_child" name="Draft"
+              parent="transfer_menu_child"
+              action="employee_transfer_draft_action"
+              sequence="2"/>
+
+
+    <menuitem id="transfer_menu_waiting_approval_child"
+              name="Waiting for Approval"
+              parent="transfer_menu_child"
+              action="employee_transfer_waiting_approval_action"
+              sequence="3"/>
+
+    <menuitem id="transfer_menu_approve_child" name="Approve"
+              parent="transfer_menu_child"
+              action="employee_transfer_approve_action"
+              sequence="4"/>
+
+    <menuitem id="transfer_menu_reject_child" name="Reject"
+              parent="transfer_menu_child"
+              action="employee_transfer_reject_action"
+              sequence="5"/>
+
+
+    <!--    menu employee menu-->
+    <menuitem id="employee_menu_child" name="Employee"
+              parent="employee_menu_root"
+              action="employee_transfer_employee_action"
+              sequence="2"/>
+</odoo>
+
+
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!--offer creation popup-->
+    <record id="estate_offer_list_modal" model="ir.ui.view">
+        <field name="name">property.offer.form</field>
+        <field name="model">property.offer</field>
+        <field name="arch" type="xml">
+            <form string="Create Records">
+                <group>
+                    <field name="price"/>
+                    <field name="status"/>
+                    <field name="partner_id"/>
+                    <field name="validity_date"/>
+                    <field name="dead_line"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="estate_offer_list" model="ir.ui.view">
+        <field name="name">property.offer.list</field>
+        <field name="model">property.offer</field>
+        <field name="arch" type="xml">
+            <list string="Create Records"  decoration-success=" status == 'accepted'"
+            decoration-danger=" status == 'refuse'">
+                <field name="price"/>
+                <field name="partner_id"/>
+                <field name="validity_date" string="Validity(days)"/>
+                <field name="dead_line"/>
+                <button name="action_confirm" type="object" title="action_confirm" icon="fa-check"
+                        invisible=" status == 'accepted' or status== 'refuse' "/>
+                <button name="action_cancel" type="object" title="action_cancel" icon="fa-times"
+                        invisible=" status == 'accepted' or status== 'refuse' "/>
+                <field name="status"/>
+            </list>
+        </field>
+    </record>
+    <record id="estate_property_offer" model="ir.actions.act_window">
+        <field name="name">Property</field>
+        <field name="res_model">property.offer</field>
+        <field name="view_mode">list,form</field>
+
+    </record>
+
+
+</odoo>
+

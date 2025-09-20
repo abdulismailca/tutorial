@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!--    employee transfer from view-->
+    <record id="employee_transfer_form_view" model="ir.ui.view">
+        <field name="name">employee.transfer.form</field>
+        <field name="model">employee.transfer</field>
+        <field name="arch" type="xml">
+            <form string="Employee Transfer Model">
+                <header>
+                    <!--                    submit button-->
+                    <button name="employee_submit_request_button" type="object"
+                            string="Submit" class="btn-primary"
+
+                            invisible="state in ['waiting_for_approval','approve','reject']"
+                    />
+
+                    <!--                    approve button-->
+
+                    <button name="employee_request_approve_button" type="object"
+                            string="Approve" class="btn-success"
+                            invisible="state in ['draft','approve','reject']"
+                            groups="employee_transfer.group_admin_person"
+                    />
+
+                    <!--                    reject button-->
+
+                    <button name="employee_request_reject_button" type="object"
+                            string="Reject" class="btn-danger"
+                            invisible="state in ['draft','approve','reject']"
+                            groups="employee_transfer.group_admin_person"
+                    />
+
+
+                    <!--                reset to draft button-->
+                    <button name="employee_rest_to_draft_button" type="object"
+                            string="Reset to Draft" class="btn-primary"
+                            invisible="state in ['draft','waiting_for_approval','approve']"
+                            groups="employee_transfer.group_admin_person"
+                    />
+
+
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="Approved"
+                            invisible="state in ['draft','waiting_for_approval','reject']"
+                            bg_color="bg-success"/>
+                    <widget name="web_ribbon" text="Reject"
+                            invisible="state in ['draft','waiting_for_approval','approve']"
+                            bg_color="bg-danger"/>
+
+                    <group>
+                        <h1>
+                            <field name="sequence_number" nolabel="1"
+                                   placeholder="ET0001"/>
+                        </h1>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="employee_id"
+                                   readonly="state in ['approve', 'reject']"/>
+                            <field name="company_id"
+                                   invisible="state=='approve'"/>
+                            <field name="source_company"
+                                   invisible="state in ['draft','waiting_for_approval','reject']"
+                                   readonly="state in ['approve', 'reject']"
+                            />
+                        </group>
+                        <group>
+                            <field name="date"
+                                   readonly="state in ['approve', 'reject']"/>
+                            <field name="transfer_company_id"
+                                   readonly="state in ['approve', 'reject']"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+    <!--    employee transfer list view-->
+
+    <record id="employee_transfer_list_view" model="ir.ui.view">
+        <field name="name">employee.transfer.list</field>
+        <field name="model">employee.transfer</field>
+        <field name="arch" type="xml">
+            <list string="Employee Transfer"
+                  decoration-success="state=='approve'"
+                  decoration-danger="state =='reject'"
+                  decoration-warning="state =='draft'"
+                  decoration-info="state=='waiting_for_approval'">
+
+
+                <field name="sequence_number"/>
+                <field name="employee_id"/>
+                <field name="source_company"/>
+                <field name="state"/>
+                <field name="date"/>
+                <field name="transfer_company_id"/>
+
+            </list>
+        </field>
+    </record>
+
+
+    <!--    employee transfer action-->
+    <record id="employee_transfer_action" model="ir.actions.act_window">
+        <field name="name">Employee Transfer</field>
+        <field name="res_model">employee.transfer</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+</odoo>
+
+
+

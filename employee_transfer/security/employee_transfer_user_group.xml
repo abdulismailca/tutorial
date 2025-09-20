@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--    here iam create a category for group  -->
+    <record id="employee_transfer_category" model="ir.module.category">
+        <field name="name">Employee Transfer</field>
+        <field name="description">Employee transfer category description</field>
+
+    </record>
+
+
+    <!-- group manager -->
+
+    <record id="group_admin_person" model="res.groups">
+        <field name="name">Admin</field>
+        <field name="category_id"
+               ref="employee_transfer_category"/>
+
+    </record>
+
+
+</odoo>
+
+

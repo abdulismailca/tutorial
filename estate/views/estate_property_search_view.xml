@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--search view-->
+<odoo>
+    <data>
+        <record id="estate_search" model="ir.ui.view">
+            <field name="name">property.name.form</field>
+            <field name="model">property.name</field>
+            <field name="arch" type="xml">
+                <search string="my_records">
+                    <field name="name"/>
+                    <field name="postcode"/>
+                    <field name="bedrooms"/>
+                    <field name="living_area"/>
+                    <field name="expected_price"/>
+                    <field name="facades"/>
+
+                    <filter string="Available property New" name="State"
+                            domain="['|',('stage','=','new'),('stage','=','offer_received')]"/>
+
+                    <filter string="Provider CA" name="provider" context="{'group_by':'postcode'}"/>
+
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>
+<!--                here we give search so, it appear in search bar-->
+
