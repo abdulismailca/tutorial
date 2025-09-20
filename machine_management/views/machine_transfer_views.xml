@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="machine_transfer_form_view" model="ir.ui.view">
+        <field name="name">machine.transfer.form</field>
+        <field name="model">machine.transfer</field>
+
+        <field name="arch" type="xml">
+            <form string="Machine Transfer">
+                <header>
+                    <button name="machine_transfer" type="object"
+                            invisible="is_ribbon_and_button_invisible ==False"
+                            string="Transfer"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="Completed"
+                            invisible="is_ribbon_and_button_invisible ==True"
+                            bg_color="bg-success"/>
+
+                    <widget name="web_ribbon" text="Archived"
+                            invisible="active==True"
+                            bg_color="bg-danger"/>
+
+                     <group>
+                            <h1>
+                                <field name="sequence_number" nolabel="1"
+                                       placeholder="MT0001"/>
+                            </h1>
+                     </group>
+                    <group>
+
+                        <group>
+
+
+                            <field name="machine_selection_id"
+                                   domain="[('id', 'in', alternate_ids)]"
+                                   readonly="is_ribbon_and_button_invisible==False"
+                            />
+
+                            <field name="company_id"
+                                   readonly="True"
+                            />
+
+
+                            <field name="alternate_ids" invisible="1"/>
+
+
+                            <field name="transfer_date"
+                                   readonly="is_ribbon_and_button_invisible==False"/>
+                            <field name="customer_id"
+                                   invisible="transfer_type=='remove' or transfer_type==False"
+                                   readonly="is_ribbon_and_button_invisible==False"/>
+                        </group>
+                        <group>
+                            <field name="machine_serial_number"/>
+                            <field name="transfer_type"
+                                   readonly="is_ribbon_and_button_invisible==False"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="Internal Notes"
+                              readonly="is_ribbon_and_button_invisible==False">
+                            <field name="internal_notes"
+                                   readonly="is_ribbon_and_button_invisible==False"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <!--    list view-->
+
+    <record id="machine_transfer_list_view" model="ir.ui.view">
+        <field name="name">machine.transfer.list</field>
+        <field name="model">machine.transfer</field>
+        <field name="arch" type="xml">
+            <list string="Machine Transfer Record">
+                <field name="machine_selection_id"/>
+                <field name="sequence_number"/>
+                <field name="customer_id"/>
+                <field name="transfer_date"/>
+
+<!--                <field name="machine_serial_number"/>-->
+                <field name="company_id"/>
+                <field name="transfer_type"/>
+            </list>
+        </field>
+    </record>
+
+    <!--    machine transfer search-->
+    <record id="machine_transfer_search" model="ir.ui.view">
+        <field name="name">machine.transfer.search</field>
+        <field name="model">machine.transfer</field>
+        <field name="arch" type="xml">
+            <search string="Machine Transfer Search Record">
+
+
+                <field name="machine_selection_id"/>
+                <field name="alternate_ids"/>
+                <field name="transfer_type"/>
+                <field name="customer_id"/>
+
+
+                <filter string="Transfer Type Install" name="Machine"
+                        domain="[('transfer_type','=','install')]"/>
+
+                <filter string="Transfer Type Remove" name="Machine"
+                        domain="[('transfer_type','=','remove')]"/>
+
+
+                <filter string="Transfer Machines" name="Machine"
+                        context="{'group_by':'machine_selection_id'}"/>
+                <filter string="Transfer Type" name="Machine"
+                        context="{'group_by':'transfer_type'}"/>
+
+                <filter string="Archived" name="inactive"
+                        domain="[('active', '=', False)]"/>
+
+
+            </search>
+        </field>
+    </record>
+
+    <record id="machine_transfer_action" model="ir.actions.act_window">
+        <field name="name">Machine Transfer</field>
+        <field name="res_model">machine.transfer</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+</odoo>
+
+
+

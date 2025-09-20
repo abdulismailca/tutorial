@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!--    Form View -->
+    <record id="machine_form_view" model="ir.ui.view">
+        <field name="name">machine.management.form</field>
+        <field name="model">machine.management</field>
+        <field name="arch" type="xml">
+            <form string="Machine Model">
+                <header>
+                    <!--                    create transfer button-->
+                    <button name="redirect_to_machine_transfer" type="object"
+                            string="Create transfer" class="btn-primary"/>
+
+                    <!--                    create service button-->
+
+                    <button name="redirect_to_machine_service" type="object"
+                            string="Create Service"
+                            invisible="customer_id == False"
+                    />
+
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="active, in_service"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="Archived"
+                            invisible="active==True"
+                            bg_color="bg-danger"/>
+
+                    <!--                  transfer history smart button-->
+                    <div name="button_box" position="inside">
+                        <button class="oe_stat_button"
+                                type="object"
+                                invisible="transfer_count == 0"
+                                icon="fa-exchange"
+                                name="machine_transfer_smart_button_history">
+                            <field string="Transfer History"
+                                   name="transfer_count" widget="statinfo"/>
+                        </button>
+
+                        <!--                        service history smart button-->
+
+                        <button class="oe_stat_button"
+                                type="object"
+                                invisible="service_count == 0"
+                                icon="fa-gears"
+                                name="machine_service_smart_button_history">
+                            <field string="Service History"
+                                   name="service_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <h1>
+                                <field name="sequence_number" nolabel="1"
+                                       placeholder="MAC0001"/>
+                            </h1>
+                        </group>
+                        <group>
+                            <field name="image" nolabel="1" widget="image"
+                                   class="oe_right oe_avatar"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <h1>
+                                <field name="name"
+                                       placeholder="Washing Machine"/>
+                            </h1>
+                            <field name="customer_id"
+                                   widget="res_partner_many2one"
+                                   context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
+                                   placeholder="Customer Name"
+                            />
+                            <field name="company_id"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="purchase_value"/>
+                            <field name="machine_type"/>
+                            <field name="service_frequency"/>
+                        </group>
+                        <group>
+                            <field name="serial_number"
+                                   placeholder="A-123-XYZ"/>
+                            <field name="is_warranty"/>
+                            <field name="date_of_purchase"/>
+                            <field name="machine_tags_ids"
+                                   widget="many2many_tags"
+                                   options="{'color_field':'color'}"/>
+                            <field name="machine_age"/>
+                            <field name="last_service_date"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page string="Machine Parts">
+                            <field name="machine_parts_ids"/>
+                        </page>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                        <page string="Machine Instructions">
+                            <field name="machine_instructions"/>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+
+        </field>
+    </record>
+
+
+    <!--       List View -->
+
+    <record id="machine_management_list_view" model="ir.ui.view">
+        <field name="name">machine.management.list</field>
+        <field name="model">machine.management</field>
+        <field name="arch" type="xml">
+            <list string="Machine Record">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="purchase_value"/>
+                <field name="state"/>
+                <field name="date_of_purchase"/>
+                <field name="is_warranty"/>
+            </list>
+        </field>
+    </record>
+
+<!--    machine search-->
+<record id="machine_search" model="ir.ui.view">
+        <field name="name">machine.management.search</field>
+        <field name="model">machine.management</field>
+        <field name="arch" type="xml">
+            <search string="Machine Search Record">
+
+                <field name="name"/>
+                <field name="date_of_purchase"/>
+                <field name="purchase_value"/>
+                <field name="serial_number"/>
+                <field name="machine_type"/>
+                <field name="machine_tags_ids"/>
+
+                <filter string="Machine State Active"
+                        name="machine_state_active"
+                        domain="[('state','=','active')]"/>
+
+                <filter string="Machine State In Service"
+                        name="machine_state_in_service"
+                        domain="[('state','=','in_service')]"/>
+
+
+                <filter string="Archived" name="inactive"
+                        domain="[('active', '=', False)]"/>
+
+
+                <filter string="Machine" name="Machine"
+                        context="{'group_by':'name'}"/>
+                <filter string="Machine Types" name="Machine Types"
+                        context="{'group_by':'machine_type'}"/>
+                <filter string="Machine Tags" name="Machine Tags"
+                        context="{'group_by':'machine_tags_ids'}"/>
+
+
+            </search>
+        </field>
+    </record>
+
+    <record id="machine_management_action" model="ir.actions.act_window">
+        <field name="name">Machine</field>
+        <field name="res_model">machine.management</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+</odoo>
+
+
+
+
+

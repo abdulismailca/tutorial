@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--    here iam create a category for group  -->
+    <record id="machine_management_category" model="ir.module.category">
+        <field name="name">Machine Management</field>
+        <field name="description">Machine Management Description</field>
+
+    </record>
+
+
+    <!--    group tech person-->
+    <record id="group_tech_person" model="res.groups">
+        <field name="name">Tech Person</field>
+        <field name="category_id"
+               ref="machine_management_category"/>
+    </record>
+
+
+    <!--group manager-->
+
+    <record id="group_manager_person" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id"
+               ref="machine_management_category"/>
+
+    </record>
+
+
+    <!--    tech person rule-->
+    <record id="machine_management_tech_person_rule" model="ir.rule">
+        <field name="name">Tech Person Rule</field>
+        <field ref="model_machine_service" name="model_id"/>
+        <field name="domain_force">
+            [('tech_person_ids','in',user.id)]
+        </field>
+        <field name="groups"
+               eval="[(4, ref('machine_management.group_tech_person'))]"/>
+    </record>
+
+
+    <!--    manager person rule-->
+    <record id="machine_management_manager_person_rule" model="ir.rule">
+        <field name="name">Manager Person Rule</field>
+        <field ref="model_machine_service" name="model_id"/>
+        <field name="domain_force">
+            [(1,'=',1)]
+        </field>
+        <field name="groups"
+               eval="[(4, ref('machine_management.group_manager_person'))]"/>
+    </record>
+
+
+
+    <!--        machine service company rule-->
+    <record id="machine_service_comp_rule" model="ir.rule">
+        <field name="name">Machine Service Comp Rule</field>
+        <field name="model_id" ref="model_machine_service"/>
+        <field name="domain_force">['|', ('company_id', '=', False),
+            ('company_id', 'in',company_ids)]
+        </field>
+    </record>
+
+
+    <!--            machine management company rule-->
+    <record id="machine_comp_rule" model="ir.rule">
+        <field name="name">Machine Comp Rule</field>
+        <field name="model_id" ref="model_machine_management"/>
+        <field name="domain_force">['|', ('company_id', '=', False),
+            ('company_id', 'in',company_ids)]
+        </field>
+    </record>
+
+
+    <!--    machine transfer company rule for tech person-->
+    <record id="machine_transfer_tech_person_rule" model="ir.rule">
+        <field name="name">Machine Transfer Comp Rule</field>
+        <field name="model_id" ref="model_machine_transfer"/>
+        <field name="domain_force">['|', ('company_id', '=', False),
+            ('company_id', 'in',company_ids)]
+        </field>
+<!--        <field name="groups"-->
+<!--               eval="[(4, ref('machine_management.group_tech_person'))]"/>-->
+    </record>
+
+
+
+
+
+    <!--machine transfer company rule for manager-->
+
+<!--    <record id="machine_transfer_manager_person_rule" model="ir.rule">-->
+<!--        <field name="name">Machine Transfer Comp Rule</field>-->
+<!--        <field name="model_id" ref="model_machine_transfer"/>-->
+<!--        <field name="domain_force">['|', ('company_id', '=', False),-->
+<!--            ('company_id', 'in',company_ids)]-->
+<!--        </field>-->
+<!--        <field name="groups"-->
+<!--               eval="[(4, ref('machine_management.group_manager_person'))]"/>-->
+<!--    </record>-->
+
+
+</odoo>
+
+

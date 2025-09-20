@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="machine_transfer_wizard_form_view" model="ir.ui.view">
+        <field name="name">machine.transfer.wizard.form</field>
+        <field name="model">machine.transfer.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Machine Transfer Wizard">
+                <group>
+                    <field name="machine_ids" widget="many2many_tags"/>
+                    <field name="customer_id"
+                            invisible="transfer_type=='remove'"
+                    />
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="transfer_type"/>
+                </group>
+                <footer>
+                    <button name="machine_transfer_pdf_report" type="object"
+                            string="Print PDF Report" class="btn-primary"/>
+
+                    <button name="machine_transfer_xl_report" type="object"
+                            string="Print XL Report" class="btn-primary"/>
+
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="machine_transfer_wizard_action" model="ir.actions.act_window">
+        <field name="name">Transfer Report</field>
+        <field name="res_model">machine.transfer.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+<t t-name="machine_management.machine_chunk_wise">
+    <t t-log="chunkData"/>
+
+
+    <t t-log="'unique id from temp'+uniqueid"/>
+
+
+             <div t-attf-id="my_dynamic_id{{uniqueid}}" class="container carousel slide"
+         data-bs-ride="carousel" style="margin-top:30px" t-att-data-bs-interval="interval">
+
+<!--    <div id="course_carousel" class="container carousel slide"-->
+<!--         data-bs-ride="carousel" style="margin-top:30px" t-att-data-bs-interval="interval">-->
+
+    <div class="carousel-inner row w-100 mx-auto" role="listbox">
+
+    <t t-foreach="chunkData" t-as="chunk" t-key="chunk['id']">
+
+    <div t-att-class="chunk.is_active ? 'carousel-item active' : 'carousel-item'">
+
+    <div class="row">
+
+    <t t-foreach="chunk" t-as="item"      t-key="item['id']">
+
+    <div class="block span3 col-3">
+
+    <div class="card-group">
+
+
+    <div class="card">
+
+         <a t-att-href="'/my/machine/home/'+item['id']">
+
+              <img class="card-img-top" t-att-src="'/web/image/machine.management/' + item['id'] + '/image'"
+         style="padding: 0px; margin:0px; height: 200px; width:305px;"/>
+
+         </a>
+
+<!--    <img class="card-img-top" t-att-src="'/web/image/machine.management/' + item['id'] + '/image'"-->
+<!--         style="padding: 0px; margin:0px; height: 200px; width:305px;"/>-->
+
+<!--         <div class="col-9">-->
+<!--                            <img t-att-src="'/web/image/machine.management/%s/image' %(item.id)"  alt="Machine Image" style="height:90px"/>-->
+<!--                        </div>-->
+
+<!--         <img t-att-src="'/web/image/machine.management/' + item['id'] + '/image'"-->
+<!--                         class="card-img-top" alt="machine image"/>-->
+
+
+        <h5 class="card-title" style="margin:15px 0 5px 16px; font-size: 25px;">
+                            <strong>
+                                <t t-esc="item.name"/>
+                            </strong>
+
+                        </h5>
+
+        <p class="card-text" style="margin:5px 0 0 16px">
+                            <strong>Purchase Date: <t t-esc="item.date_of_purchase"/></strong>
+
+                        </p>
+
+            <p class="card-text" style="margin:5px 0 0 16px">
+                            <strong>
+                                 Serial No: <t t-esc="item.serial_number"/>
+
+                            </strong>
+
+
+                        </p>
+
+
+        <t t-if="item.description">
+            <p class="card-text" style="margin:5px 0 0 16px">
+
+
+                            <strong>
+                                 Description:
+                                <t t-esc="item.description"/>
+
+                            </strong>
+
+
+
+                        </p>
+
+        </t>
+
+
+
+
+<!--        <h5 class="mb-0" style=";color: #0D5272;font-weight: 600;justify-content: center;-->
+<!--           align-items: center;font-size: 20px;-->
+<!--            margin-left: 16px;"><t t-esc="item.name"/></h5><br/>-->
+<!--        <p class="mb-0" style=";color: #0D5272;font-weight: 600;justify-content: center;-->
+<!--           align-items: center;font-size: 20px;-->
+<!--            margin-left: 16px;"><t t-esc="item.date_of_purchase"/></p><br/>-->
+
+        <p class="ref-prdt-price"
+           style="color: #0D5272;font-weight: 600;justify-content: center;
+           align-items: center;font-size: 20px;
+            margin-left: 16px;">
+            <span class="ref-prdt-offer-price"
+                  data-oe-type="monetary"
+                  data-oe-expression="item.list_price">$
+                <span
+                        class="oe_currency_value"
+                        t-esc="item.purchase_value"/>
+            </span>
+        </p>
+
+
+    </div>
+
+    </div>
+
+    </div>
+    </t>
+
+    </div>
+
+    </div>
+
+    </t>
+
+    </div>
+
+    </div>
+
+        <a t-attf-href="#my_dynamic_id{{uniqueid}}" class="carousel-control-prev"
+        data-bs-slide="prev" role="button" aria-label="Previous"
+        title="Previous">
+
+    <span class="fa fa-chevron-circle-left fa-2x"/>
+            <span class="visually-hidden">Previous</span>
+
+    </a>
+        <a t-attf-href="#my_dynamic_id{{uniqueid}}" class="carousel-control-next"
+        data-bs-slide="next" role="button" aria-label="Next" title="Next">
+
+    <span class="fa fa-chevron-circle-right fa-2x"/>
+
+            <span class="visually-hidden">Next</span>
+
+    </a>
+    </t>
+    </templates>
+
+
+
+<!--<?xml version="1.0" encoding="UTF-8" ?>-->
+<!--&lt;!&ndash; Template for displaying top-selling products in categories &ndash;&gt;-->
+<!--<templates id="best_seller_template" xml:space="preserve">-->
+<!--   <t t-name="machine_management.machine_chunk_wise">-->
+
+<!--       <div id="carousel_machines_data" class="container">-->
+<!--           <div id="unique_machine_carousel" class="large-12 columns">-->
+<!--               <div>tets</div>-->
+<!--               <div id="machineSellCarousel" class="owl-carousel owl-theme owl-loaded owl-drag">-->
+<!--                   <div>tets2</div>-->
+<!--                   <div class="owl-stage-outer">-->
+<!--                       <div>tets3</div>-->
+<!--&lt;!&ndash;                       ivide vare ya ellem render avunulu&ndash;&gt;-->
+
+<!--                       <div class="owl-stage" >-->
+<!--                             <t t-foreach="chunkData" t-as="data" t-key="data['id']">-->
+<!--                               <t t-log="'inside chunk data'+ data"/>-->
+
+<!--                               <t t-foreach="data" t-as="vals" t-key="vals['id']">-->
+<!--                                   <t t-log="vals.id"/>-->
+
+<!--                                       <div class="owl-item" id="card_id" style="width: 178px; margin-right: 20px;">-->
+<!--&lt;!&ndash;                                           <a class="o_carousel_product_img_link o_dynamic_product_hovered stretched-link"&ndash;&gt;-->
+<!--&lt;!&ndash;                                              t-attf-href="/my/machine_transfer/{{vals.id}}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                               <div class="overflow-hidden rounded">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                   <img class="card-img-top o_img_product_square o_img_product_cover h-auto"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        t-attf-src="'/web/image/machine.management/'+vals.image+'image'"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                   <img class="card-img-top o_img_product_square o_img_product_cover h-auto"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        t-attf-src="vals.image"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                               </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                           </a>&ndash;&gt;-->
+<!--                                           <div class="o_carousel_product_card_body d-flex flex-wrap flex-column justify-content-between h-100 p-3">-->
+<!--                                               <div class="h6 card-title"-->
+<!--                                                    t-esc="vals.name"/>-->
+<!--                                           </div>-->
+
+<!--                                           <p class="ref-prdt-price"-->
+
+<!--                                              style=" margin-top: -20px;color: #0D5272;font-weight: 600;justify-content: center;-->
+<!--                                                                              align-items: center;font-size: 20px;-->
+<!--                                                                              margin-left: 16px;">-->
+<!--                                               <span class="ref-prdt-offer-price"-->
+<!--                                                     data-oe-type="monetary"-->
+<!--                                                     data-oe-expression="vals.list_price">$ <span-->
+<!--                                                       class="oe_currency_value"-->
+<!--                                                       t-esc="vals.purchase_value"/>-->
+<!--                                               </span>-->
+<!--                                           </p>-->
+<!--                                       </div>-->
+
+
+
+
+<!--                                   </t>-->
+<!--                           </t>-->
+
+<!--                           <div>tets4</div>-->
+<!--                           <t t-log="'chunk data inside template '+chunkData"/>-->
+
+<!--                       </div>-->
+<!--                   </div>-->
+<!--               </div>-->
+<!--           </div>-->
+<!--       </div>-->
+<!--   </t>-->
+<!--</templates>-->
+
+
+
+
+
+
+
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<templates xml:space="preserve">-->
+<!--   <t t-name="machine_management.machine_management_newly_machine_dynamic">-->
+<!--    <section class="machine_section my-5">-->
+<!--        <div class="container">-->
+
+<!--            <div class="row" id="machine-cards-container">-->
+
+<!--&lt;!&ndash;                ivide njan call cheyth link akkum (template) with content &ndash;&gt;-->
+
+<!--            </div>-->
+<!--            <button class="carousel-control-prev prev-btn" type="button">-->
+<!--    <span class="carousel-control-prev-icon"></span>-->
+
+<!--  </button>-->
+
+<!--            <button class="carousel-control-next  next-btn" type="button">-->
+<!--    <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+
+<!--  </button>-->
+
+
+
+<!--        </div>-->
+<!--    </section>-->
+<!--</t>-->
+
+<!--    &lt;!&ndash; dynamic template for one chunk &ndash;&gt;-->
+<!--    <t t-name="machine_management.machine_chunk">-->
+<!--    <div class="row">-->
+<!--        <t t-foreach="chunk" t-as="inside" t-key="inside['id']">-->
+<!--            <div class="col-12 col-sm-6 col-md-3 mb-4">-->
+<!--                <div class="card h-100 shadow-sm">-->
+
+<!--                    <img t-att-src="'/web/image/machine.management/' + inside['id'] + '/image'"-->
+<!--                         class="card-img-top" alt="machine image"/>-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title">-->
+<!--                            <t t-esc="inside['name']"/>-->
+<!--                        </h5>-->
+<!--                        <p class="card-text">-->
+<!--                            <strong>Purchase Date:</strong>-->
+<!--                            <t t-esc="inside['date_of_purchase']"/>-->
+<!--                        </p>-->
+<!--                        <p class="card-text">-->
+<!--                            <strong>Value:</strong>-->
+<!--                            <t t-esc="inside['purchase_value']"/>-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--    </div>-->
+<!--</t>-->
+<!--</templates>-->
+
+
+
+
+
+
+

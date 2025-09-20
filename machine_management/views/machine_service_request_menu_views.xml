@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--    iam adding a service menu inside web-->
+    <record id="website_service_request_menu" model="website.menu">
+        <field name="name">Service Request</field>
+        <!--       the below usrl is calling in controller-->
+        <field name="url">/servicerequest</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">90</field>
+    </record>
+
+<!--    create customer menu-->
+    <record id="website_create_customer_menu" model="website.menu">
+        <field name="name">Create Customer</field>
+        <!--       the below usrl is calling in controller-->
+        <field name="url">/create/service/customer</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">100</field>
+    </record>
+
+<!--    list transfer and its form view menu-->
+    <record id="website_transfer_list_menu" model="website.menu">
+        <field name="name">Transfer List</field>
+        <!--       the below usrl is calling in controller-->
+        <field name="url">machine/transfer/list</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">110</field>
+    </record>
+
+
+<!--    machine list view menu-->
+
+     <record id="website_machine_view_menu" model="website.menu">
+        <field name="name">Machines</field>
+        <field name="url">machine/management/list</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">120</field>
+    </record>
+
+
+
+<!--service form-->
+<template id="service_request_web_form_template" name="Create Machine Service">
+   <t t-call="website.layout">
+       <div id="wrap" class="oe_structure oe_empty" style="margin-top:50px">
+
+               <div class="container">
+                   <form action="/servicerequest/submit" enctype="multipart/form-data" class="o_mark_required" method="POST">
+                       <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                       <div class="row">
+<!--                           machine name-->
+                           <div class="form-group col-12">
+                               <div class="row">
+                                   <label class="col-form-label col-sm-auto" style="width: 200px;" for="machine">
+                                       Machine<span class="text-danger"> *</span>
+                                   </label>
+                                   <div class="col-sm" style="margin-bottom:5px">
+                                       <select name="machine_id" class="form-control"
+                                        required="required">
+                                    <option value="">Select a Machine
+                                    </option>
+                                    <t t-foreach="machines" t-as="machine">
+                                        <option t-att-value="machine.id"
+                                                t-esc="machine.name"/>
+                                    </t>
+                                </select>
+                                   </div>
+                               </div>
+
+<!--                               customer-->
+
+                               <div class="row">
+                                   <label class="col-form-label col-sm-auto" style="width: 200px;" for="customer">
+                                       Customer<span class="text-danger"> *</span>
+                                   </label>
+                                   <div class="col-sm" style="margin-bottom:5px">
+                                       <select name="partner_id" class="form-control"
+                                        required="required">
+                                    <option value="">Select a Customer
+                                    </option>
+                                    <t t-foreach="partners" t-as="partner">
+                                        <option t-att-value="partner.id"
+                                                t-esc="partner.name"/>
+                                    </t>
+                                </select>
+                                   </div>
+                               </div>
+<!--date-->
+                                <div class="row">
+                                   <label class="col-form-label col-sm-auto" style="width: 200px;" for="date">
+                                       Date<span class="text-danger"> *</span>
+                                   </label>
+                                   <div class="col-sm" style="margin-bottom:5px">
+
+                                    <input id="date" type="date"
+                                           class="form-control" name="date"
+                                           required="1"/>
+                                   </div>
+                               </div>
+<!--                               description-->
+                                <div class="row">
+                                   <label class="col-form-label col-sm-auto" style="width: 200px;" for="description">
+                                       Description<span class="text-danger"> *</span>
+                                   </label>
+                                   <div class="col-sm" style="margin-top:5px">
+                                       <textarea id="description" class="form-control s_website_form_input" name="description"  rows="8"/>
+                                   </div>
+                               </div>
+
+
+
+                                <div class="form-group col-12 s_website_form_submit" data-name="Submit Button">
+                            <div style="width: 200px margin-top:5px"
+                                 class="s_website_form_label"/>
+                            <button type="submit" class="btn btn-primary" style="margin:5px 0 0 200px">
+                                Submit
+                            </button>
+                        </div>
+
+
+<!--                        here here -->
+                           </div>
+                       </div>
+                   </form>
+               </div>
+
+       </div>
+   </t>
+</template>
+
+<!--    customer form-->
+    <template id="website_create_customer_form" name="Create Customer">
+   <t t-call="website.layout">
+       <div id="wrap" class="oe_structure oe_empty">
+
+               <div class="container">
+                   <form action="/create/service/customer/action" enctype="multipart/form-data" class="o_mark_required" method="POST">
+                       <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                       <div class="row">
+                           <!-- Name Field -->
+                           <div class="form-group col-12" style="margin-top:50px">
+                               <div class="row">
+                                   <label class="col-form-label col-sm-auto" style="width: 200px;" for="name">
+                                       Name<span class="text-danger"> *</span>
+                                   </label>
+                                   <div class="col-sm">
+                                       <input id="name" type="text" class="form-control" name="name" required="1"/>
+                                   </div>
+                               </div>
+                           </div>
+                           <!-- Phone Field -->
+                           <div class="form-group col-12" style="margin-top:10px">
+                               <div class="row">
+                                   <label class="col-form-label col-sm-auto" style="width: 200px;" for="phone">
+                                       Phone<span class="text-danger"> *</span>
+                                   </label>
+                                   <div class="col-sm">
+                                       <input id="phone" type="text" class="form-control" name="phone" required="1"/>
+                                   </div>
+                               </div>
+                           </div>
+                           <!-- Email Field -->
+                           <div class="form-group col-12" style="margin-top:10px">
+                               <div class="row">
+                                   <label class="col-form-label col-sm-auto" style="width: 200px;" for="email">
+                                       Email<span class="text-danger"> *</span>
+                                   </label>
+                                   <div class="col-sm">
+                                       <input id="email" type="email" class="form-control" name="email" required="1"/>
+                                   </div>
+                               </div>
+                           </div>
+                           <!-- Submit Button -->
+                           <div class="form-group col-12" style="margin:10px 0 0 200px">
+                               <div style="width: 200px;"></div>
+                               <button type="submit" class="btn btn-primary">Submit</button>
+                           </div>
+                       </div>
+                   </form>
+               </div>
+
+       </div>
+   </t>
+</template>
+
+
+<!--    machine transfer list-->
+
+      <template id="portal_machine_transfer" name="Machine Transfer List">
+        <t t-call="portal.portal_layout">
+            <t t-if="machines_transfer" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+
+                        <th>Reference #</th>
+                        <th>Customer</th>
+                        <th>Date</th>
+                        <th>Go to Backend</th>
+                    </tr>
+                </thead>
+                <t t-foreach="machines_transfer" t-as="transfer">
+                    <tr>
+                        <td>
+
+                        <a t-att-href="'/my/machine_transfer/%s' % transfer.id">
+                            <t t-out="transfer.sequence_number"/>
+                        </a>
+                    </td>
+
+                        <td>
+                            <t t-out="transfer.customer_id.name"/>
+                        </td>
+                        <td>
+                            <t t-out="transfer.transfer_date.strftime('%d-%m-%Y')"/>
+                        </td>
+
+                        <t t-set="transfer_action" t-value="env.ref('machine_management.machine_transfer_action')"/>
+
+                        <td>
+                            <a t-att-href="'/web#action=%s&amp;model=machine.transfer&amp;id=%s' % (transfer_action.id, transfer.id)">
+                                <button type="button" class="btn btn-primary" style="margin-left:20px">Click</button>
+                            </a>
+                        </td>
+
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
+<!--    machine transfer form-->
+    <template id="portal_machine_transfer_page" name="Machine Transfer Form">
+    <t t-call="portal.portal_layout">
+
+
+        <div class="o_portal_wrap">
+            <t t-if="transfer">
+                <div class="card shadow-sm p-4 mb-4">
+                    <h3 class="card-title mb-3">
+
+
+                        #<span t-field="transfer.sequence_number"/>
+                        <br/>
+                        <span t-field="transfer.machine_selection_id.name"/>
+
+                    </h3>
+
+
+                    <div class="row mb-2">
+                        <div class="col-3 fw-bold">Customer:</div>
+                        <div class="col-9">
+                            <span t-field="transfer.customer_id"/>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-3 fw-bold">Transfer Type:</div>
+                        <div class="col-9">
+                            <span t-field="transfer.transfer_type"/>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-3 fw-bold">Transfer Date:</div>
+                        <div class="col-9">
+                            <span t-field="transfer.transfer_date"/>
+                        </div>
+                    </div>
+                </div>
+<!--                return to list view-->
+
+                <form action="/machine/transfer/list" enctype="multipart/form-data" class="o_mark_required">
+                           <!-- back Button -->
+                           <div class="form-group col-12" style="margin-top:10px">
+                               <div style="width: 200px;"></div>
+                               <button type="submit" class="btn btn-primary">Back</button>
+                           </div>
+
+                   </form>
+            </t>
+            <t t-else="">
+                <p class="text-muted">No transfer</p>
+            </t>
+        </div>
+    </t>
+</template>
+
+<!--    machine management list-->
+
+      <template id="portal_machine_management_list" name="Machine Management List">
+        <t t-call="portal.portal_layout">
+
+            <t t-if="machines" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+
+                        <th>Reference #</th>
+                        <th>Machine</th>
+                        <th>Date of Purchase</th>
+                        <th>Go to Backend</th>
+                    </tr>
+                </thead>
+                <t t-foreach="machines" t-as="machine">
+                    <tr>
+                        <td>
+
+                        <a t-att-href="'/my/machine/%s' % machine.id">
+                            <t t-out="machine.sequence_number"/>
+                        </a>
+                    </td>
+
+                        <td>
+                            <t t-out="machine.name"/>
+                        </td>
+                        <td>
+                            <t t-out="machine.date_of_purchase.strftime('%d-%m-%Y')"/>
+                        </td>
+
+                        <t t-set="action" t-value="env.ref('machine_management.machine_management_action')"/>
+                        <td>
+                            <a t-att-href="'/web#action=%s&amp;model=machine.management&amp;id=%s' % (action.id, machine.id)">
+                                <button type="button" class="btn btn-primary" style="margin-left:20px">Click</button>
+                            </a>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
+<!--machine management form view-->
+    <template id="portal_machine_management_form" name="Machine Management Form">
+    <t t-call="portal.portal_layout">
+        <div class="o_portal_wrap">
+            <t t-if="machine">
+                <div class="card shadow-sm p-4 mb-4">
+                    <h3 class="card-title mb-3">
+                        #<span t-field="machine.sequence_number"/>
+                    </h3>
+                    <div class="row mb-2">
+
+                        <div class="col-9">
+                            <img t-att-src="'/web/image/machine.management/%s/image' %(machine.id)"  alt="Machine Image" style="height:90px"/>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3 fw-bold">Machine:</div>
+                        <div class="col-9">
+                            <span t-field="machine.name"/>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3 fw-bold">Transfer Date:</div>
+                        <div class="col-9">
+                            <span t-field="machine.date_of_purchase"/>
+                        </div>
+                    </div>
+
+                </div>
+                <form action="/machine/management/list" enctype="multipart/form-data" class="o_mark_required">
+                           <!-- back Button njan coduthu -->
+                           <div class="form-group col-12" style="margin-top:10px">
+                               <div style="width: 200px;"></div>
+                               <button type="submit" class="btn btn-primary">Back</button>
+                           </div>
+                </form>
+
+            </t>
+
+        </div>
+    </t>
+</template>
+
+<!--    machine management view from home page-->
+
+     <template id="portal_machine_management_home_form" name="Machine Management Form">
+    <t t-call="portal.portal_layout">
+        <div class="o_portal_wrap">
+            <t t-if="machine">
+                <div class="card shadow-sm p-4 mb-4">
+                    <h3 class="card-title mb-3">
+                        #<span t-field="machine.sequence_number"/>
+                    </h3>
+                    <div class="row mb-2">
+
+                        <div class="col-9">
+                            <img t-att-src="'/web/image/machine.management/%s/image' %(machine.id)"  alt="Machine Image" style="height:90px"/>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3 fw-bold">Machine:</div>
+                        <div class="col-9">
+                            <span t-field="machine.name"/>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3 fw-bold">Transfer Date:</div>
+                        <div class="col-9">
+                            <span t-field="machine.date_of_purchase"/>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3 fw-bold">Serial No:</div>
+                        <div class="col-9">
+                            <span t-field="machine.serial_number"/>
+                        </div>
+                    </div>
+                     <div class="row mb-2">
+                        <div class="col-3 fw-bold">Purchase Value:</div>
+                        <div class="col-9">
+
+                             <span class="ref-prdt-offer-price"
+                  data-oe-type="monetary"
+                  data-oe-expression="machine.list_price">$
+                <span
+                        class="oe_currency_value"
+                        t-esc="machine.purchase_value"/>
+            </span>
+
+
+
+                        </div>
+                    </div>
+
+                    <t t-if="machine.description">
+                        <div class="row mb-2">
+                        <div class="col-3 fw-bold">Description:</div>
+                        <div class="col-9">
+                            <span t-field="machine.description"/>
+                        </div>
+
+
+                    </div>
+                         <form action="/web" enctype="multipart/form-data" class="o_mark_required">
+                           <!-- back Button njan coduthu -->
+                           <div class="form-group col-12" style="margin-top:10px">
+                               <div style="width: 200px;"></div>
+                               <button type="submit" class="btn btn-primary">Back
+
+                               </button>
+                           </div>
+                </form>
+
+                    </t>
+
+                </div>
+
+            </t>
+
+        </div>
+    </t>
+</template>
+
+
+</odoo>
+

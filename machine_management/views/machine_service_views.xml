@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="machine_service_form_view" model="ir.ui.view">
+        <field name="name">machine.service.form</field>
+        <field name="model">machine.service</field>
+        <field name="arch" type="xml">
+            <form string="Machine Service">
+                <header>
+
+                    <button name="machine_service_start" type="object"
+                            string="Start" class="btn-success"
+                            invisible="state in ['started','done','cancel']"
+
+                    />
+
+                    <button name="machine_service_close" type="object"
+                            string="Close" class="btn-success"
+                            invisible="state in ['done','open','cancel']"
+                            groups="base.group_user"
+                    />
+
+
+                    <!--                    invoice button-->
+                    <button name="machine_service_invoice_creation"
+                            type="object"
+                            string="Create Invoice" class="btn-primary"
+                            invisible="state in ['open','cancel','started'] or is_invoice_created == True"
+                    />
+
+                    <button name="machine_service_cancel" type="object"
+                            string="Cancel" class="btn-danger"
+                            invisible="state in ['cancel'] or is_ribbon_paid == True"
+                    />
+                    <!-- invisible="state=='' or is_ribbon_paid == True"-->
+
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="open, started, done, cancel"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="Canceled"
+                            invisible="state in ['open','done','started']"
+                            bg_color="bg-danger"/>
+
+                    <!--                    invisible="state=='' or state== or state=="-->
+
+                    <widget name="web_ribbon"
+                            text="Paid"
+                            invisible="is_ribbon_paid == False"
+                            bg_color="bg-success"
+                    />
+
+
+                    <div name="button_box" position="inside">
+                        <button class="oe_stat_button"
+                                type="object"
+                                string="Invoices"
+                                icon="fa-pencil-square"
+                                invisible="state in ['open','cancel','started'] or is_smart_button_visible ==False"
+                                name="machine_service_invoice_history">
+                            <!--  invisible="state=='open' or state=='cancel' or state=='started' or is_smart_button_visible ==False"-->
+
+                        </button>
+                    </div>
+                    <gorup>
+                        <group>
+                            <field name="machine_id"/>
+                            <field name="customer_id" editable="1"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="tech_person_ids"
+                                   widget="many2many_tags"/>
+                            <field name="company_id"/>
+                        </group>
+                    </gorup>
+                    <notebook>
+                        <page string="Parts Consumed">
+                            <field name="machine_service_parts_ids"/>
+                        </page>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                        <page string="Internal Notes">
+                            <field name="internal_notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+    <!--    list view-->
+    <record id="machine_service_list_view" model="ir.ui.view">
+        <field name="name">machine.service.list</field>
+        <field name="model">machine.service</field>
+        <field name="arch" type="xml">
+            <list string="Machine Service Record"
+                  decoration-success="state=='done'"
+                  decoration-danger="state =='cancel'"
+                  decoration-warning="state =='started'">
+                <field name="machine_id"/>
+                <field name="customer_id"/>
+                <field name="tech_person_ids" widget="many2many_tags"/>
+                <field name="date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <!--machine service search-->
+    <record id="machine_service_search" model="ir.ui.view">
+        <field name="name">machine.service.search</field>
+        <field name="model">machine.service</field>
+        <field name="arch" type="xml">
+            <search string="Machine Service Search Record">
+                <filter string="Archived" name="inactive"
+                        domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="machine_service_action" model="ir.actions.act_window">
+        <field name="name">Machine Service</field>
+        <field name="res_model">machine.service</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
+
+
+

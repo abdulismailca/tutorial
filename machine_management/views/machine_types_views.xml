@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+    <record id="machine_type_list_action" model="ir.actions.act_window">
+        <field name="name">Machine Types</field>
+        <field name="res_model">machine.types</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>
+
+
+

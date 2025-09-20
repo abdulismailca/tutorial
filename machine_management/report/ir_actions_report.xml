@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="action_report_machine_transfer" model="ir.actions.report">
+       <field name="name">transfer_report</field>
+       <field name="model">machine.transfer</field>
+       <field name="report_type">qweb-pdf</field>
+<!--       below iam mention which template uses for this action-->
+       <field name="report_name">machine_management.report_machine_transfer</field>
+       <field name="binding_type">report</field>
+   </record>
+
+
+<!--    <record id="action_xl_report_machine_transfer" model="ir.actions.report">-->
+<!--       <field name="name">transfer_report</field>-->
+<!--       <field name="model">machine.transfer</field>-->
+<!--       <field name="report_type">xlsx</field>-->
+
+<!--&lt;!&ndash;       <field name="report_name">machine_management.machine_transfer_xlsx</field>&ndash;&gt;-->
+<!--       <field name="binding_type">report</field>-->
+<!--   </record>-->
+<!--<report-->
+<!--    id="action_machine_transfer_xlsx"-->
+<!--    model="machine.transfer.wizard"-->
+<!--    string="Machine Transfer XLSX"-->
+<!--    report_type="xlsx"-->
+<!--    name="machine_management.report_machine_transfer_xlsx"-->
+<!--    file="machine_management.report_machine_transfer_xlsx"-->
+<!--/>-->
+
+
+
+</odoo>

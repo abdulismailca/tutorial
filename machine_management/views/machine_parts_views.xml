@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="machine_parts_list_view" model="ir.ui.view">
+        <field name="name">machine.parts.list</field>
+        <field name="model">machine.parts</field>
+        <field name="arch" type="xml">
+            <list string="Machine Parts Record" editable="bottom">
+                <field name="machine_parts_id"/>
+                 <field name="machine_parts_qty"/>
+                <field name="machine_uom_id"/>
+
+            </list>
+        </field>
+    </record>
+
+
+    <record id="machine_parts_list_action" model="ir.actions.act_window">
+        <field name="name">Machine Parts</field>
+        <field name="res_model">machine.parts</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>
+
+
+

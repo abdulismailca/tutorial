@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="machine_management_snippet_inherit"
+              inherit_id="website.snippets"
+              name="New Created Machine">
+        <xpath expr="//snippets[@id='snippet_groups']" position="inside">
+            <t t-snippet="machine_management.machine_management_newly_machine"
+               t-thumbnail="machine_management/static/src/snippets/snippet_img.jpg"/>
+        </xpath>
+    </template>
+
+    <template id="machine_management_newly_machine" name="Category Highlight">
+            <section class="newly_machine_section">
+            <div class="container">
+                <div id="carousel_machines_snippet"/>
+
+                <div class="alert alert-info">
+                    <h4>Your Category Highlight Tab snippet will be displayed here...</h4>
+                </div>
+            </div>
+        </section>
+    </template>
+
+</odoo>

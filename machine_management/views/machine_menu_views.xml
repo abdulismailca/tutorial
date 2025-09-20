@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- Main Menu-->
+    <menuitem id="machine_menu_root" name="Machine Management" sequence="1"/>
+
+
+<!--   Machine menu-->
+    <menuitem id="machine_menu_sub_child" name="Machines" parent="machine_menu_root" action="machine_management_action" sequence="1"/>
+
+<!--   Machine transfer menu-->
+    <menuitem id="machine_menu_transfer" name="Machines Transfer" parent="machine_menu_root" action="machine_transfer_action" sequence="2"/>
+
+<!--    machine_service_action_menu-->
+
+    <menuitem id="machine_menu_service" name="Machines Service" parent="machine_menu_root" action="machine_service_action" sequence="3"/>
+
+
+<!--transfer report menu-->
+
+     <menuitem id="machine_menu_transfer_report" name="Transfer Report" parent="machine_menu_root" action="machine_transfer_wizard_action" sequence="4"/>
+
+
+<!--Configuration menu-->
+    <menuitem id="machine_menu_configuration" name="Configuration" parent="machine_menu_root" sequence="5"/>
+
+    <menuitem id="machine_menu_types" name="Machines Types" parent="machine_menu_configuration" action="machine_type_list_action"/>
+    <menuitem id="machine_menu_tags" name="Machines Tags" parent="machine_menu_configuration" action="machine_tags_list_action"/>
+    <menuitem id="machine_related_customer" name="Customers" parent="machine_menu_configuration" action="machine_related_customer_action"/>
+
+
+
+</odoo>
+
+
+

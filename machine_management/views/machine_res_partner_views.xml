@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="machine_related_customer_action" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_machine_related_customer': 1}</field>
+    </record>
+
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.machines.management</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button"
+                        type="object"
+                        icon="fa-chain"
+                        invisible="active==False"
+                        name="get_customer_related_record">
+                    <field string="Machines"
+                           name="count_of_machine" widget="statinfo"/>
+                </button>
+            </div>
+
+
+        </field>
+
+    </record>
+    <record id="view_partner_search_inherit_custom_module" model="ir.ui.view">
+        <field name="name">res.partner.search.inherit.custom_module</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <search>
+
+
+                <filter string="Machine Related Customer"
+                        name="machine_related_customer"
+                        domain="[('count_of_machine','!=','0')]"/>
+
+
+
+            </search>
+        </field>
+    </record>
+
+
+</odoo>
+
+
+
