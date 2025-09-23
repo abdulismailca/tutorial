@@ -6,7 +6,7 @@
     'author': 'ismail C A',
     'website': 'www.isa.com',
     'category': 'Management',
-    'depends': ['base', 'mail', 'product', 'account', 'website',],
+    'depends': ['base', 'mail', 'product', 'account', 'website','website_sale'],
     'data': [
         'security/machine_user_group.xml',
         'security/ir.model.access.csv',
@@ -30,12 +30,14 @@
         'views/machine_menu_views.xml',
         'views/machine_service_request_menu_views.xml',
         'views/machine_snippet_view.xml',
+        'views/clear_cart_button_views.xml',
 
     ],
 
     'assets': {
         'web.assets_backend': [
             'machine_management/static/src/js/action_manager.js',
+
         ],
         'web.assets_frontend': [
             'machine_management/static/src/js/machine_dynamic_content.js',

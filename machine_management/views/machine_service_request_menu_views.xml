@@ -438,7 +438,7 @@
                 </div>
 
             </t>
-            <form action="/web"  class="o_mark_required">
+            <form action="/"  class="o_mark_required">
                            <!-- back Button njan coduthu -->
                            <div class="form-group col-12" style="margin-top:10px">
                                <div style="width: 200px;"></div>

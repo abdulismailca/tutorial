@@ -1,7 +1,5 @@
 from datetime import date, timedelta
 from email.policy import default
-from importlib.resources._common import _
-
 from odoo import api, exceptions, fields, models
 from odoo.cli.scaffold import env
 from odoo.exceptions import UserError, ValidationError

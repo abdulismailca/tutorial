@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+   <template id="cart_custom_clear_button" inherit_id="website_sale.coupon_form">
+            <xpath expr="//form[@name='coupon_code']" position="after">
+
+                  <div class="clear-cart"/>
+                  <a href="/clear/cart" role="button" class="btn btn-secondary  w-100">Clear Cart</a>
+            </xpath>
+        </template>
+
+
+
+
+</odoo>
+

@@ -19,7 +19,7 @@
 
     <div class="row">
 
-    <t t-foreach="chunk" t-as="item"      t-key="item['id']">
+    <t t-foreach="chunk" t-as="item"  t-key="item['id']">
 
     <div class="block span3 col-3">
 
