@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="view_quality_rating" model="ir.ui.view">
+       <field name="name">product.template.form.inherit</field>
+       <field name="model">product.template</field>
+       <field name="inherit_id" ref="product.product_template_form_view"/>
+       <field name="arch" type="xml">
+           <xpath expr="//field[@name='color']" position="after">
+               <field name="quality_rating"/>
+           </xpath>
+       </field>
+   </record>
+</odoo>
+
+
+
+<!--    <record id="product_template_form_view" model="ir.ui.view">-->
+<!--        <field name="name">product.template.form.inherit</field>-->
+<!--        <field name="model">product.template</field>-->
+<!--        <field name="inherit_id" ref="product.product_template_form_view"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//page[@name='sales']" position="attributes">-->
+<!--                <attribute name="invisible" remove="1" separator="or"/>-->
+<!--            </xpath>-->
+<!--            <page name="sales" position="after">-->
+<!--                <page string="Point of Sale" name="pos" invisible="not available_in_pos">-->
+<!--                    <group>-->
+<!--                        <group name="pos" string="Point of Sale">-->
+<!--                            <field name="color" invisible="True"/>-->
+<!--                            <field name="to_weight"/>-->
+<!--                            <field name="pos_categ_ids"-->
+<!--                                   widget="many2many_tags"-->
+<!--                                   groups="point_of_sale.group_pos_user"-->
+<!--                                   string="Category"-->
+<!--                                   options="{'color_field': 'color'}"/>-->
+<!--                            <field name="color"-->
+<!--                                   widget="color_picker" string="Color" />-->
+<!--                        </group>-->
+<!--                        <group string="Public Description" name="public_description" invisible="1">-->
+<!--                            <field name="public_description"-->
+<!--                                placeholder="Information about your product."-->
+<!--                                nolabel="1"-->
+<!--                                colspan="2"/>-->
+<!--                        </group>-->
+<!--                    </group>-->
+<!--                </page>-->
+<!--            </page>-->
+<!--            <div name="options" position='inside'>-->
+<!--                <span class="d-inline-block">-->
+<!--                    <field name="available_in_pos"/>-->
+<!--                    <label for="available_in_pos" string="Point of Sale"/>-->
+<!--                </span>-->
+<!--            </div>-->
+<!--        </field>-->
+<!--    </record>-->
