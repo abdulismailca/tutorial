@@ -13,13 +13,7 @@ publicWidget.registry.get_machine_tab = publicWidget.Widget.extend({
 
     async willStart() {
 
-        function chunkArray(arr, chunkSize) {
-            const result = [];
-            for (let i = 0; i < arr.length; i += chunkSize) {
-                result.push(arr.slice(i, i + chunkSize));
-            }
-            return result;
-        }
+
 
         const result = await rpc('/newly_machines', {});
         const chunkData = chunkArray(result, 4);
