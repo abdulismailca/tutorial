@@ -1,43 +1,57 @@
-/** @odoo-module **/
-
-import { renderToElement } from "@web/core/utils/render";
-import { renderToFragment } from "@web/core/utils/render";
-import publicWidget from "@web/legacy/js/public/public_widget";
-import { rpc } from "@web/core/network/rpc";
+/** @odoo-module */
 
 
 
-publicWidget.registry.get_machine_tab = publicWidget.Widget.extend({
-    selector: '.newly_machine_section',
+import { patch } from "@web/core/utils/patch";
+import { ProductCard } from "@point_of_sale/app/generic_components/product_card/product_card";
 
 
-    async willStart() {
-
-
-
-        const result = await rpc('/newly_machines', {});
-        const chunkData = chunkArray(result, 4);
-        chunkData[0].is_active = true;
-         if(result){
-
-            var uniqueid = this.generateUniqueId();
-
-
-            this.$target.empty().html(renderToFragment('machine_management.machine_chunk_wise', {chunkData,uniqueid}))
-        }
-
-
-
-        },
-
-
-        generateUniqueId() {
-       return Date.now().toString(36) + Math.random().toString(36);
-   },
-
-});
+patch(ProductCard, {
+    props: {
+        ...ProductCard.props,
+        qty: {type: Number, optional: true},
+    },
+})
 
 
 
 
 
+
+
+
+
+
+
+
+
+//import { registry } from "@web/core/registry";
+
+
+
+
+//import { usePos } from "@point_of_sale/app/store/pos_hook";
+//import { Component } from "@odoo/owl";
+//
+//
+//import { patch } from "@web/core/utils/patch";
+//import { PosStore } from "@point_of_sale/app/store/pos_store";
+//
+//
+////patch(PosStore,prototype,{
+////   _loadProductProduct(products) {
+////    var self = this;
+////    super._loadProductProduct(...arguments);
+////    for(const prod of products){
+////
+////    self.db.product_by_id[prod.id].quality_rating =  prod.quality_rating
+////
+////    }
+////
+////   }
+////
+////})
+//
+//
+//
+//

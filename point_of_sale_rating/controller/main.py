@@ -1,4 +1,3 @@
-# controllers/quality_rating.py
 from odoo import http
 from odoo.http import request
 
@@ -13,3 +12,5 @@ class QualityRating(http.Controller):
                 'quality_rating': r.quality_rating,
             })
         return result
+
+
