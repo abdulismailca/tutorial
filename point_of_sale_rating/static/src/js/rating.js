@@ -1,29 +1,37 @@
-/** @odoo-module **/
-
-import { patch } from "@web/core/utils/patch";
-import { Product } from "@point_of_sale/app/store/product";
-import { ProductList } from "@point_of_sale/app/screens/product_screen/product_list/product_list";
-import { ProductCard } from "@point_of_sale/app/generic_components/product_card/product_card";
-
-patch(Product.prototype, {
-    setup() {
-        this._super(...arguments);
-        console.log("Loaded product with rating:", this.display_name, this.quality_rating);
-    },
-});
-
-patch(ProductList.prototype, {
-    getProductProps(product) {
-        return {
-            ...super.getProductProps(product),
-            quality_rating: product.quality_rating,
-        };
-    },
-});
-
-patch(ProductCard, {
-    props: {
-        ...ProductCard.props,
-        quality_rating: { type: String, optional: true },
-    },
-});
+//import { PosOrderline } from "@point_of_sale/app/models/pos_order_line";
+//import { Orderline } from "@point_of_sale/app/generic_components/orderline/orderline";
+//import { patch } from "@web/core/utils/patch";
+//
+//patch(PosOrderline.prototype, {
+//    setup(vals) {
+//        this.l10n_in_hsn_code = this.product_id.l10n_in_hsn_code || "";
+//        return super.setup(...arguments);
+//    },
+//    getDisplayData() {
+//        return {
+//            ...super.getDisplayData(),
+//
+//            l10n_in_hsn_code: this.get_product().l10n_in_hsn_code || "",
+//        };
+//    },
+//
+//    // EXTENDS 'point_of_sale'
+//    prepareBaseLineForTaxesComputationExtraValues(customValues = {}) {
+//        const extraValues = super.prepareBaseLineForTaxesComputationExtraValues(customValues);
+//        extraValues.l10n_in_hsn_code = this.product_id.l10n_in_hsn_code;
+//        return extraValues;
+//    },
+//});
+//
+//patch(Orderline, {
+//    props: {
+//        ...Orderline.props,
+//        line: {
+//            ...Orderline.props.line,
+//            shape: {
+//                ...Orderline.props.line.shape,
+//                l10n_in_hsn_code: { type: String, optional: true },
+//            },
+//        },
+//    },
+//});

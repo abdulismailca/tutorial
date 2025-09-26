@@ -11,11 +11,12 @@
     ],
 
     'assets': {
-    'point_of_sale.assets': [
-        'point_of_sale_rating/static/src/js/rating.js',
-        'point_of_sale_rating/static/src/xml/pos_screen.xml',
-    ],
-},
+        'point_of_sale._assets_pos': [
+            'point_of_sale_rating/static/src/js/rating.js',
+            'point_of_sale_rating/static/src/xml/pos_screen.xml',
+
+        ]
+    },
 
     'installable': True,
     'application': True,
