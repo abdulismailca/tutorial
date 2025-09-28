@@ -12,12 +12,13 @@
 
 
     <div class="carousel-inner row w-100 mx-auto" role="listbox">
-
-    <t t-foreach="chunkData" t-as="chunk" t-key="chunk['id']">
+    <t t-if="chunkData">
+         <t t-foreach="chunkData" t-as="chunk" t-key="chunk['id']">
 
     <div t-att-class="chunk.is_active ? 'carousel-item active' : 'carousel-item'">
 
     <div class="row">
+
 
     <t t-foreach="chunk" t-as="item"  t-key="item['id']">
 
@@ -98,6 +99,13 @@
     </div>
 
     </t>
+
+
+    </t>
+    <t t-else="">
+        <h1>There is No machines to Show !</h1>
+    </t>
+
 
     </div>
 

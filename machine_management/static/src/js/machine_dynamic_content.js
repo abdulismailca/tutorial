@@ -24,6 +24,11 @@ publicWidget.registry.get_product_tab = publicWidget.Widget.extend({
         const result = await rpc('/newly_machines', {});
         const chunkData = chunkArray(result, 4);
         chunkData[0].is_active = true;
+
+
+
+
+
          if(result){
 
             var uniqueid = this.generateUniqueId();
