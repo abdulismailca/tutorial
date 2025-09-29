@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-   <t t-name="custom_pos_receipt.OrderReceipt"
-      t-inherit="point_of_sale.ReceiptHeader" t-inherit-mode="extension">
-        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="inside">
+    <t t-inherit="point_of_sale.Orderline" t-inherit-mode="extension">
+        <xpath expr="//div[@t-if='props.showTaxGroupLabels']" position="after">
+            <t>here<p><t t-esc="this.props.line.quality_rating"/></p></t>
+        </xpath>
+    </t>
+</templates>
 
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<templates id="template" xml:space="preserve">-->
+<!--   <t t-name="custom_pos_receipt.OrderReceipt"-->
+<!--      t-inherit="point_of_sale.ReceiptHeader" t-inherit-mode="extension">-->
+<!--        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="inside">-->
+<!--&lt;!&ndash;            <t t-log="'helo'+props.product.quality_rating"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            <t t-log="'oder line anne tto '+ this.orderline"/>&ndash;&gt;-->
+<!--&lt;!&ndash;&ndash;&gt;-->
 <!--               <div>Client:-->
 
-<!--                               </div>-->
-<!--          -->
-<!--             <p><t t-esc="props.product.quality_rating"/>-Star Rating</p>-->
-       </xpath>
-   </t>
-</templates>
+
+
+<!--&lt;!&ndash;                    <t t-esc='order'/>&ndash;&gt;-->
+<!--               </div>-->
+
+<!--       </xpath>-->
+<!--   </t>-->
+<!--</templates>-->

@@ -5,10 +5,38 @@
       t-inherit-mode="extension">
 
        <xpath expr="//div[hasclass('product-img')]" position="after">
-       <t t-log="this.props"/>
+<!--       <t t-log="this.props"/>-->
+<!--           <t t-log="'data '+this.props.line.quality_rating"/>-->
+
 <!--           <t t-esc="'test'+props.productId.quality_rating"/>-->
-           <div style="position:absolute; top:0; left:10px; background: royalblue; border-radius: 3px; height:20px; margin-top:3px;">
-                <p><t t-esc="props.product.quality_rating"/>-Star Rating</p>
+           <div style="position:absolute; top:0px; left:0px;  height:27px; width:40px;" class="ca">
+
+               <t t-if="props.product.quality_rating === '1'">
+               ⭐
+
+               </t>
+                <t t-if="props.product.quality_rating === '2'">
+               ⭐⭐
+
+               </t>
+                <t t-if="props.product.quality_rating === '3'">
+               ⭐⭐⭐
+
+               </t>
+                <t t-if="props.product.quality_rating === '4'">
+               ⭐⭐⭐⭐
+
+               </t>
+                <t t-if="props.product.quality_rating === '5'">
+               ⭐⭐⭐⭐⭐
+
+               </t>
+                <t t-else="">
+
+
+               </t>
+<!--                <p><t t-esc="props.product.quality_rating"/>-Star</p>-->
+<!--                <t t-log="'order line'+props.product.quality_rating"/>-->
             </div>
 
        </xpath>

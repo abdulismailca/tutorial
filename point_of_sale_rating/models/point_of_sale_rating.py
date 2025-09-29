@@ -5,7 +5,7 @@ class PosSession(models.Model):
 
 
     # quality_product_id = fields.Many2one('product.template', string="Product")
-    quality_rating = fields.Selection(related="product_tmpl_id.quality_rating" ,string="Quality Rating", default=7)
+    quality_rating = fields.Selection(related="product_tmpl_id.quality_rating" ,string="Quality Rating")
 
 
     def _load_pos_data_fields(self, config_id):
