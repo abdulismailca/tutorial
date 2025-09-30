@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="product_owner_pos" xml:space="preserve">
+    <t t-inherit="point_of_sale.Orderline" t-inherit-mode="extension">
+<!--        <xpath expr="//div[@t-if='props.showTaxGroupLabels']" position="before">-->
+            <xpath expr="//div[hasclass('product-name')]" position="after">
+            <t t-log="this.props.line.product_owner"/>
+            Owner-
+            <t t-esc="this.props.line.product_owner"/>
+
+
+        </xpath>
+    </t>
+</templates>

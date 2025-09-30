@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--quality rating field to product card-->
+<templates id="product_owner_template" xml:space="preserve">
+   <t t-name="product_owner_name" t-inherit="point_of_sale.ProductCard"
+      t-inherit-mode="extension">
+
+
+
+       <xpath expr="//div[hasclass('product-img')]" position="after">
+
+           <t t-if="props.product.product_owner">
+               <div style="position:absolute; top:0px; left:0px; background:royalblue; height:23px; border-radius:0 0 50px 0; width:110px;" class="ca">
+                   Owner-<t t-esc="props.product.product_owner.name"/>
+               </div>
+
+           </t>
+
+<!--           <div style="position:absolute; top:0px; left:0px; background:royalblue; height:23px; border-radius:0 0 50px 0; width:90px;" class="ca">-->
+
+<!--&lt;!&ndash;               props.product.quality_rating&ndash;&gt;-->
+
+<!--               <t t-if="props.product.product_owner">-->
+<!--               <t t-esc="props.product.product_owner.name"/>-->
+
+<!--               </t>-->
+<!--&lt;!&ndash;               props.product.quality_rating&ndash;&gt;-->
+
+<!--            </div>-->
+
+       </xpath>
+   </t>
+</templates>
+
+
+
+
+
+
+

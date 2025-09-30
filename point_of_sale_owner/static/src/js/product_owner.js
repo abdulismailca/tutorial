@@ -4,7 +4,8 @@ import { patch } from "@web/core/utils/patch";
 
 patch(PosOrderline.prototype, {
     setup(vals) {
-        this.quality_rating = this.product_id.quality_rating || "";
+//        console.log(this.get_product().product_owner.name);
+        this.product_owner = this.product_id.product_owner || "0";
         return super.setup(...arguments);
     },
     getDisplayData() {
@@ -12,7 +13,7 @@ patch(PosOrderline.prototype, {
         return {
             ...super.getDisplayData(),
 
-            quality_rating: this.get_product().quality_rating || "",
+            product_owner: this.get_product().product_owner.name || "0",
         };
     },
 });
@@ -24,7 +25,7 @@ patch(Orderline, {
             ...Orderline.props.line,
             shape: {
                 ...Orderline.props.line.shape,
-                quality_rating: { type: String, optional: true },
+                product_owner: { type: String, optional: true },
             },
         },
     },

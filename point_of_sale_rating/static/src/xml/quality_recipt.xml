@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
     <t t-inherit="point_of_sale.Orderline" t-inherit-mode="extension">
-        <xpath expr="//div[@t-if='props.showTaxGroupLabels']" position="after">
-            <t>here<p><t t-esc="this.props.line.quality_rating"/></p></t>
+
+
+        <xpath expr="//div[hasclass('product-name')]" position="inside">
+
+<!--        <xpath expr="//div[@t-if='props.showTaxGroupLabels']" position="after">-->
+<!--            <t t-log="props.showTaxGroupLabels"/>-->
+<!--            <t><p><t t-esc="this.props.line.quality_rating"/></p></t>-->
+            <t t-if="this.props.line.quality_rating == '1'">
+                 ⭐
+            </t>
+             <t t-if="this.props.line.quality_rating == '2'">
+                 ⭐⭐
+            </t>
+             <t t-if="this.props.line.quality_rating == '3'">
+                 ⭐⭐⭐
+            </t>
+             <t t-if="this.props.line.quality_rating == '4'">
+                 ⭐⭐⭐⭐
+            </t>
+             <t t-if="this.props.line.quality_rating == '5'">
+                 ⭐⭐⭐⭐⭐
+            </t>
+            <t t-else="">
+
+            </t>
         </xpath>
     </t>
 </templates>
 
-<!--<?xml version="1.0" encoding="UTF-8"?>-->
-<!--<templates id="template" xml:space="preserve">-->
-<!--   <t t-name="custom_pos_receipt.OrderReceipt"-->
-<!--      t-inherit="point_of_sale.ReceiptHeader" t-inherit-mode="extension">-->
-<!--        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="inside">-->
-<!--&lt;!&ndash;            <t t-log="'helo'+props.product.quality_rating"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <t t-log="'oder line anne tto '+ this.orderline"/>&ndash;&gt;-->
-<!--&lt;!&ndash;&ndash;&gt;-->
-<!--               <div>Client:-->
 
-
-
-<!--&lt;!&ndash;                    <t t-esc='order'/>&ndash;&gt;-->
-<!--               </div>-->
-
-<!--       </xpath>-->
-<!--   </t>-->
-<!--</templates>-->

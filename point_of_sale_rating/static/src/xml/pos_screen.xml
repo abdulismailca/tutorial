@@ -4,6 +4,8 @@
    <t t-name="quality_rating_name" t-inherit="point_of_sale.ProductCard"
       t-inherit-mode="extension">
 
+
+
        <xpath expr="//div[hasclass('product-img')]" position="after">
 <!--       <t t-log="this.props"/>-->
 <!--           <t t-log="'data '+this.props.line.quality_rating"/>-->
@@ -11,23 +13,23 @@
 <!--           <t t-esc="'test'+props.productId.quality_rating"/>-->
            <div style="position:absolute; top:0px; left:0px;  height:27px; width:40px;" class="ca">
 
-               <t t-if="props.product.quality_rating === '1'">
+               <t t-if="props.product.quality_rating == '1'">
                ⭐
 
                </t>
-                <t t-if="props.product.quality_rating === '2'">
+                <t t-if="props.product.quality_rating == '2'">
                ⭐⭐
 
                </t>
-                <t t-if="props.product.quality_rating === '3'">
+                <t t-if="props.product.quality_rating == '3'">
                ⭐⭐⭐
 
                </t>
-                <t t-if="props.product.quality_rating === '4'">
+                <t t-if="props.product.quality_rating == '4'">
                ⭐⭐⭐⭐
 
                </t>
-                <t t-if="props.product.quality_rating === '5'">
+                <t t-if="props.product.quality_rating == '5'">
                ⭐⭐⭐⭐⭐
 
                </t>
