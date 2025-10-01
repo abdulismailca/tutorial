@@ -1,5 +1,5 @@
 {
-    'name': "Point of Sale Owner",
+    'name': "Pos Purchase Limit",
     'version': '1.0',
     'depends': ['base', 'point_of_sale'],
     'application': True,
@@ -7,15 +7,16 @@
     'installable': True,
     'website': 'www.ca.com',
     'data': [
-        'views/point_of_sale_product_owner_views.xml',
+       'views/pos_purchase_limit_views.xml',
     ],
 
     'assets': {
         'point_of_sale._assets_pos': [
-            'point_of_sale_owner/static/src/js/product_owner.js',
 
-           'point_of_sale_owner/static/src/xml/product_owner_receipt.xml',
-           'point_of_sale_owner/static/src/xml/product_owner_screen.xml',
+            'pos_purchase_limit/static/src/js/pos_purchase_limt.js',
+
+            'pos_purchase_limit/static/src/xml/pos_purchase_limit_popup.xml',
+
 
 
         ]

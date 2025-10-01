@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <record id="view_pos_purchase_limit" model="ir.ui.view">
+       <field name="name">res.partner.form.inherit</field>
+       <field name="model">res.partner</field>
+       <field name="inherit_id" ref="base.view_partner_form"/>
+       <field name="arch" type="xml">
+           <xpath expr="//field[@name='barcode']" position="after">
+               <field name="is_activate_purchase_limit"/>
+               <field name="purchase_limit" invisible="is_activate_purchase_limit == False"/>
+           </xpath>
+       </field>
+   </record>
+</odoo>

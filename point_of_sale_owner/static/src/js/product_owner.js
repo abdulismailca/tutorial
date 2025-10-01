@@ -5,7 +5,7 @@ import { patch } from "@web/core/utils/patch";
 patch(PosOrderline.prototype, {
     setup(vals) {
 //        console.log(this.get_product().product_owner.name);
-        this.product_owner = this.product_id.product_owner || "0";
+        this.product_owner = this.product_id.product_owner_name || "";
         return super.setup(...arguments);
     },
     getDisplayData() {
@@ -13,7 +13,7 @@ patch(PosOrderline.prototype, {
         return {
             ...super.getDisplayData(),
 
-            product_owner: this.get_product().product_owner.name || "0",
+            product_owner: this.get_product().product_owner_name || "",
         };
     },
 });
