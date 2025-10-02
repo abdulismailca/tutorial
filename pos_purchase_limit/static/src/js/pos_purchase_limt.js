@@ -1,43 +1,44 @@
-console.log("helo ismail ")
-import { PosStore } from "@point_of_sale/app/store/pos_store";
-import { Popup } from "@pos_purchase_limit/js/popup";
-import { AlertDialog, ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
-import { _t } from "@web/core/l10n/translation";
+/** @odoo-module */
 import { patch } from "@web/core/utils/patch";
-
+import { PosStore } from "@point_of_sale/app/store/pos_store";
+//import { NoResPopup } from "@pos_purchase_limit/static/src/js/popup_component";
+import { _t } from "@web/core/l10n/translation";
 
 patch(PosStore.prototype, {
-    async pay() {
-        var purchaseLimitEnabled = this.config.customer_purchase_limit
-        if (purchaseLimitEnabled) {
-            var partner = this.get_order().partner_id;
-            if (!partner) {
-//                this.dialog.add(AlertDialog, {
-//                    title: _t("Customer is required!"),
-//                    body: _t("Please provide a customer"),
-//                });
-                this.dialog.add(Popup, {
-                    title: _t("Customer is required!"),
-                    body: _t("Please provide a customer"),
-                });
-                return;
-            }
+    async pay(...args) {
+        const order = this.get_order();
+        console.log('order', order)
+        const partner = order.partner_id;
+        const is_activate_purchase_limit = order.partner_id.is_activate_purchase_limit;
+        const purchase_limit = order.partner_id.purchase_limit;
+        console.log("helo there")
 
-            var customerHasLimit = partner.activate_purchase_limit
-            if (customerHasLimit) {
-                var limit = partner.purchase_limit_amount;
-                var total = this.get_order().getTotalDue();
+        if (!partner) {
+            console.log("No partner found!");
+//            await this.dialog.add(NoResPopup, {
+//                title: _t("Select Customer"),
+//                body: _t("Please select a customer before payment."),
+//            });
 
-                if (total > limit && limit != 0) {
-                    this.dialog.add(AlertDialog, {
-                        title: _t("Oops..."),
-                        body: _t(The purchase limit of amount ${limit} has been exceeded for the selected customer ${partner.name}.),
-                    });
-                    return;
+            return;
+        }else{
+
+            if(is_activate_purchase_limit){
+                console.log("Purchase limit und");
+                if(order.amount_total >= purchase_limit){
+
+                console.log("Purchase limit exceed")
+                }else{
+                 console.log("No limit exceed");
+
                 }
+
             }
+
+
         }
-        super.pay();
+
+
+        return await super.pay(...args);
     }
 });
-

@@ -1,16 +1,12 @@
-from odoo import fields, models
+from odoo import models, fields
 
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
 
-
-class PosPurchaseLimit(models.Model):
-    _inherit = "res.partner"
-
-    is_activate_purchase_limit = fields.Boolean(string="Activate Purchase Limit")
-    purchase_limit = fields.Integer(string="Purchase Limit")
+    is_activate_purchase_limit = fields.Boolean("Activate Purchase Limit")
+    purchase_limit = fields.Float("Purchase Limit")
 
     def _load_pos_data_fields(self, config_id):
-
-
         fields = super()._load_pos_data_fields(config_id)
-        fields.append('is_activate_purchase_limit,purchase_limit')
+        fields.extend(['is_activate_purchase_limit', 'purchase_limit'])
         return fields
