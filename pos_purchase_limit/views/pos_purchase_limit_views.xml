@@ -7,7 +7,7 @@
        <field name="arch" type="xml">
            <xpath expr="//field[@name='barcode']" position="after">
                <field name="is_activate_purchase_limit"/>
-               <field name="purchase_limit" invisible="is_activate_purchase_limit == False"/>
+               <field name="purchase_limit" invisible="is_activate_purchase_limit == False "/>
            </xpath>
        </field>
    </record>
