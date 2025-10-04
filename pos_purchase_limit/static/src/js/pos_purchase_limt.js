@@ -11,9 +11,10 @@ patch(PosStore.prototype, {
         const order = this.get_order();
         console.log("from settings", order.company_id.name);
 
+        console.log("Partner undo",order.partner_id)
+        const partner = order.partner_id ? order.partner_id : false ;
 
-        const partner = order.partner_id;
-        const partner_name = partner.name;
+//        const partner_name = partner.name;
 //        console.log("partner_name", partner_name);
 //        console.log("orders res_partnetr", partner.is_activate_purchase_limit)
 
