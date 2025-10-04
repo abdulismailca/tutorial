@@ -6,7 +6,7 @@
       t-inherit-mode="extension">
        <xpath expr="//div[hasclass('product-img')]" position="after">
            <t t-if="props.product.product_owner_name">
-               <div style="position:absolute; top:0px; left:0px; background:gold; height:23px; border-radius:0 0 50px 0; width:101px;">
+               <div style="position:absolute; top:0px; left:0px; background:gold; height:23px; border-radius:0 0 50px 0; width:120px;">
                   <t t-esc="props.product.product_owner_name"/>
                </div>
            </t>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template_new_new" xml:space="preserve">
     <t t-name="pos_custom_popup.InfoPopup">
-        <Dialog title.translate="Somthing Went Wrong">
+        <Dialog title="props.heading" size="'md'" >
 
-             <div class="popup">
-                <h1><t t-esc="props.title"/></h1>
+             <div>
+                <p><t t-esc="props.title"/></p>
 
 
             </div>

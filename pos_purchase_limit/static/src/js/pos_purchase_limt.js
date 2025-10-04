@@ -1,7 +1,6 @@
 /** @odoo-module */
 import { patch } from "@web/core/utils/patch";
 import { PosStore } from "@point_of_sale/app/store/pos_store";
-//import { NoResPopup } from "@pos_purchase_limit/static/src/js/popup_component";
 import { InfoPopup } from "@pos_purchase_limit/js/popup_component";
 import { _t } from "@web/core/l10n/translation";
 import { makeAwaitable } from "@point_of_sale/app/store/make_awaitable_dialog";
@@ -14,7 +13,7 @@ patch(PosStore.prototype, {
         console.log("Partner undo",order.partner_id)
         const partner = order.partner_id ? order.partner_id : false ;
 
-//        const partner_name = partner.name;
+        const partner_name = partner.name;
 //        console.log("partner_name", partner_name);
 //        console.log("orders res_partnetr", partner.is_activate_purchase_limit)
 
@@ -34,6 +33,7 @@ patch(PosStore.prototype, {
 
             const payload = await makeAwaitable(this.dialog, InfoPopup, {
             title: _t("Please Select a Customer!"),
+            heading: _t("Customer Not Selected"),
 
         });
            return;
@@ -46,11 +46,13 @@ patch(PosStore.prototype, {
 
                 console.log("Purchase limit und");
 
-                if(order.amount_total >= partner.purchase_limit){
+                if(order.amount_total >= partner.purchase_limit && partner.purchase_limit != 0 ){
+
 
                 console.log("Purchase limit exceed")
                 const payload = await makeAwaitable(this.dialog, InfoPopup, {
                 title: _t("Purchase Limit Exceed! "+ partner_name + " Purchase Limit is " +partner.purchase_limit),
+                heading:_t("Purchase Limit Exceed"),
 
 
 
@@ -61,7 +63,7 @@ patch(PosStore.prototype, {
                 return;
 
                 }else{
-                 console.log("No limit exceed");
+                 console.log("No limit exceed.");
 
                 }
 
