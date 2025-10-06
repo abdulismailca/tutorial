@@ -29,6 +29,17 @@ class ResPartner(models.Model):
     """
     @api.depends()
     def _compute_my_config_value(self):
+
+
+        pos_configs = self.env['pos.config'].search([])
+        for config in pos_configs:
+            print(f"POS Config Purchase Limit Form: {config.is_activate_purchase_limit_pos_settings}")
+
+
+
+
+
+
         icp_sudo = self.env['ir.config_parameter'].sudo()
         is_limit_active = icp_sudo.get_param(
             'res.config.settings.is_activate_purchase_limit_res_settings')
@@ -51,3 +62,5 @@ class ResPartner(models.Model):
         fields = super()._load_pos_data_fields(config_id)
         fields.extend(['is_activate_purchase_limit', 'purchase_limit'])
         return fields
+
+
