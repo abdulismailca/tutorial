@@ -7,7 +7,7 @@ class ResPartner(models.Model):
 
     """first i create two field for enable purchase limit in pos settings"""
 
-    is_activate_purchase_limit = fields.Boolean(string="Activate Purchase Limit", compute='_compute_my_config_value')
+    is_activate_purchase_limit = fields.Boolean(string="Activate Purchase Limit")
     purchase_limit = fields.Integer(string="Purchase Limit Amount")
 
     """here we checking purchase limit value"""
@@ -27,34 +27,34 @@ class ResPartner(models.Model):
     reference - config_parameter='module_name.field_name'
     
     """
-    @api.depends()
-    def _compute_my_config_value(self):
-
-
-        pos_configs = self.env['pos.config'].search([])
-        for config in pos_configs:
-            print(f"POS Config Purchase Limit Form: {config.is_activate_purchase_limit_pos_settings}")
-
-
-
-
-
-
-        icp_sudo = self.env['ir.config_parameter'].sudo()
-        is_limit_active = icp_sudo.get_param(
-            'res.config.settings.is_activate_purchase_limit_res_settings')
-
-        print("is_limit_active", is_limit_active)
-
-        for record in self:
-            if not is_limit_active:
-
-                record.is_activate_purchase_limit = False
-                print("fields", record.is_activate_purchase_limit)
-            else:
-
-                record.is_activate_purchase_limit = True
-                print("fields", record.is_activate_purchase_limit)
+    # @api.depends()
+    # def _compute_my_config_value(self):
+    #
+    #
+    #     # pos_configs = self.env['pos.config'].search([])
+    #     # for config in pos_configs:
+    #     #     print(f"POS Config Purchase Limit Form: {config.is_activate_purchase_limit_pos_settings}")
+    #
+    #
+    #
+    #     print("all is well")
+    #
+    #
+    #     # icp_sudo = self.env['ir.config_parameter'].sudo()
+    #     # is_limit_active = icp_sudo.get_param(
+    #     #     'res.config.settings.is_activate_purchase_limit_res_settings')
+    #     #
+    #     # print("is_limit_active", is_limit_active)
+    #     #
+    #     # for record in self:
+    #     #     if not is_limit_active:
+    #     #
+    #     #         record.is_activate_purchase_limit = False
+    #     #         print("fields", record.is_activate_purchase_limit)
+    #     #     else:
+    #     #
+    #     #         record.is_activate_purchase_limit = True
+    #     #         print("fields", record.is_activate_purchase_limit)
 
 
     def _load_pos_data_fields(self, config_id):

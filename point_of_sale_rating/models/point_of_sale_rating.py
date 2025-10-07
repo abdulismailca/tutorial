@@ -1,6 +1,6 @@
 from odoo import models, fields
 
-class PosSession(models.Model):
+class ProductProduct(models.Model):
     _inherit = "product.product"
 
 
@@ -16,7 +16,7 @@ class PosSession(models.Model):
         fields.append('quality_rating')
         return fields
 
-class ProductRating(models.Model):
+class ProductTemplate(models.Model):
     _inherit = "product.template"
     # for_quality_relation_ids = fields.One2many("product.product","quality_product_id")
     quality_rating = fields.Selection(

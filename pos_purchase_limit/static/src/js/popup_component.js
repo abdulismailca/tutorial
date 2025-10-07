@@ -7,10 +7,6 @@ export class InfoPopup extends Component {
     static components = { Dialog };
     setup() {
         this.pos = usePos();
-
-        this.state = useState({
-
-        });
     }
     async confirm() {
         this.props.close();

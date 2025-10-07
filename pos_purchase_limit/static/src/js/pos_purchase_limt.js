@@ -9,16 +9,17 @@ patch(PosStore.prototype, {
 
     async pay(...args) {
         const order = this.get_order();
-        console.log("from settings", order.company_id.name);
-        console.log("this ann", this.config.is_activate_purchase_limit_res_settings);
+        console.log("Order", order)
+        console.log("this ann", this.config.is_activate_purchase_limit_pos_settings);
 
         console.log("Partner undo",order.partner_id)
+
         const partner = order.partner_id ? order.partner_id : false ;
 
         const partner_name = partner.name;
 
-
-
+        if(this.config.is_activate_purchase_limit_pos_settings){
+        console.log("Inside Purchase Limit Active");
 
         if (!partner) {
             console.log("No partner found!");
@@ -30,7 +31,8 @@ patch(PosStore.prototype, {
         });
            return;
         }
-        else if(partner){
+
+          else if(partner){
 
             if(partner.is_activate_purchase_limit){
 
@@ -60,6 +62,12 @@ patch(PosStore.prototype, {
             }
 
         }
+
+        }
+
+
+
+
 
 
         return await super.pay(...args);

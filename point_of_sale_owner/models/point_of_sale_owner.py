@@ -1,14 +1,14 @@
 from odoo import models, fields
 
-class PosSession(models.Model):
+class ProductProduct(models.Model):
     _inherit = "product.product"
 
 
 
-    product_owner = fields.Many2one(related="product_tmpl_id.product_owner" ,string="Product Owner")
+    product_owner_id = fields.Many2one(related="product_tmpl_id.product_owner_id" ,string="Product Owner")
 
 
-    product_owner_name = fields.Char(related="product_owner.name", string="Product Owner Name")
+    product_owner_name = fields.Char(related="product_owner_id.name", string="Product Owner Name")
 
 
     def _load_pos_data_fields(self, config_id):
@@ -18,7 +18,7 @@ class PosSession(models.Model):
         fields.append('product_owner_name')
         return fields
 
-class ProductRating(models.Model):
+class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    product_owner = fields.Many2one("res.partner", string="Product Owner")
+    product_owner_id = fields.Many2one("res.partner", string="Product Owner")

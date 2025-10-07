@@ -18,7 +18,7 @@ class MachineModel(models.Model):
         default='monthly')
     active = fields.Boolean(default=True)
     name = fields.Char(string="Name", required=True, tracking=True,
-                       ondelete="restrict")
+                        ondelete="restrict")
     date_of_purchase = fields.Date(string="Date of Purchase", required=True,
                                    tracking=True,
                                    help='When purchased the machine.')
