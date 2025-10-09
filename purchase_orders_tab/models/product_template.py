@@ -7,29 +7,40 @@ class ProductTemplate(models.Model):
     purchase_orders_count = fields.Integer(string="Count Of PO")
 
 
-
     def own_product_purchase(self):
          print("helo")
-         len_of = len(self.purchase_orders_ids)
-         print(len_of)
-         for rec in self:
+         # len_of = len(self.purchase_orders_ids)
+         # print(len_of)
+         # print("iipo endelum undo",self.po_ids)
 
+         for rec in self:
              purchase_rders = rec.purchase_orders_ids.search([('product_id', 'in', [self.id])])
 
          count_of_purchase_order = len(purchase_rders)
          print("count undo", count_of_purchase_order)
 
-         self.purchase_orders_count = count_of_purchase_order
+         # self.purchase_orders_count = count_of_purchase_order
 
-         # self.write({'purchase_orders_count':count_of_purchase_order})
-         # record.write({'transfer_count': count_of_record})
+         self.write({'purchase_orders_count':len(purchase_rders)})
+
+
 
 
          self.update({
                        'purchase_orders_ids': [(fields.Command.link(a.id)) for a in purchase_rders]
                    })
+
     def count_of_po(self):
         pass
+
+        # return {
+        #     'type': 'ir.actions.act_window',
+        #     'name': 'Purchase Order',
+        #     'res_model': 'purchase.order',
+        #     'view_mode': 'list,form',
+        #     'domain': [('product_id', 'in', [self.id])],
+        #
+        # }
 
          #    print("wert",rec.purchase_orders_ids.product_id)
          #    purchase_rders = rec.purchase_orders_ids.search(
@@ -46,30 +57,7 @@ class ProductTemplate(models.Model):
          # print("orders",orders)
 
 
-  # @api.depends('transfer_type')
-  # def compute_alternate_ids(self):
-  #       for rec in self:
-  #
-  #           if rec.transfer_type == 'install':
-  #
-  #               machines = self.alternate_ids.search(
-  #                   [('state', '=', 'active')])
-  #
-  #
-  #           elif rec.transfer_type == 'remove':
-  #
-  #               machines = self.alternate_ids.search(
-  #                   [('state', '=', 'in_service')])
-  #
-  #           else:
-  #
-  #               machines = self.alternate_ids.search([])
-  #
-  #           # rec.alternate_ids = machines-> instaed of this i use link
-  #
-  #           self.update({
-  #               'alternate_ids': [(fields.Command.link(a.id)) for a in machines]
-  #           })
+
 
 
     # def action_view_po(self):

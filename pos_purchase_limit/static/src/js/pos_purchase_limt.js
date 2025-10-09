@@ -65,11 +65,6 @@ patch(PosStore.prototype, {
 
         }
 
-
-
-
-
-
-        return await super.pay(...args);
+        return super.pay(...args);
     }
 });

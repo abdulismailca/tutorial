@@ -28,7 +28,7 @@ class PaymentTransaction(models.Model):
         :rtype: dict
         """
         res = super()._get_specific_rendering_values(processing_values)
-        if self.provider_code != 'mollie':
+        if self.provider_code != 'multisafepay':
             return res
 
         payload = self._mollie_prepare_payment_request_payload()

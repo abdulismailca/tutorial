@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
-
-    <record id="payment.payment_provider_multisafepay" model="payment.provider">
+<odoo noupdate="0">
+    <record id="payment_provider_multisafepay" model="payment.provider">
+        <field name="name">MultiSafepay</field>
         <field name="code">multisafepay</field>
-        <field name="redirect_form_view_id" ref="redirect_form"/>
-    </record>
 
+        <field name="redirect_form_view_id" ref="redirect_form"/>
+
+
+        <field name="module_id" ref="base.module_payment_msp"/>
+
+        <field name="support_refund">partial</field>
+
+        <field name="payment_method_ids"
+               eval="[Command.set([
+                         ref('payment_msp.payment_method_multisafepay'),
+                     ])]"
+        />
+
+        <field name="allow_tokenization" eval="False"/>
+        <field name="capture_manually" eval="False"/>
+        <field name="allow_express_checkout" eval="False"/>
+
+    </record>
 </odoo>

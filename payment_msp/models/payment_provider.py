@@ -57,12 +57,12 @@ class PaymentProvider(models.Model):
 
         odoo_version = service.common.exp_version()['server_version']
         module_version = self.env.ref(
-            'base.module_payment_multisafepay').installed_version
+            'base.module_payment_msp').installed_version
         headers = {
             "Accept": "application/json",
             "Authorization": f'Bearer {self.multisafepay_api_key}',
             "Content-Type": "application/json",
-            # See https://docs.mollie.com/integration-partners/user-agent-strings
+
             "User-Agent": f'Odoo/{odoo_version} MollieNativeOdoo/{module_version}',
         }
 
@@ -78,7 +78,7 @@ class PaymentProvider(models.Model):
                 )
                 raise ValidationError(
                     "Multisafepay: " + _(
-                        "The communication with the API failed. Mollie gave us the following "
+                        "The communication with the API failed. MultisafePay gave us the following "
                         "information: %s", response.json().get('detail', '')
                     ))
         except (requests.exceptions.ConnectionError,
