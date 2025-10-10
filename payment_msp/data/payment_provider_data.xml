@@ -2,6 +2,7 @@
 <odoo noupdate="0">
     <record id="payment_provider_multisafepay" model="payment.provider">
         <field name="name">MultiSafepay</field>
+        <field name="image_128" type="base64" file="payment_msp/static/main.png"/>
         <field name="code">multisafepay</field>
 
         <field name="redirect_form_view_id" ref="redirect_form"/>

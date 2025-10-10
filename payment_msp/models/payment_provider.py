@@ -38,37 +38,23 @@ class PaymentProvider(models.Model):
             )
         return supported_currencies
 
-    def _multisafepay_make_request(self, endpoint, data=None, method='POST'):
-        """ Make a request at mollie endpoint.
+    def _multisafepay_make_request(self,data=None, method='POST'):
 
-        Note: self.ensure_one()
-
-        :param str endpoint: The endpoint to be reached by the request
-        :param dict data: The payload of the request
-        :param str method: The HTTP method of the request
-        :return The JSON-formatted content of the response
-        :rtype: dict
-        :raise: ValidationError if an HTTP error occurs
-        """
+        print("iam from _multisafepay_make_request")
         self.ensure_one()
-        endpoint = f'/v2/{endpoint.strip("/")}'
-        url = urls.url_join('https://testapi.multisafepay.com/v1/json',
-                            endpoint)
+        url = f"https://testapi.multisafepay.com/v1/json/orders?api_key={self.multisafepay_api_key}"
+        print("url with API",url)
 
-        odoo_version = service.common.exp_version()['server_version']
-        module_version = self.env.ref(
-            'base.module_payment_msp').installed_version
         headers = {
-            "Accept": "application/json",
-            "Authorization": f'Bearer {self.multisafepay_api_key}',
-            "Content-Type": "application/json",
-
-            "User-Agent": f'Odoo/{odoo_version} MollieNativeOdoo/{module_version}',
+            "accept": "application/json",
+            "content-type": "application/json"
         }
 
         try:
-            response = requests.request(method, url, json=data, headers=headers,
-                                        timeout=60)
+            print("iam from try block")
+
+            response = requests.post(url, json=data, headers=headers)
+            print("Response",response.text)
             try:
                 response.raise_for_status()
             except requests.exceptions.HTTPError:
@@ -83,6 +69,8 @@ class PaymentProvider(models.Model):
                     ))
         except (requests.exceptions.ConnectionError,
                 requests.exceptions.Timeout):
+
+            print("iam from exception")
             _logger.exception("Unable to reach endpoint at %s", url)
             raise ValidationError(
                 "Multisafepay: " + _(
