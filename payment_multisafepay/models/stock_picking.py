@@ -8,18 +8,14 @@ class StockPicking(models.Model):
 
     def button_validate(self):
 
-        # expiration_time
+        for line in self.move_line_ids:
+            if line.expiration_date:
+                if line.expiration_date.date() < date.today():
+                    print(line.product_id.name)
+                    raise UserError(f"Expired Product Found")
 
-        # print("Move line",self.move_line_ids)
-        print("move ids",self.move_ids)
-        # print("Move line", self.product_id)
-        if self.move_ids:
-            if self.move_ids.use_expiration_date:
-                # today = date.today()
-                for rec in self.move_ids:
 
-                    if self.move_ids.expiration_time < date.today():
-                        raise UserError("Expire Product Found!")
+
 
 
         return super(StockPicking, self).button_validate()

@@ -1,22 +1,32 @@
-
 from odoo import models, fields, api
-from odoo.exceptions import UserError
-from datetime import date, timedelta
 
 
 class ProjectProject(models.Model):
-    _inherit = "project.project"
+    _inherit = 'project.project'
 
-    progress = fields.Integer(string="Progress", compute="compute_progress")
+    progress = fields.Float(string="Progress", compute="compute_progress", store=True)
 
-
+    @api.depends('task_ids.stage_id')
     def compute_progress(self):
-        print("helo")
 
-        all_task = self.task_ids
+        for project in self:
 
-        status_complete_task = all_task.stage_id.name.search([('state','=','done')])
+            total = len(project.task_ids)
+            # print(project.task_ids.stage_id)
+            for task in project.task_ids.stage_id:
+                # print(task.name)
+            done = len(project.task_ids.filtered(lambda t: t.stage_id.name == 'Done'))
+            # done = len(project.task_ids.filtered(lambda t: t.stage_id.fold))
 
+            """
+            actullay the name may change based on user input
+            while they creating stage they give differnt name 
+            and so we can use the commend line above 'stage_id.fold'
+            odoo provide default boolean, but the think is we need 
+            to set the stage in fold state.
+            
+            """
 
-
-
+            print(done)
+            if done:
+                project.progress = (done / total * 100) if total else 0

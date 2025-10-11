@@ -2,7 +2,7 @@
     'name': 'Multisafepay',
     'version': '1.0',
 
-    'sequence': 350,
+
 
 
     'website': 'www.iza.com',

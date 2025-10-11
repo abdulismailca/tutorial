@@ -50,7 +50,7 @@ class PaymentTransaction(models.Model):
             "days_active": 30,
             "seconds_active": 2592000,
             "type": "redirect",
-            "order_id": "my-order-id-1",
+            "order_id": "my-order-id-3",
             "currency": "EUR",
             "amount": 37485,
             "description": "Test Order Description"
@@ -74,7 +74,7 @@ class PaymentTransaction(models.Model):
         #
         # _logger.info("sending '/payments' request for link creation:\n%s", pprint.pformat(payload))
         #
-        payment_data = self.provider_id._multisafepay_make_request(data=payload)
+        # payment_data = self.provider_id._multisafepay_make_request(data=payload)
         #
         # # The provider reference is set now to allow fetching the payment status after redirection
         # self.provider_reference = payment_data.get('id')
