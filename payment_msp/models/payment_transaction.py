@@ -10,6 +10,8 @@ from odoo import _, models
 from odoo.exceptions import ValidationError
 
 from odoo.addons.payment.const import CURRENCY_MINOR_UNITS
+
+from odoo.http import request
 from .. import const
 
 from ..controllers.main import MultisafePay
@@ -31,6 +33,12 @@ class PaymentTransaction(models.Model):
         res = super()._get_specific_rendering_values(processing_values)
         if self.provider_code != 'multisafepay':
             return res
+        base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url')
+
+        # 🧩 Build absolute URLs for MultiSafepay
+        notification_url = urls.url_join(base_url, '/payment/multisafepay/return')
+        redirect_url = urls.url_join(base_url, '/payment/multisafepay/return')
+        cancel_url = urls.url_join(base_url, '/payment/multisafepay/return')
 
         url = "https://testapi.multisafepay.com/v1/json/orders?api_key=7caeed9a6b8e4efff21a9b8a9e6a51f274f0cb3c"
 
@@ -38,9 +46,9 @@ class PaymentTransaction(models.Model):
             "payment_options": {
                 "close_window": True,
                 "notification_method": "POST",
-                "notification_url": "https://www.example.com/webhooks/payment",
-                "redirect_url": "https://www.example.com/order/success",
-                "cancel_url": "https://www.example.com/order/failed"
+                "notification_url": notification_url,
+                "redirect_url": redirect_url,
+                "cancel_url":cancel_url,
             },
             "customer": {
                 "locale": "en_US",
@@ -50,7 +58,7 @@ class PaymentTransaction(models.Model):
             "days_active": 30,
             "seconds_active": 2592000,
             "type": "redirect",
-            "order_id": "my-order-id-3",
+            "order_id": "my-order-id-12",
             "currency": "EUR",
             "amount": 37485,
             "description": "Test Order Description"
@@ -61,6 +69,17 @@ class PaymentTransaction(models.Model):
         }
 
         response = requests.post(url, json=payload, headers=headers)
+
+        response_data = response.json()
+
+
+        payment_url = response_data["data"]["payment_url"]
+        print("payment_url:", payment_url)
+
+        return {'api_url': payment_url}
+
+
+        return request.redirect("google.com")
 
         print(response.text)
 

@@ -13,6 +13,7 @@ _logger = logging.getLogger(__name__)
 class MultisafePay(http.Controller):
     _return_url = '/payment/multisafepay/return'
     _webhook_url = '/payment/mollie/webhook'
+    print("iam from controler")
 
     @http.route(
         _return_url, type='http', auth='public', methods=['GET', 'POST'], csrf=False,

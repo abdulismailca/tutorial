@@ -1,4 +1,5 @@
-from . import project_project
+# from . import project_project
 # from . import payment_provider
 # from . import sale_order
 # from . import stock_picking
+from . import sale_order_cost

@@ -19,8 +19,8 @@ class ProjectProject(models.Model):
             # done = len(project.task_ids.filtered(lambda t: t.stage_id.fold))
 
             """
-            actullay the name may change based on user input
-            while they creating stage they give differnt name 
+            actually the name may change based on user input
+            while they creating stage they give different name 
             and so we can use the commend line above 'stage_id.fold'
             odoo provide default boolean, but the think is we need 
             to set the stage in fold state.
@@ -28,5 +28,7 @@ class ProjectProject(models.Model):
             """
 
             print(done)
-            if done:
-                project.progress = (done / total * 100) if total else 0
+            if done and total:
+                project.progress = (done / total * 100)
+            else:
+                project.progress = 0
