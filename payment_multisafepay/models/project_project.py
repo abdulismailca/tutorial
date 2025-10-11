@@ -13,7 +13,7 @@ class ProjectProject(models.Model):
 
             total = len(project.task_ids)
             # print(project.task_ids.stage_id)
-            for task in project.task_ids.stage_id:
+            # for task in project.task_ids.stage_id:
                 # print(task.name)
             done = len(project.task_ids.filtered(lambda t: t.stage_id.name == 'Done'))
             # done = len(project.task_ids.filtered(lambda t: t.stage_id.fold))
