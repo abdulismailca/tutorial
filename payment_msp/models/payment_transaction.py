@@ -33,68 +33,22 @@ class PaymentTransaction(models.Model):
         res = super()._get_specific_rendering_values(processing_values)
         if self.provider_code != 'multisafepay':
             return res
-        base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url')
 
-        # 🧩 Build absolute URLs for MultiSafepay
-        notification_url = urls.url_join(base_url, '/payment/multisafepay/return')
-        redirect_url = urls.url_join(base_url, '/payment/multisafepay/return')
-        cancel_url = urls.url_join(base_url, '/payment/multisafepay/return')
 
-        url = "https://testapi.multisafepay.com/v1/json/orders?api_key=7caeed9a6b8e4efff21a9b8a9e6a51f274f0cb3c"
 
-        payload = {
-            "payment_options": {
-                "close_window": True,
-                "notification_method": "POST",
-                "notification_url": notification_url,
-                "redirect_url": redirect_url,
-                "cancel_url":cancel_url,
-            },
-            "customer": {
-                "locale": "en_US",
-                "disable_send_email": False
-            },
-            "checkout_options": {"validate_cart": False},
-            "days_active": 30,
-            "seconds_active": 2592000,
-            "type": "redirect",
-            "order_id": "my-order-id-12",
-            "currency": "EUR",
-            "amount": 37485,
-            "description": "Test Order Description"
-        }
-        headers = {
-            "accept": "application/json",
-            "content-type": "application/json"
-        }
 
-        response = requests.post(url, json=payload, headers=headers)
 
-        response_data = response.json()
+        payload = self._multisafepay_prepare_payment_request_payload()
+        payment_data = self.provider_id._multisafepay_make_request(data=payload)
 
+        response_data = payment_data.json()
+        print("response_data", response_data)
 
         payment_url = response_data["data"]["payment_url"]
         print("payment_url:", payment_url)
 
         return {'api_url': payment_url}
 
-
-        return request.redirect("google.com")
-
-        print(response.text)
-
-
-
-
-
-
-        # payload = self._mollie_prepare_payment_request_payload()
-        # print("what contain in payload", payload)
-        #
-        # _logger.info("sending '/payments' request for link creation:\n%s", pprint.pformat(payload))
-        #
-        # payment_data = self.provider_id._multisafepay_make_request(data=payload)
-        #
         # # The provider reference is set now to allow fetching the payment status after redirection
         # self.provider_reference = payment_data.get('id')
         #
@@ -104,35 +58,57 @@ class PaymentTransaction(models.Model):
         # url_params = urls.url_decode(parsed_url.query)
         # return {'api_url': checkout_url, 'url_params': url_params}
 
-    def _mollie_prepare_payment_request_payload(self):
+    def _multisafepay_prepare_payment_request_payload(self):
 
-        print("iam from _mollie_prepare_payment_request_payload")
 
-        user_lang = self.env.context.get('lang')
+
         base_url = self.provider_id.get_base_url()
-        print("base url")
-        redirect_url = urls.url_join(base_url, MultisafePay._return_url)
-        webhook_url = urls.url_join(base_url, MultisafePay._webhook_url)
+        user_lang = self.env.context.get('lang')
+        print(user_lang)
         decimal_places = CURRENCY_MINOR_UNITS.get(
             self.currency_id.name, self.currency_id.decimal_places
         )
 
-        return {
-            'description': self.reference,
-            'amount': {
-                'currency': self.currency_id.name,
-                'value': f"{self.amount:.{decimal_places}f}",
-            },
-            'locale': user_lang if user_lang in const.SUPPORTED_LOCALES else 'en_US',
-            'method': [const.PAYMENT_METHODS_MAPPING.get(
-                self.payment_method_code, self.payment_method_code
-            )],
+        print(decimal_places)
 
-            # Since Mollie does not provide the transaction reference when returning from
-            # redirection, we include it in the redirect URL to be able to match the transaction.
-            'redirectUrl': f'{redirect_url}?ref={self.reference}',
-            'webhookUrl': f'{webhook_url}?ref={self.reference}',
+
+        amount_to_pay = f"{self.amount:.{decimal_places}f}"
+        amount_cents = int(round(float(amount_to_pay) * 100))
+        print(amount_cents)
+
+
+        print(amount_to_pay)
+
+
+        notification_url = urls.url_join(base_url,'/payment/multisafepay/webhook')
+        redirect_url = urls.url_join(base_url, '/payment/multisafepay/return')
+        cancel_url = urls.url_join(base_url, '/payment/multisafepay/return')
+
+        payload = {
+            "payment_options": {
+                "close_window": True,
+                "notification_method": "POST",
+                "notification_url": notification_url,
+                "redirect_url": redirect_url,
+                "cancel_url": cancel_url,
+            },
+            "customer": {
+                "locale": user_lang if user_lang in const.SUPPORTED_LOCALES else 'en_US',
+                "disable_send_email": False
+            },
+            "checkout_options": {"validate_cart": False},
+            "days_active": 30,
+            "seconds_active": 2592000,
+            "type": "redirect",
+            "order_id": self.reference,
+            "currency": self.currency_id.name,
+            "amount": amount_cents,
+            "description": "Test Order Description"
         }
+
+        return payload
+
+
 
 
     def _get_tx_from_notification_data(self, provider_code, notification_data):
@@ -160,7 +136,7 @@ class PaymentTransaction(models.Model):
     def _process_notification_data(self, notification_data):
 
         super()._process_notification_data(notification_data)
-        if self.provider_code != 'mollie':
+        if self.provider_code != 'multisafepay':
             return
 
         payment_data = self.provider_id._mollie_make_request(

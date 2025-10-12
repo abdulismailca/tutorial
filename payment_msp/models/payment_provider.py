@@ -43,12 +43,21 @@ class PaymentProvider(models.Model):
         print("iam from _multisafepay_make_request")
         self.ensure_one()
         url = f"https://testapi.multisafepay.com/v1/json/orders?api_key={self.multisafepay_api_key}"
-        print("url with API",url)
+
+        # url = "https://testapi.multisafepay.com/v1/json/orders?api_key=7caeed9a6b8e4efff21a9b8a9e6a51f274f0cb3c"
+
+
 
         headers = {
             "accept": "application/json",
             "content-type": "application/json"
         }
+
+        response = requests.post(url, json=data, headers=headers)
+
+
+
+        return response
 
         try:
             print("iam from try block")
