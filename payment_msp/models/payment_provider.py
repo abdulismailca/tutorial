@@ -53,11 +53,8 @@ class PaymentProvider(models.Model):
             "content-type": "application/json"
         }
 
-        response = requests.post(url, json=data, headers=headers)
-
-
-
-        return response
+        # response = requests.post(url, json=data, headers=headers)
+        # return response
 
         try:
             print("iam from try block")
@@ -85,7 +82,7 @@ class PaymentProvider(models.Model):
                 "Multisafepay: " + _(
                     "Could not establish the connection to the API.")
             )
-        return response.json()
+        return response
 
     def _get_default_payment_method_codes(self):
         """ Override of `payment` to return the default payment method codes. """

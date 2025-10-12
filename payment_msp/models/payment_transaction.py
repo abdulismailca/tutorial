@@ -49,14 +49,7 @@ class PaymentTransaction(models.Model):
 
         return {'api_url': payment_url}
 
-        # # The provider reference is set now to allow fetching the payment status after redirection
-        # self.provider_reference = payment_data.get('id')
-        #
-        #
-        # checkout_url = payment_data['_links']['checkout']['href']
-        # parsed_url = urls.url_parse(checkout_url)
-        # url_params = urls.url_decode(parsed_url.query)
-        # return {'api_url': checkout_url, 'url_params': url_params}
+
 
     def _multisafepay_prepare_payment_request_payload(self):
 
@@ -80,9 +73,9 @@ class PaymentTransaction(models.Model):
         print(amount_to_pay)
 
 
-        notification_url = urls.url_join(base_url,'/payment/multisafepay/webhook')
-        redirect_url = urls.url_join(base_url, '/payment/multisafepay/return')
-        cancel_url = urls.url_join(base_url, '/payment/multisafepay/return')
+        notification_url = urls.url_join(base_url,MultisafePay._webhook_url)
+        redirect_url = urls.url_join(base_url,MultisafePay._return_url)
+        cancel_url = urls.url_join(base_url,MultisafePay._return_url)
 
         payload = {
             "payment_options": {
