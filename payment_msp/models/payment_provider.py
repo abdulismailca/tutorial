@@ -60,7 +60,7 @@ class PaymentProvider(models.Model):
             print("iam from try block")
 
             response = requests.post(url, json=data, headers=headers)
-            print("Response",response.text)
+            print("Response",response.json)
             try:
                 response.raise_for_status()
             except requests.exceptions.HTTPError:
@@ -71,7 +71,7 @@ class PaymentProvider(models.Model):
                 raise ValidationError(
                     "Multisafepay: " + _(
                         "The communication with the API failed. MultisafePay gave us the following "
-                        "information: %s", response.json().get('detail', '')
+                        "information: %s", response.json().get('error_info')
                     ))
         except (requests.exceptions.ConnectionError,
                 requests.exceptions.Timeout):

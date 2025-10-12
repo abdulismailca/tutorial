@@ -24,11 +24,11 @@ class MultisafePay(http.Controller):
 
 
         print(data)
-        status = data.get('status')
-        print(status)
+
+
 
         _logger.info("handling redirection from Mollie with data:\n%s", pprint.pformat(data))
-        # request.env['payment.transaction'].sudo()._handle_notification_data('multisafepay', data)
+        request.env['payment.transaction'].sudo()._handle_notification_data('multisafepay', data)
         return request.redirect('/payment/status')
 
     @http.route(_webhook_url, type='http', auth='public', methods=['POST'], csrf=False)

@@ -105,23 +105,27 @@ class PaymentTransaction(models.Model):
 
 
     def _get_tx_from_notification_data(self, provider_code, notification_data):
-        """ Override of payment to find the transaction based on Mollie data.
 
-        :param str provider_code: The code of the provider that handled the transaction
-        :param dict notification_data: The notification data sent by the provider
-        :return: The transaction if found
-        :rtype: recordset of `payment.transaction`
-        :raise: ValidationError if the data match no transaction
-        """
+        print("iam from _get_tx_from_notification_data")
         tx = super()._get_tx_from_notification_data(provider_code, notification_data)
-        if provider_code != 'mollie' or len(tx) == 1:
+        if provider_code != 'multisafepay' or len(tx) == 1:
             return tx
 
+        print("notification",notification_data)
+
+        payload = self._multisafepay_prepare_payment_request_payload()
+        print("payload from tx",payload)
+        msp_reference = payload.get('order_id')
+
+        #ivide reference cut akkendi varum enna thonunne.
+
         tx = self.search(
-            [('reference', '=', notification_data.get('ref')), ('provider_code', '=', 'mollie')]
+            [('reference', '=',msp_reference), ('provider_code', '=', 'multisafepay')]
         )
+
+        print("tx",tx)
         if not tx:
-            raise ValidationError("Mollie: " + _(
+            raise ValidationError("Multisafpay: " + _(
                 "No transaction found matching reference %s.", notification_data.get('ref')
             ))
         return tx
@@ -132,18 +136,19 @@ class PaymentTransaction(models.Model):
         if self.provider_code != 'multisafepay':
             return
 
-        payment_data = self.provider_id._mollie_make_request(
+        payment_data = self.provider_id._multisafepay_make_request(
             f'/payments/{self.provider_reference}', method="GET"
         )
+        print("iam from process notification",payment_data.json())
 
         # Update the payment method.
-        payment_method_type = payment_data.get('method', '')
-        if payment_method_type == 'creditcard':
-            payment_method_type = payment_data.get('details', {}).get('cardLabel', '').lower()
-        payment_method = self.env['payment.method']._get_from_code(
-            payment_method_type, mapping=const.PAYMENT_METHODS_MAPPING
-        )
-        self.payment_method_id = payment_method or self.payment_method_id
+        # payment_method_type = payment_data.get('method', '')
+        # if payment_method_type == 'creditcard':
+        #     payment_method_type = payment_data.get('details', {}).get('cardLabel', '').lower()
+        # payment_method = self.env['payment.method']._get_from_code(
+        #     payment_method_type, mapping=const.PAYMENT_METHODS_MAPPING
+        # )
+        # self.payment_method_id = payment_method or self.payment_method_id
 
         # Update the payment state.
         payment_status = payment_data.get('status')
