@@ -9,6 +9,7 @@
     'depends': ['base','sale_management','project'],
     'data': [
         'views/sale_order_project_views.xml',
+        'views/sale_order_task_button.xml',
         # 'data/payment_provider_data.xml',
         # 'views/payment_multisafepay_templates.xml',
         # 'views/payment_provider_views.xml',

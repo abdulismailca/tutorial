@@ -9,8 +9,8 @@
                 <xpath expr="//field[@name='payment_term_id']" position="after">
 
 
-                <field name="project_id"  />
-                    <field name="his_own_project"/>
+                <field name="project_id" domain="[('id','in',his_own_project_ids)]" />
+                    <field name="his_own_project_ids" invisible="1"/>
 
                 </xpath>
            </field>
