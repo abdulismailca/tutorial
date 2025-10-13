@@ -62,6 +62,7 @@ class PaymentProvider(models.Model):
             response = requests.post(url, json=data, headers=headers)
             print("Response",response.json)
             try:
+                print("Iam from indide try block")
                 response.raise_for_status()
             except requests.exceptions.HTTPError:
                 _logger.exception(

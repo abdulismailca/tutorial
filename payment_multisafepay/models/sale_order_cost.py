@@ -12,8 +12,8 @@ class SaleOrder(models.Model):
 
 
 
-           sale_price = ((line.price_unit / 100)*100)
-           cost_price = ((line.product_template_id.standard_price / 100)*100)
+           sale_price = line.price_unit
+           cost_price = line.product_template_id.standard_price
            cost_price_percentage = ((cost_price/100)*15) + cost_price
 
            print("Cost + 15%",cost_price_percentage)

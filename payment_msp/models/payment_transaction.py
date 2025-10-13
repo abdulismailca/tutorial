@@ -2,8 +2,10 @@
 
 import logging
 import pprint
+import re
 
 import requests
+from docutils.nodes import reference
 from werkzeug import urls
 
 from odoo import _, models
@@ -41,7 +43,16 @@ class PaymentTransaction(models.Model):
         payload = self._multisafepay_prepare_payment_request_payload()
         payment_data = self.provider_id._multisafepay_make_request(data=payload)
 
+
+
+
+
+
+        # The provider reference is set now to allow fetching the payment status after redirection
+
+
         response_data = payment_data.json()
+        self.provider_reference = response_data.get('provider_id')
         print("response_data", response_data)
 
         payment_url = response_data["data"]["payment_url"]
@@ -113,20 +124,30 @@ class PaymentTransaction(models.Model):
 
         print("notification",notification_data)
 
-        payload = self._multisafepay_prepare_payment_request_payload()
-        print("payload from tx",payload)
-        msp_reference = payload.get('order_id')
+        # payload = self._multisafepay_prepare_payment_request_payload()
+        # payment_data = self.provider_id._multisafepay_make_request(data=payload)
+        #
+        # print("payload from tx",payment_data.json())
+        # msp_reference = payload.get('order_id')
 
         #ivide reference cut akkendi varum enna thonunne.
 
+        print("notification ann",notification_data.get('transactionid'))
+        msp_reference = notification_data.get('transactionid')
+
+        parts = re.split(r"[-]", msp_reference)
+        real_msp_reference = parts[0]
+
+        print("parts",parts)
+
         tx = self.search(
-            [('reference', '=',msp_reference), ('provider_code', '=', 'multisafepay')]
+            [('reference', '=',real_msp_reference), ('provider_code', '=', 'multisafepay')]
         )
 
         print("tx",tx)
         if not tx:
             raise ValidationError("Multisafpay: " + _(
-                "No transaction found matching reference %s.", notification_data.get('ref')
+                "No transaction found matching reference %s.", notification_data.get('transactionid')
             ))
         return tx
 
@@ -136,35 +157,47 @@ class PaymentTransaction(models.Model):
         if self.provider_code != 'multisafepay':
             return
 
-        payment_data = self.provider_id._multisafepay_make_request(
-            f'/payments/{self.provider_reference}', method="GET"
-        )
-        print("iam from process notification",payment_data.json())
 
-        # Update the payment method.
-        # payment_method_type = payment_data.get('method', '')
-        # if payment_method_type == 'creditcard':
-        #     payment_method_type = payment_data.get('details', {}).get('cardLabel', '').lower()
-        # payment_method = self.env['payment.method']._get_from_code(
-        #     payment_method_type, mapping=const.PAYMENT_METHODS_MAPPING
-        # )
-        # self.payment_method_id = payment_method or self.payment_method_id
+        msp_reference = notification_data.get('transactionid')
 
-        # Update the payment state.
-        payment_status = payment_data.get('status')
-        if payment_status in ('pending', 'open'):
+        url = f"https://testapi.multisafepay.com/v1/json/orders/{self.reference}?api_key={self.provider_id.multisafepay_api_key}"
+
+        print("URL with api",url)
+
+        headers = {"accept": "application/json"}
+
+        response = requests.get(url, headers=headers)
+
+        paymnet_data = response.json()
+
+        payment_status = paymnet_data['data'].get('status')
+
+
+
+        print("payment status", payment_status)
+
+
+
+
+
+
+
+        if payment_status in ['pending','approved']:
             self._set_pending()
-        elif payment_status == 'authorized':
-            self._set_authorized()
-        elif payment_status == 'paid':
+            print("ia from first if")
+
+        elif payment_status == 'completed':
             self._set_done()
-        elif payment_status in ['expired', 'canceled', 'failed']:
-            self._set_canceled("Mollie: " + _("Cancelled payment with status: %s", payment_status))
+            print("iam from second elif")
+        elif payment_status in ['canceled','declined','initialized']:
+            print("iam from thired elif")
+            self._set_canceled("Multisafepay: " + _("Cancelled payment with status: %s", payment_status))
         else:
+            print("iam from else")
             _logger.info(
                 "received data with invalid payment status (%s) for transaction with reference %s",
-                payment_status, self.reference
+                payment_status,msp_reference
             )
             self._set_error(
-                "Mollie: " + _("Received data with invalid payment status: %s", payment_status)
+                "Multisafepay: " + _("Received data with invalid payment status: %s", payment_status)
             )
