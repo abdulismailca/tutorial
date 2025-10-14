@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_form_inherit_task_smart_button" model="ir.ui.view">
+        <field name="name">sale.order.form.inherits</field>
+        <field name="model">sale.order</field>
+          <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button"
+                        type="object"
+                        icon="fa-chain"
+                        name="sale_order_task"
+                        invisible="his_related_task_count == 0"
+                >
+                    <field string="Tasks"
+                           name="his_related_task_count" widget="statinfo" />
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>
+
+
+

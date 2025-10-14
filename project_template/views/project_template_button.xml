@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="project_project_view_inherit_project_template_button" model="ir.ui.view">
+        <field name="name">project.project.form.inherits</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_open_share_project_wizard']" position="after">
+                <button name="create_project_template" type="object" string="Create Project Template"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_project_view_inherit_project_template_field" model="ir.ui.view">
+        <field name="name">project.project.form.inherits</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_start']" position="after">
+               <field name="project_template_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
+
+
+

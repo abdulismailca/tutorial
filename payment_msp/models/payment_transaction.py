@@ -151,6 +151,16 @@ class PaymentTransaction(models.Model):
             ))
         return tx
 
+
+    def _multisafepay_status_update(self,url):
+
+        print("hi iam from _multisafepay_status_update")
+        headers = {"accept": "application/json"}
+        response = requests.get(url, headers=headers)
+
+        return response
+
+
     def _process_notification_data(self, notification_data):
 
         super()._process_notification_data(notification_data)
@@ -166,18 +176,30 @@ class PaymentTransaction(models.Model):
 
         headers = {"accept": "application/json"}
 
-        response = requests.get(url, headers=headers)
+        response = self._multisafepay_status_update(url)
 
         paymnet_data = response.json()
 
-        payment_status = paymnet_data['data'].get('status')
+
+
+        payment_transaction_id = paymnet_data['data'].get('transaction_id')
 
 
 
-        print("payment status", payment_status)
 
 
 
+
+
+
+        url = f'https://testapi.multisafepay.com/v1/json/transactions/{payment_transaction_id}?api_key={self.provider_id.multisafepay_api_key}'
+
+        headers = {"accept": "application/json"}
+        transaction_response = requests.get(url, headers=headers).json()
+
+
+
+        payment_status = transaction_response['data'].get('status')
 
 
 
@@ -186,11 +208,15 @@ class PaymentTransaction(models.Model):
             self._set_pending()
             print("ia from first if")
 
-        elif payment_status == 'completed':
+        elif payment_status in ['completed']:
             self._set_done()
             print("iam from second elif")
-        elif payment_status in ['canceled','declined','initialized']:
+        elif payment_status in ['canceled','declined', 'initialized']:
+
             print("iam from thired elif")
+
+
+
             self._set_canceled("Multisafepay: " + _("Cancelled payment with status: %s", payment_status))
         else:
             print("iam from else")

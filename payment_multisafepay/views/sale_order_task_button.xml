@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_cancel']" position="after">
-                <button name="create_task" type="object" string="Create Task" invisible="project_id == False"/>
+                <button name="create_task" type="object" string="Create Task" invisible="state == 'sale' or not project_id"/>
             </xpath>
         </field>
     </record>

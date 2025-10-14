@@ -14,7 +14,6 @@ class MultisafePay(http.Controller):
     _return_url = '/payment/multisafepay/return'
     _webhook_url = '/payment/multisafepay/webhook'
 
-
     @http.route(
         _return_url, type='http', auth='public', methods=['GET', 'POST'], csrf=False,
         save_session=False
