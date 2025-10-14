@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+<!--    create project template-->
     <record id="project_project_view_inherit_project_template_button" model="ir.ui.view">
         <field name="name">project.project.form.inherits</field>
         <field name="model">project.project</field>
@@ -11,6 +12,7 @@
         </field>
     </record>
 
+<!--    project template field -->
     <record id="project_project_view_inherit_project_template_field" model="ir.ui.view">
         <field name="name">project.project.form.inherits</field>
         <field name="model">project.project</field>
