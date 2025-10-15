@@ -21,6 +21,8 @@ class ProjectTemplate(models.Model):
 
     project_task_template_ids = fields.Many2many('project.task.template', 'project_template_id', string="Task Templates")
 
+    project_id = fields.Many2one("project.project", string="Project Id", tracking=True)
+
 
 
 
