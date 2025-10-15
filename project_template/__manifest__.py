@@ -11,9 +11,9 @@
         'security/ir.model.access.csv',
         'views/project_template_action_views.xml',
         'views/project_task_template.xml',
-        'views/project_template_menu_views.xml',
         'views/project_template_button.xml',
         'views/project_task_template_views.xml'
+        'views/project_template_menu_views.xml',
 
 
     ],

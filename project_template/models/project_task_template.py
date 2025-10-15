@@ -41,14 +41,14 @@ class ProjectTaskTemplate(models.Model):
         self.write({'task_count':len(self.related_task_ids)})
 
         print("len of task id",  len(self.related_task_ids))
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Task',
-            'res_model': 'project.task',
-            'view_mode': 'form',
-            'target': 'current',
-            'res_id': created_task.id,
-        }
+        # return {
+        #     'type': 'ir.actions.act_window',
+        #     'name': 'Task',
+        #     'res_model': 'project.task',
+        #     'view_mode': 'form',
+        #     'target': 'current',
+        #     'res_id': created_task.id,
+        # }
 
 
 

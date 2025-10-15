@@ -53,14 +53,14 @@ class ProjectTemplate(models.Model):
 
         })
         self.write({'project_count': len(self.related_project)})
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Project Templates',
-            'res_model': 'project.project',
-            'view_mode': 'form',
-            'target': 'current',
-            'res_id': created_project.id,
-        }
+        # return {
+        #     'type': 'ir.actions.act_window',
+        #     'name': 'Project Templates',
+        #     'res_model': 'project.project',
+        #     'view_mode': 'form',
+        #     'target': 'current',
+        #     'res_id': created_project.id,
+        # }
 
 
     def view_related_project(self):

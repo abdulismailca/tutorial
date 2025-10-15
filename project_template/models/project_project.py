@@ -6,9 +6,12 @@ class ProjectProject(models.Model):
     _inherit = "project.project"
 
     project_template_id = fields.Many2one("project.template", string="Project template", readonly=True)
-    project_project_template_count = fields.Integer(string="Template Count")
+    project_project_template_count = fields.Integer(string="Template Count", compute="count_of_project_project")
 
-
+    @api.depends('project_template_id.related_project')
+    def count_of_project_project(self):
+        self.write({'project_project_template_count':len(self.project_template_id.related_project)})
+        # print("from project project", )
 
     def create_project_template(self):
         tag_ids_list = self.mapped('tag_ids')
@@ -46,8 +49,18 @@ class ProjectProject(models.Model):
         }
 
     def see_project_template(self):
+        related_project_list = []
+        for id in self.project_template_id.related_project:
+            related_project_list.append(id.id)
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Related Project',
+            'res_model': 'project.project',
+            'view_mode': 'list,form',
+            'target': 'current',
+            'domain': [('id', 'in', related_project_list)],
+        }
 
-        print("project_template_id ssss",self.project_template_id)
 
 
 
