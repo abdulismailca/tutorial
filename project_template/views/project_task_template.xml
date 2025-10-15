@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    create task template-->
+    <record id="project_view_task_form2_inherit_project_task_button" model="ir.ui.view">
+        <field name="name">project.task.form.inherits</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='stage_id']" position="after">
+                <button name="create_task_template" type="object" string="Create Task Template"/>
+            </xpath>
+        </field>
+    </record>
+
+<!--    task template id field-->
+
+    <record id="project_view_task_form2_inherit_project_task_field" model="ir.ui.view">
+        <field name="name">project.task.form.inherits</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="project_task_template_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+
+

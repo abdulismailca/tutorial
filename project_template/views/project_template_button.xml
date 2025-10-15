@@ -24,6 +24,30 @@
         </field>
     </record>
 
+<!--    project template smart button-->
+    action_view_tasks
+
+     <record id="project_project_view_inherit_see_project_template_smart_button" model="ir.ui.view">
+        <field name="name">project.project.form.inherits</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_tasks']" position="after">
+                <div name="button_box" position="inside">
+                        <button class="oe_stat_button"
+                                type="object"
+
+                                icon="fa-exchange"
+                                name="see_project_template">
+                            <field string="Related Template"
+                                   name="project_project_template_count" widget="statinfo"/>
+                        </button>
+                    </div>
+<!--                <button name="see_project_template" type="object" string="Related Template"/>-->
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
 
 
