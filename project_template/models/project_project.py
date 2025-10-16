@@ -7,42 +7,49 @@ class ProjectProject(models.Model):
 
     project_template_id = fields.Many2one("project.template", string="Project template", readonly=True)
     project_project_template_count = fields.Integer(string="Template Count", compute="count_of_project_project")
-    serial_number = fields.Integer(string="Serial Number", default="0001")
     project_template_ids = fields.One2many("project.template", "project_id", string="Project Templates")
 
 
     def count_of_project_project(self):
         self.write({'project_project_template_count':len(self.project_template_ids)})
-        print("from project project", self.project_template_ids )
+
+
 
     def create_project_template(self):
         tag_ids_list = self.mapped('tag_ids')
 
-        task_ids_list = self.mapped('task_ids')
-
-        print("task ids list",task_ids_list)
-        print("tag_ids_list ids list",tag_ids_list)
-
+        # task_ids_list = [(fields.Command.create(a.name)) for a in  self.task_ids]
+        # task_ids_list = []
         # for task in self.task_ids:
-        #     task_ids_list.append (Command.create({
-        #         '
+        #     task_ids_list.append(Command.create({
+        #         'name': task.name,
         #     }))
+        #
+        task_ids_list = [(fields.Command.create({'name': a.name})) for a in  self.task_ids]
 
-        count = self.serial_number
-        count_str =str(count)
+
+
+        print("task_ids_list", task_ids_list)
+
+
 
 
         created_template_id = self.env['project.template'].create({
-            'name':self.name+" - P"+count_str,
+            'name':f'PR/{self.id}/{self.name} - {self.partner_id.name if self.partner_id.name else ''}',
             'label_tasks': self.label_tasks,
             'partner_id': self.partner_id.id,
             'user_id': self.user_id.id,
             'description': self.description,
             'tag_ids': tag_ids_list,
-            'task_ids':task_ids_list,
+
+
+            'project_task_template_ids':task_ids_list,
+
+
             'company_id':self.company_id.id,
+            'project_id':self.id,
          })
-        self.serial_number = self.serial_number + 1
+
 
 
 
@@ -56,19 +63,19 @@ class ProjectProject(models.Model):
         }
 
     def see_project_template(self):
-        # ivide lmit koduth avasanathe eduthoode, template count vech
-        related_project_list = self.project_template_ids.search([])
-        for id in self.project_template_ids:
-            related_project_list.append(id.id)
 
-        print("related_project_list",related_project_list)
+    
+        print("Sondham Id",self.id)
+        print("apparathe ID", self.project_template_ids.project_id)
         return {
             'type': 'ir.actions.act_window',
             'name': 'Related Project',
-            'res_model': 'project.project',
+            'res_model': 'project.template',
             'view_mode': 'list,form',
             'target': 'current',
-            'domain': [('id', 'in', [related_project_list])],
+            'domain':([('project_id','=',self.id)])
+
+
         }
 
 

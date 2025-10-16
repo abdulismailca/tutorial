@@ -33,13 +33,13 @@ class ProjectTemplate(models.Model):
     def create_project_from_temp(self):
 
         tag_ids_list = self.mapped('tag_ids')
-        task_ids_list = self.mapped('project_task_template_ids.id')
-        print("task is undo task undo", task_ids_list)
 
-        # for task in self.task_ids:
-        #     task_ids_list.append(Command.create({
-        #         'name': task.name,
-        #     }))
+
+        task_ids_list = []
+        for task in self.project_task_template_ids:
+            task_ids_list.append(Command.create({
+                'name': task.name,
+            }))
 
 
         created_project =self.env['project.project'].create({
@@ -55,14 +55,15 @@ class ProjectTemplate(models.Model):
 
         })
         self.write({'project_count': len(self.related_project)})
-        # return {
-        #     'type': 'ir.actions.act_window',
-        #     'name': 'Project Templates',
-        #     'res_model': 'project.project',
-        #     'view_mode': 'form',
-        #     'target': 'current',
-        #     'res_id': created_project.id,
-        # }
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Project Templates',
+            'res_model': 'project.project',
+            'view_mode': 'form',
+            'target': 'current',
+            'res_id': created_project.id,
+        }
 
 
     def view_related_project(self):

@@ -3,7 +3,7 @@
     <!--    project template action-->
     <record id="project_template_menu_template_task_template_action"
             model="ir.actions.act_window">
-        <field name="name">Project templates</field>
+        <field name="name">Task templates</field>
         <field name="res_model">project.task.template</field>
         <field name="view_mode">list,form</field>
     </record>
@@ -56,6 +56,10 @@
                         <page string="Description">
                             <field name="description"/>
                         </page>
+                        <page string="Sub-task">
+<!--                            <field name="child_ids"/>-->
+                            <field name="task_template_id" widget="many2many"/>
+                        </page>
                     </notebook>
                 </sheet>
                 <chatter/>
@@ -68,7 +72,7 @@
         <field name="name">project.task.template.list</field>
         <field name="model">project.task.template</field>
         <field name="arch" type="xml">
-            <list string="Project template record">
+            <list string="Task Template">
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="project_id"/>

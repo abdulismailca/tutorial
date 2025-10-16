@@ -12,6 +12,27 @@
         </field>
     </record>
 
+<!--    related task template-->
+    <record id="project_view_task_form2_inherit_related_task_smart_button" model="ir.ui.view">
+        <field name="name">project.task.form.inherits</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+
+                <div name="button_box" position="inside">
+                        <button class="oe_stat_button"
+                                type="object"
+
+                                icon="fa-exchange"
+                                name="view_related_task_template">
+                            <field string="Related Task"
+                                   name="related_task_template_count" widget="statinfo"/>
+                        </button>
+                    </div>
+
+        </field>
+    </record>
+
 <!--    task template id field-->
 
     <record id="project_view_task_form2_inherit_project_task_field" model="ir.ui.view">

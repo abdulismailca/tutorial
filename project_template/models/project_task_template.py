@@ -18,6 +18,16 @@ class ProjectTaskTemplate(models.Model):
 
     project_template_id = fields.Many2one('project.template',string="Project Template")
 
+
+    project_task_id = fields.Many2one('project.task')
+
+    parent_id = fields.Many2one('project.task.template')
+    task_template_id = fields.One2many('project.task.template','parent_id')
+
+
+
+    # child_ids = fields.Many2many('project.task','parent_id')
+
     """jus for count smart button"""
     related_task_ids = fields.One2many('project.task', 'project_task_template_id', string="Related Task")
 
@@ -26,6 +36,8 @@ class ProjectTaskTemplate(models.Model):
     def create_task_from_temp(self):
         user_ids_list = self.mapped('user_ids')
         tag_ids_list = self.mapped('tag_ids')
+        # child_id_list = self.mapped('task_template_id')
+        child_id_list = [(fields.Command.create({'name':a.name, 'project_id':self.project_id.id})) for a in self.task_template_id]
 
         created_task = self.env['project.task'].create({
             'name': self.name,
@@ -36,19 +48,22 @@ class ProjectTaskTemplate(models.Model):
             'partner_id': self.partner_id.id,
             'description': self.description,
             'project_task_template_id':self.id,
+            'child_ids':child_id_list,
+
 
         })
         self.write({'task_count':len(self.related_task_ids)})
 
         print("len of task id",  len(self.related_task_ids))
-        # return {
-        #     'type': 'ir.actions.act_window',
-        #     'name': 'Task',
-        #     'res_model': 'project.task',
-        #     'view_mode': 'form',
-        #     'target': 'current',
-        #     'res_id': created_task.id,
-        # }
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Task',
+            'res_model': 'project.task',
+            'view_mode': 'form',
+            'target': 'current',
+            'res_id': created_task.id,
+        }
 
 
 
