@@ -8,6 +8,28 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_ref']" position="after">
                 <field name="is_vendor_product"/>
+                <field name="only_vendor_product"/>
+
+            </xpath>
+
+<!--             <xpath expr="//page[@name='products']" position="after">-->
+<!--                 <page string="Vendor Products">-->
+<!--                    <field name="vendor_order_line_ids"/>-->
+<!--                 </page>-->
+
+<!--            </xpath>-->
+
+        </field>
+    </record>
+
+    <record id="view_purchase_order_form_inherit_order_line"
+            model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']" position="attributes">
+<!--                <attribute name="domain">[('id','in',vendor_order_line_ids)]</attribute>-->
             </xpath>
         </field>
     </record>
