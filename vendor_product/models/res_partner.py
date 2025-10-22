@@ -5,7 +5,6 @@ class ResPartner(models.Model):
     _inherit ='res.partner'
 
     product_ids = fields.One2many('product.product','product_id', compute="compute_his_product")
-    alternative_product_ids = fields.One2many('product.product','product_id')
 
 
 
@@ -14,21 +13,20 @@ class ResPartner(models.Model):
 
         all_product = self.env['product.product'].search([])
 
-        all_product_filtered = all_product.filtered(
-            lambda s: s.seller_ids in [self.id])
+        product_vendor = all_product.mapped('seller_ids')
 
-        # mapped_product = all_product_filtered.mapped('product_id')
-        # print("mapped product", mapped_product)
-        # print("all products",all_product_filtered)
-        #
-        # for pr in all_product_filtered:
-        #     print("name", pr.product_tmpl_id.id)
-        #
-        #
+        all_product_filtered = all_product.filtered(lambda s: self in s.seller_ids.partner_id)
+        # all_product_filtered = all_product.filtered(lambda s: self.id in s.seller_ids.partner_id)
+
+
+        print("seller_ids",product_vendor)
+        print("all_product_filtered", all_product_filtered)
+
+
         self.update({
-            'product_ids':[(fields.Command.link(
-               '1'
-            )) for a in all_product]
+            'product_ids':[(fields.Command.link(a.id)) for a in all_product_filtered]
         })
-        pass
+
+
+
 

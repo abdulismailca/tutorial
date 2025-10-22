@@ -4,4 +4,7 @@ from odoo import fields, models
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
+
     product_id = fields.Many2one('res.partner')
+
+    vendor_product_id = fields.Many2one('purchase.order')
