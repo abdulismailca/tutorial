@@ -32,7 +32,7 @@
             <xpath expr="//page[@name='contact_addresses']" position="after">
               <page string="Vendor Product">
                   <field name="product_ids"  widget="many2many" invisible="1"/>
-                  <field name="alternative_product_ids" widget="many2many" domain="[('id','in','product_ids')]"/>
+                  <field name="alternative_product_ids" widget="many2many" domain="[('seller_ids', 'in', [id])]"/>
               </page>
             </xpath>
         </field>

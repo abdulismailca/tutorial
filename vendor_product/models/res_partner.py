@@ -14,20 +14,21 @@ class ResPartner(models.Model):
 
         all_product = self.env['product.product'].search([])
 
-        all_product_filtered = all_product.seller_ids.filtered(
-            lambda s: s.partner_id.id == self.id)
+        all_product_filtered = all_product.filtered(
+            lambda s: s.seller_ids in [self.id])
 
         # mapped_product = all_product_filtered.mapped('product_id')
         # print("mapped product", mapped_product)
-
-
-        for pr in all_product_filtered:
-            print("name", pr.product_tmpl_id.id)
-
-
+        # print("all products",all_product_filtered)
+        #
+        # for pr in all_product_filtered:
+        #     print("name", pr.product_tmpl_id.id)
+        #
+        #
         self.update({
             'product_ids':[(fields.Command.link(
-                a.product_tmpl_id.id
+               '1'
             )) for a in all_product]
         })
+        pass
 
