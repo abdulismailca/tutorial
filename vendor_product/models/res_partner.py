@@ -11,15 +11,8 @@ class ResPartner(models.Model):
     @api.depends()
     def compute_his_product(self):
 
-        all_product = self.env['product.product'].search([])
+        all_product_filtered = self.env['product.product'].search([('seller_ids.partner_id', '=', self.id)])
 
-        product_vendor = all_product.mapped('seller_ids')
-
-        all_product_filtered = all_product.filtered(lambda s: self in s.seller_ids.partner_id)
-        # all_product_filtered = all_product.filtered(lambda s: self.id in s.seller_ids.partner_id)
-
-
-        print("seller_ids",product_vendor)
         print("all_product_filtered", all_product_filtered)
 
 

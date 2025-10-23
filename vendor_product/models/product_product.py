@@ -8,3 +8,5 @@ class ProductProduct(models.Model):
     product_id = fields.Many2one('res.partner')
 
     vendor_product_id = fields.Many2one('purchase.order')
+
+    order_line_vendor_product_id = fields.Many2one('purchase.order.line')

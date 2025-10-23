@@ -31,7 +31,7 @@ class PaymentTransaction(models.Model):
 
 
     def _get_specific_rendering_values(self, processing_values):
-        print("ismail , did you see the rizq")
+        print("ismail , did you see the...")
         res = super()._get_specific_rendering_values(processing_values)
         if self.provider_code != 'multisafepay':
             return res

@@ -9,6 +9,7 @@
     'depends': ['base', 'product','sale_management', 'purchase'],
     'data': [
         'views/purchase_order_views.xml',
+        'views/product_product_views.xml'
 ],
 
 
