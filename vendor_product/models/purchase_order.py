@@ -30,6 +30,8 @@ class PurchaseOrder(models.Model):
         print("his_product_ids", his_product_ids)
 
 
+
+    """here we we are over riding confrim button in PO """
     def button_confirm(self):
 
         if self.order_line and self.is_lessthan_minimum_amount_po != True :

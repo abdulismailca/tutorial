@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- Main Menu-->
+    <menuitem id="approval_block_menu_root" name="PO Approval Block" sequence="1"/>
+    <menuitem id="approval_block_menu_root_po" name="PO" parent="approval_block_menu_root" action="approval_block_menu_root_po_action"/>
+
+</odoo>
+
+
+

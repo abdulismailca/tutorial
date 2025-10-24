@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    approval_block_menu_root_po_action-->
+    <record id="approval_block_menu_root_po_action"
+            model="ir.actions.act_window">
+        <field name="name">PO Approval Block</field>
+        <field name="res_model">approval.block</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!--    approval_block_menu_root_po_action_form-->
+    <record id="approval_block_menu_root_po_action_from" model="ir.ui.view">
+        <field name="name">approval.block.form</field>
+        <field name="model">approval.block</field>
+        <field name="arch" type="xml">
+            <form string="Approval Block">
+
+                <sheet>
+
+                    <group>
+
+                        <h1>
+                            <field name="name" nolabel="1" placeholder="Eg. Block 5000"/>
+                        </h1>
+                        <field name="limit_amount"/>
+
+                    </group>
+
+                    <notebook>
+                        <page string="PO">
+                            <field name="po_reference_ids"/>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+    <!--approval_block_menu_root_po_action_list-->
+    <record id="approval_block_menu_root_po_action_list" model="ir.ui.view">
+        <field name="name">approval.block.list</field>
+        <field name="model">approval.block</field>
+        <field name="arch" type="xml">
+            <list string="Approval Block">
+                <field name="name"/>
+                <field name="limit_amount"/>
+
+            </list>
+        </field>
+    </record>
+</odoo>
+
+
+

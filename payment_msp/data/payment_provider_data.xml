@@ -5,7 +5,7 @@
         <field name="image_128" type="base64" file="payment_msp/static/main.png"/>
         <field name="code">multisafepay</field>
 
-        <field name="redirect_form_view_id" ref="redirect_form"/>
+<!--        <field name="redirect_form_view_id" ref="redirect_form"/>-->
 
 
         <field name="module_id" ref="base.module_payment_msp"/>
