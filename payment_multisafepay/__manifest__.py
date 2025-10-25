@@ -1,23 +1,23 @@
+# -*- coding: utf-8 -*-
 {
-    'name': 'Multisafepay',
-    'version': '1.0',
-
-
-
-
-    'website': 'www.iza.com',
-    'depends': ['base','sale_management','project'],
+    'name': "Payment Multisafepay",
+    'version': "18.0.1.0.0",
+    'summary': """Multisafepay Payment Integration""",
+    'description': "Multisafepay Payment",
+    'author': "Anjali",
+    'category': "Payment",
+    'sequence': 1,
+    'depends':['base','website','payment'],
     'data': [
-        # 'views/sale_order_project_views.xml',
-        # 'views/sale_order_task_button.xml',
-        # 'views/sale_order_task_smart_button.xml',
-        # 'data/payment_provider_data.xml',
-        # 'views/payment_multisafepay_templates.xml',
-        # 'views/payment_provider_views.xml',
-        # 'views/sale_order_views.xml'
-        # 'views/re_parter_views.xml',
-        # 'views/project_progress_views.xml',
+        "data/account_payment_method.xml",
+        "data/payment_method_data.xml",
+        "data/payment_provider_data.xml",
+        "views/payment_templates.xml",
+        "views/payment_provider_views.xml",
+        "views/payment_transaction_views.xml",
     ],
-
-
+    'installable': True
 }
+
+
+
