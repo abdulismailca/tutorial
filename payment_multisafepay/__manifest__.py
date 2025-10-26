@@ -8,6 +8,8 @@
     'website': 'www.iza.com',
     'depends': ['base','sale_management','project'],
     'data': [
+        'security/ir.model.access.csv',
+        'views/sales_person_performance_views.xml',
         # 'views/sale_order_project_views.xml',
         # 'views/sale_order_task_button.xml',
         # 'views/sale_order_task_smart_button.xml',

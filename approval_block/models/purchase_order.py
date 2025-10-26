@@ -12,12 +12,14 @@ class PurchaseOrder(models.Model):
             five_rc = self.approval_block_id.search(
                 [('limit_amount', '=', 5000)])
             print("five_rc", five_rc)
-            self.approval_block_id = five_rc
+            self.write({'approval_block_id': five_rc})
+            # self.approval_block_id = five_rc
 
         else:
             ten_rc = self.approval_block_id.search(
                 [('limit_amount', '=', 10000)])
-            self.approval_block_id = ten_rc
+            # self.approval_block_id = ten_rc
+            self.write({'approval_block_id': ten_rc})
 
 
 
