@@ -1,22 +1,13 @@
-<?xml version='1.0' encoding='utf-8' ?>
-<odoo>
-    <data>
-        <record id="payment_method_multisafepay_provider" model="payment.provider">
-            <field name="name">Multisafepay</field>
-            <field name="code">multisafepay</field>
-            <field name="sequence">1</field>
-            <field name="support_tokenization">True</field>
-            <field name="image_128" type="base64" file="payment_multisafepay/static/description/bank.png"/>
-            <field name="support_express_checkout">False</field>
-            <!--        <field name="redirect_form_view_id" ref="redirect_form"/>-->
-            <field name="redirect_form_view_id" ref="payment.redirect_form"/>
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
 
-            <field name="support_refund">partial</field>
-            <field name="payment_method_ids"
-                   eval="[Command.set([
-                         ref('payment_multisafepay.payment_method_multisafepay'),
-                     ])]"
-            />
-        </record>
-    </data>
+    <record model="payment.provider">
+
+        <field name="code">multisafepay</field>
+        <field name="redirect_form_view_id" ref="payment_multisafepay.redirect_form"/>
+    </record>
+
 </odoo>
+
+
+
