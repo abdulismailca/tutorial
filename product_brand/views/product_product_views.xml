@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    product brand from view-->
+    <record id="product_brand_name"
+            model="ir.ui.view">
+        <field name="name">product.template.form.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_policy']" position="after">
+                <field name="product_id"/>
+                <field name="sale_id"/>
+                <field name="his_price_list"/>
+                <field name="product_master_type"/>
+                <field name="product_brand"
+                       invisible="product_master_type == 'single_product'"/>
+            </xpath>
+            <xpath expr="//field[@name='invoice_policy']" position="after">
+                <field name="sale_id"/>
+                <field name="product_master_type"/>
+                <field name="product_brand"
+                       invisible="product_master_type == 'single_product'"/>
+            </xpath>
+             <div name="button_box" position="inside">
+                <button class="oe_stat_button"
+                        type="object"
+                        icon="fa-chain"
+                        name="on_clik_my_button"
+                >
+
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <!--    product brand list view-->
+    <record id="product_brand_name_list_view" model="ir.ui.view">
+        <field name="name">product.product.list.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="product_brand"/>
+            </field>
+        </field>
+    </record>
+
+    <!--    product brand sale order line view-->
+
+    <record id="purchase_order_view_inherit_product_brand"
+            model="ir.ui.view">
+        <field name="name">purchase.order.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="product_master_type" invisible="1"/>
+                <field name="product_brand"
+                       invisible="product_master_type == 'single_product'"/>
+            </field>
+
+        </field>
+    </record>
+</odoo>

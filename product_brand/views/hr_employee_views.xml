@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--    view his contact po-->
+    <record id="view_po_of_contact_inherit_hr_view_employee_form"
+            model="ir.ui.view">
+        <field name="name">product.product.form.inherits</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button"
+                        type="object"
+                        icon="fa-chain"
+                        name="view_count_of_po"
+                >
+                    <field string="PO"
+                           name="count_of_po" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+
+<!--    view his contact so-->
+
+    <record id="view_so_of_contact_inherit_hr_view_employee_form"
+            model="ir.ui.view">
+        <field name="name">product.product.form.inherits</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button"
+                        type="object"
+                        icon="fa-chain"
+                        name="view_count_of_so"
+                >
+                    <field string="SO"
+                           name="count_of_so" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+
+</odoo>
+
+
+

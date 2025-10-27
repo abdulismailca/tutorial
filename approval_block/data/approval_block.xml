@@ -10,4 +10,16 @@
         <field name="limit_amount">10000</field>
 
     </record>
+    <record id="approval_block_100" model="approval.block">
+        <field name="name">100</field>
+        <field name="limit_amount">100</field>
+    </record>
+    <record id="approval_block_200" model="approval.block">
+        <field name="name">200</field>
+        <field name="limit_amount">200</field>
+    </record>
+    <record id="approval_block_300" model="approval.block">
+        <field name="name">300</field>
+        <field name="limit_amount">300</field>
+    </record>
 </odoo>
