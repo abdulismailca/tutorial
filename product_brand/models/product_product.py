@@ -9,30 +9,22 @@ class ProductProduct(models.Model):
 
     product_brand = fields.Char(string="Brand Name")
     product_master_type = fields.Selection([('single_product','Single Product'),('brand_product','Brand Product')], default="brand_product", required=True)
-    sale_id = fields.Many2one('sale.order')
+
+
+    partner_id = fields.Many2one('res.partner', string="Partner")
     product_id = fields.Many2one('product.product')
+    his_rate = fields.Float(string="His Rate")
 
-    his_price_list = fields.Char()
-
-
+    """"to fetch currency of res_partner"""
     # self.partner_id.compnay_id.currency_id.symbol
 
     def on_clik_my_button(self):
-
-        # print(self.product_id.search(['partner_id','=', self.sale_id.patner_id.id]))
-        # print(self.sale_id.partner_id.property_product_pricelist)
-        # print(self.sale_id.partner_id.property_product_pricelist)
-
-        all_pricelist_rec = self.env['product.pricelist'].search([])
-        print("all_pricelist_rec", all_pricelist_rec)
-        mapped_item_ids = all_pricelist_rec.item_ids.mapped('product_id')
-        print("mapped_item_ids", mapped_item_ids)
-        if self.product_id in mapped_item_ids:
-            print("helo.....")
-
-
-
-        # self.write({'his_price_list':self.sale_id.partner_id.property_product_pricelist.name})
+        print(self.partner_id.property_product_pricelist)
+        if self.partner_id.property_product_pricelist:
+           price_list =  self.partner_id.property_product_pricelist
+           price = price_list._get_product_price(self.product_id,1,self.partner_id)
+           print("price",price)
+           self.write({'his_rate':price})
 
 
 
