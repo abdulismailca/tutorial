@@ -22,7 +22,7 @@ class ProductProduct(models.Model):
         print(self.partner_id.property_product_pricelist)
         if self.partner_id.property_product_pricelist:
            price_list =  self.partner_id.property_product_pricelist
-           price = price_list._get_product_price(self.product_id,1,self.partner_id)
+           price = price_list._get_product_price(self.product_id,1.0)
            print("price",price)
            self.write({'his_rate':price})
 

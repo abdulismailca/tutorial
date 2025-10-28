@@ -32,7 +32,7 @@
             <div name="button_box" position="inside">
                 <button class="oe_stat_button"
                         type="object"
-                        icon="fa-chain"
+                        icon="fa-code-fork"
                         name="view_count_of_so"
                 >
                     <field string="SO"
