@@ -5,4 +5,4 @@ class AccountMoveLine(models.Model):
 
     _inherit = 'account.move.line'
 
-    sale_id = fields.Many2one('sale.order')
+    sale_id = fields.Many2one('sale.order', string='Sale Order', readonly=True)

@@ -7,8 +7,6 @@
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='delivery_date']" position="after">
-                <field name="is_existing_invoice_line"/>
-
                 <field name="alternative_sale_order_ids"
                        widget="many2many_tags" domain="[('partner_id','=',partner_id),('state','=','draft')]"/>
             </xpath>
