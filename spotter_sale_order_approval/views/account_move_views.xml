@@ -11,12 +11,15 @@
                     <field name="all_invoice_lines_ids">
                         <list>
                             <field name="product_id"/>
+                            <field name="quantity"/>
+                            <field name="price_unit"/>
+                            <field name="price_subtotal"/>
+                            <field name="account_move_id"/>
                             <button name="add_invoice_line" type="object"
                                     title="action_confirm" icon="fa-check"/>
 
                         </list>
                     </field>
-
                 </page>
             </xpath>
         </field>

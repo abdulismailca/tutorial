@@ -8,7 +8,7 @@
 
     'depends': ['base', 'product', 'sale_management', 'purchase', 'hr'],
     'data': [
-        # 'views/sale_order_views.xml',
+        'views/sale_order_views.xml',
         'views/account_move_views.xml',
     ],
 
