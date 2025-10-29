@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="avg_of_p"
+            model="ir.ui.view">
+        <field name="name">product.template.form.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='general_information']" position="after">
+                <page string="Last Seven Days Move">
+                  <p>have a nice day</p>
+
+                    <field name="stock_move_count"/>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+
+
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="choose_currency_id_products_sale_order_form_view_inherit"
+            model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="choose_currency_id" domain="[('id','!=',currency_id)]"/>
+                <field name="symbol"/>
+                <field name="exchange_rate"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+
+
