@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="is_prime_customer_res_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+
+                <field name="state" widget="statusbar"
+                       statusbar_visible="vendor, customer"
+                       invisible="state == 'both'"/>
+
+                 <field name="state" widget="statusbar"
+                       statusbar_visible="vendor,customer,both"
+                       invisible="state in ['vendor', 'customer']"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

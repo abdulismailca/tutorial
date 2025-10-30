@@ -8,23 +8,35 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='invoice_tab']" position="after">
                 <page string="All invoice Lines">
-                    <field name="all_invoice_lines_ids">
+                    <field name="my_invoice_ids">
                         <list>
                             <field name="product_id"/>
                             <field name="quantity"/>
                             <field name="price_unit"/>
                             <field name="price_subtotal"/>
-                            <field name="account_move_id"/>
+                            <field name="my_invoice_id"/>
                             <button name="add_invoice_line" type="object"
-                                    title="action_confirm" icon="fa-check"/>
+                                    title="add_invoice_line" icon="fa-check"/>
 
                         </list>
                     </field>
                 </page>
+                <page string="Invoice" invisible="1">
+                    <field name="all_invoice_lines_ids"/>
+                </page>
             </xpath>
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button"
+                        type="object"
+                        icon="fa-align-right"
+                        name="add_all_invoice_line"
+                        string="Add All Invoices to Invoice Line"
+                >
+
+                </button>
+            </div>
         </field>
     </record>
 </odoo>
-
 
 
