@@ -9,4 +9,6 @@
 # from . import crm_lead
 # from . import project_task
 # from . import hr_leave
-from . import sale_order_task
+# from . import sale_order_task
+
+from . import product_product

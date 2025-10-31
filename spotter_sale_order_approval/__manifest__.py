@@ -6,7 +6,7 @@
     'author': 'ismail C A',
     'website': 'www.iza.com',
 
-    'depends': ['base', 'product', 'sale_management', 'purchase', 'account','crm','project','hr_holidays'],
+    'depends': ['base', 'product', 'sale_management', 'purchase', 'account','crm','project','hr_holidays', 'purchase_stock'],
     'data': [
         # 'security/ir.model.access.csv',
         # 'views/sale_order_views.xml',
