@@ -1,0 +1,42 @@
+from odoo import fields, models, api
+from odoo.exceptions import ValidationError, UserError
+
+
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+
+
+
+    state = fields.Selection(
+        selection_add=[
+            ('draft','Quotation'),
+            ('sent','Quotation Sent'),
+            ('to_approve', 'To Approve'),
+            ('sale','Sales Order'),
+            ('cancel','Cancelled'),
+        ], compute="compute_waiting_to_approve", store="1"
+    )
+
+    @api.depends('amount_total')
+    def compute_waiting_to_approve(self):
+        print("helo")
+        for rec in self:
+            # base.group_system
+            if rec.amount_total > 100 and not self.env.user.has_group('base.group_sale_manager') or not self.env.user.has_group('sales_team.group_sale_manager'):
+               rec.state = 'to_approve'
+
+            else :
+                rec.state = 'draft'
+
+
+    @api.onchange('state')
+    def onchange_state(self):
+
+        if self.state == 'to_approve' and  self.env.user.has_group('base.group_sale_manager') or self.env.user.has_group('sales_team.group_sale_manager'):
+
+            pass
+
+
+
+

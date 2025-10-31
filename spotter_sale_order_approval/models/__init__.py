@@ -5,5 +5,8 @@
 
 # from . import res_partner
 
-from . import res_config_settings
-from . import crm_lead
+# from . import res_config_settings
+# from . import crm_lead
+# from . import project_task
+# from . import hr_leave
+from . import sale_order_task

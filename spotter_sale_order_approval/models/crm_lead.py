@@ -22,5 +22,6 @@ class CrmLead(models.Model):
                 'spotter_sale_order_approval.crm_message_limit')
 
             difference = fields.datetime.now() - last_chatter_message_time
-            if message_limit < datetime.timedelta(minutes=difference):
+            record.action_archive()
+            if  difference > timedelta(minutes=message_limit):
                 record.action_archive()
