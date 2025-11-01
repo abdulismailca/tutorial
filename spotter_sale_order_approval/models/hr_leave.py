@@ -9,18 +9,18 @@ class HrLeave(models.Model):
 
     remaining_this_time_off = fields.Integer()
 
-    # def action_approve(self):
-    #     all_leave_data = self.search([('user_id', '=', self.env.user.id),
-    #                                   ('holiday_status_id', '=',
-    #                                    self.holiday_status_id.id),
-    #                                   ('state', '=', 'validate')],
-    #                                  order="create_date desc", limit="1")
-    #     if all_leave_data:
-    #         date_diffrence = self.request_date_from - all_leave_data.request_date_to
-    #         if date_diffrence >= timedelta(days=5):
-    #             raise ValidationError(
-    #                 "You Cant take this leave, you took this recently")
-    #     return super(HrLeave, self).action_approve()
+    def action_approve(self):
+        all_leave_data = self.search([('user_id', '=', self.env.user.id),
+                                      ('holiday_status_id', '=',
+                                       self.holiday_status_id.id),
+                                      ('state', '=', 'validate')],
+                                     order="create_date desc", limit="1")
+        if all_leave_data:
+            date_diffrence = self.request_date_from - all_leave_data.request_date_to
+            if date_diffrence >= timedelta(days=5):
+                raise ValidationError(
+                    "You Cant take this leave, you took this recently")
+        return super(HrLeave, self).action_approve()
 
 
 

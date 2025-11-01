@@ -36,7 +36,13 @@
              <xpath expr="//button[@name='action_quotation_send']" position="after">
 
                 <button name="compute_waiting_to_approve" type="object"
-                            string="To Approve" class="btn-primary" invisible="state == 'draft'"/>
+                            string="To Approve" class="btn-primary" invisible="state in ['draft', 'to_approve']"/>
+
+            </xpath>
+             <xpath expr="//button[@name='action_quotation_send']" position="after">
+
+                <button name="approve_waiting" type="object"
+                            string="Approve" class="btn-primary" invisible="state !='to_approve' or is_visible_approve_button ==False"/>
 
             </xpath>
 

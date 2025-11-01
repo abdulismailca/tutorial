@@ -18,24 +18,31 @@ class SaleOrder(models.Model):
         ], compute="compute_waiting_to_approve", store="1"
     )
 
+    is_visible_approve_button = fields.Boolean(string="Visible Approve Button")
+
     @api.depends('amount_total')
     def compute_waiting_to_approve(self):
         print("helo")
         for rec in self:
             # base.group_system
-            if rec.amount_total > 100 and not self.env.user.has_group('base.group_sale_manager') or not self.env.user.has_group('sales_team.group_sale_manager'):
+            if rec.amount_total > 100 and not self.env.user.has_group('base.group_sale_manager'):
                rec.state = 'to_approve'
 
             else :
                 rec.state = 'draft'
 
 
-    @api.onchange('state')
-    def onchange_state(self):
+    @api.depends('state')
+    def compute_state(self):
 
-        if self.state == 'to_approve' and  self.env.user.has_group('base.group_sale_manager') or self.env.user.has_group('sales_team.group_sale_manager'):
+        # or self.env.user.has_group('sales_team.group_sale_manager')
+        if self.state == 'to_approve' and  self.env.user.has_group('base.group_sale_manager'):
 
-            pass
+           self.is_visible_approve_button = True
+
+    def approve_waiting(self):
+
+        self.action_confirm()
 
 
 
