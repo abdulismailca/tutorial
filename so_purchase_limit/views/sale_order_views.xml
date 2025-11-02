@@ -1,54 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="status_bar_products_sale_order_form_view_inherit"
-            model="ir.ui.view">
-        <field name="name">purchase.order.form.inherit</field>
+    <record id="view_order_form_inherit_approval" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.approval</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+
+
+
+            <!--            sale order old state-->
             <xpath expr="//field[@name='state']" position="attributes">
 
-                <attribute name="invisible">state == 'to_approve'</attribute>
+                <attribute name="invisible">state == 'to_approve' or state == 'two_to_approve'</attribute>
+            </xpath>
+            <!--            sale order new state-->
+
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="state" widget="statusbar"
+                       statusbar_visible="draft,sent,to_approve,two_to_approve,sale,cancel"
+                       invisible="state in ('draft','sent','sale','cancel')"
+                />
 
             </xpath>
-            <xpath  expr="//field[@name='state']" position="after">
 
-                    <field name="state" widget="statusbar"
-                           statusbar_visible="draft,sent,to_approve,sale"
-                           invisible="state != 'to_approve'"/>
 
+
+<!--             approve button-->
+
+            <xpath expr="//button[@name='action_preview_sale_order']" position="after">
+                <button name="approve_confirm" type="object" string="Approve One"
+
+                        invisible ="state !='to_approve' or two_step_approve == '1' "
+                />
             </xpath>
-            <xpath expr="//button[@name='action_quotation_send']" position="attributes">
 
-                <attribute name="invisible">1</attribute>
+<!--            approve button two-->
 
+            <xpath expr="//button[@name='action_preview_sale_order']" position="after">
+                <button name="two_approve_confirm" type="object" string="Approve Two"
+
+                        invisible ="state !='two_to_approve' or two_step_approve == '2' "
+                />
             </xpath>
-            <xpath expr="//button[@id='action_confirm']" position="attributes">
 
-                <attribute name="invisible">1</attribute>
-
+            <xpath expr="//page[@name='other_information']" position="inside">
+                <group string="Approvals">
+                    <field name="approver_1_id"/>
+                    <field name="is_approver_1_approved" readonly="1"/>
+                    <field name="approver_2_id"/>
+                    <field name="is_approver_2_approved" readonly="1"/>
+                </group>
             </xpath>
-            <xpath expr="//button[@name='action_cancel']" position="attributes">
 
-                <attribute name="invisible">state == 'to_approve'</attribute>
-
-            </xpath>
-             <xpath expr="//button[@name='action_quotation_send']" position="after">
-
-                <button name="compute_waiting_to_approve" type="object"
-                            string="To Approve" class="btn-primary" invisible="state in ['draft', 'to_approve']"/>
-
-            </xpath>
-             <xpath expr="//button[@name='action_quotation_send']" position="after">
-
-                <button name="approve_waiting" type="object"
-                            string="Approve" class="btn-primary" invisible="state !='to_approve' or is_visible_approve_button ==False"/>
-
-            </xpath>
 
         </field>
     </record>
 </odoo>
-
-
-

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_crm_limit_view_form"
+            model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sales
+        </field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="res.config.settings.view.form.inherit.sale"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='catalog_setting_container']"
+                   position="after">
+
+                <block title="Sale Order Approval">
+                    <setting id="sale_order_approval_settings"
+                             help="Set Approval for Above 25k">
+
+                        <field name="approver_1_id"/>
+                        <field name="approver_2_id"/>
+
+                    </setting>
+                </block>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>
