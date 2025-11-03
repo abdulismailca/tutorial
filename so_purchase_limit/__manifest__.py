@@ -9,6 +9,7 @@
     'depends': ['base', 'product', 'sale_management', 'purchase', 'account','crm'],
     'data': [
 
+        'security/machine_user_group.xml',
         'views/sale_order_views.xml',
         'views/res_config_settings_views.xml',
 

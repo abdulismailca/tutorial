@@ -16,6 +16,8 @@
         # 'views/res_config_settings_views.xml',
         # 'views/ir_cron_data.xml',
         # 'views/email_template.xml',
+        # 'views/product_product_views.xml',
+        'views/res_partner_test_views.xml',
 
     ],
 

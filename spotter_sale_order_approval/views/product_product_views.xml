@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    product brand from view-->
+    <record id="product_brand_name"
+            model="ir.ui.view">
+        <field name="name">product.product.form.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_policy']" position="after">
+               <field name="product_total_value"/>
+<!--                <field name="total_value"/>-->
+            </xpath>
+
+
+        </field>
+    </record>
+
+
+
+
+
+
+</odoo>

@@ -11,4 +11,10 @@
 # from . import hr_leave
 # from . import sale_order_task
 
-from . import product_product
+# from . import product_product
+
+# from . import product_product_test
+
+from . import res_partner_test
+from . import sale_order_line
+from . import sale_order_test_two

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="so_po_qty_count_res_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='internal_notes']" position="after">
+
+                <!--                <page name="count_so_po" string="SO-PO">-->
+                <!--                    <group>-->
+                <!--                        <field name="so_qty_count"/>-->
+                <!--                        <field name="po_qty_count"/>-->
+                <!--                    </group>-->
+                <!--                </page>-->
+                <!--                <page name="tax_calculation" string="Income Tax Dept">-->
+                <!--                    <group>-->
+                <!--                        <field name="amount"/>-->
+                <!--                        <field name="tax_ids" widget="many2many_tags"/>-->
+                <!--                        <field name="calculated_tax"/>-->
+                <!--                        <button name="calculate_tax" string="Calc"-->
+                <!--                                type="object"/>-->
+                <!--                    </group>-->
+                <!--                </page>-->
+
+                <page name="sale_order_line" string="So Line">
+                    <group string="Product">
+                        <field name="product_tmpl_id"/>
+                    </group>
+                    <group string="So Order Lines">
+                        <field name="sale_order_line_ids">
+                            <list>
+                                <field name="order_id"/>
+                                <field name="product_template_id"/>
+                                <field name="order_partner_id"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+                <page name="uom_qty" string="Uom Qty">
+                    <group>
+                        <field name="qty"/>
+                        <field name="uom"/>
+                        <field name="uom_category"/>
+                        <field name="target_uom"
+                               domain="[('category_id','=',uom_category)]"/>
+                        <field name="computed_uom"/>
+                        <button name="calc_uom" string="Covert" type="object"/>
+                    </group>
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

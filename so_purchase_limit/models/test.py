@@ -20,8 +20,7 @@ class SaleOrder(models.Model):
 
     approver_1_id = fields.Many2one("res.users", string="Approver 1", help="First approver")
     approver_2_id = fields.Many2one("res.users", string="Approver 2", help="Second approver")
-    approver_1_approved = fields.Boolean(string="Approver 1 Approved", copy=False)
-    approver_2_approved = fields.Boolean(string="Approver 2 Approved", copy=False)
+
 
     is_visible_approve_button = fields.Boolean(string="Visible Approve Button")
 
@@ -51,4 +50,5 @@ class SaleOrder(models.Model):
 
 
 
-
+sale_management.group_saleman_all_docs
+sale_management.group_saleman_own_docs
