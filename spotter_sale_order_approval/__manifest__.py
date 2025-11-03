@@ -9,6 +9,7 @@
     'depends': ['base', 'product', 'sale_management', 'purchase', 'account','crm','project','hr_holidays', 'purchase_stock'],
     'data': [
         # 'security/ir.model.access.csv',
+        'views/sale_order_server_action.xml',
         # 'views/sale_order_views.xml',
         # 'views/account_move_views.xml',
         # 'views/account_move_line_views.xml',

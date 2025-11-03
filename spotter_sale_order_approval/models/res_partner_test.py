@@ -14,7 +14,7 @@ class ResPartner(models.Model):
 
     product_tmpl_id = fields.Many2one('product.template')
 
-    sale_order_line_ids = fields.One2many('sale.order.line','res_partner_id', compute="compute_sale_order_line_ids", store=1)
+    sale_order_line_ids = fields.One2many('sale.order.line','res_partner_id')
 
     qty = fields.Float(string="Qty")
     uom = fields.Many2one('uom.uom', string="uom")
@@ -28,7 +28,7 @@ class ResPartner(models.Model):
             to_unit=self.target_uom,
         )
 
-    #
+
     # def compute_so_qty_count(self):
     #     for rec in self:
     #         all_so = rec.env['sale.order'].search(
@@ -52,7 +52,7 @@ class ResPartner(models.Model):
     #     print("self.sale_order_line_ids", self.sale_order_ids)
     #
 
-    @api.depends('product_tmpl_id')
+    @api.onchange('product_tmpl_id')
     def compute_sale_order_line_ids(self):
 
         for rec in self:
