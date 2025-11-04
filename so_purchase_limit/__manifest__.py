@@ -10,7 +10,7 @@
     'data': [
 
         'security/machine_user_group.xml',
-        'views/sale_order_views.xml',
+        'views/sale_order_views_two.xml',
         'views/res_config_settings_views.xml',
 
     ],

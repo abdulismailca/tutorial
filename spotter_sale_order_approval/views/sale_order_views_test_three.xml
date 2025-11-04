@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_uom_category_domain">
+            model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+<!--            <xpath expr="//field[@name='product_uom']" position="after">-->
+<!--                <field name="my_category_id"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//field[@name='product_uom']" position="attributes">-->
+<!--              <attribute name="domain">[('category_id','=',my_category_id)]</attribute>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+</odoo>
+
+
+

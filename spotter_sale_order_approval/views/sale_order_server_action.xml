@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="server_action_convert_to_dozen" model="ir.actions.server">
-        <field name="name">Convert Units to Dozens</field>
-        <field name="model_id" ref="sale.model_sale_order"/>
-        <field name="binding_model_id" ref="sale.model_sale_order"/>
+    <record id="off_on_hr" model="ir.actions.server">
+        <field name="name">OFF ON</field>
+        <field name="value">presence_group_1</field>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="binding_model_id" ref="hr.model_hr_employee"/>
+        <field name="binding_view_types">form,list</field>
         <field name="state">code</field>
-        <field name="code">records.so_unit_to_dozen()</field>
+        <field name="code">
+            action = records.action_set_present()
+        </field>
     </record>
 </odoo>

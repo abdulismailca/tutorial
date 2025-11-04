@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_approval" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.approval</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+
+            <!--            sale order old state-->
+            <xpath expr="//field[@name='state']" position="attributes">
+
+                <attribute name="invisible">state == 'to_approve' or state == 'two_to_approve' or state == 'sale'
+                </attribute>
+            </xpath>
+
+            <!--            sale order new state-->
+
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="state" widget="statusbar"
+                       statusbar_visible="draft,sent,to_approve,two_to_approve,sale,cancel"
+                       invisible="state in ('draft','sent','cancel')"
+                />
+            </xpath>
+
+            <!--            sale order confirm button-->
+
+
+            <xpath expr="//button[@name='action_confirm'][1]" position="attributes">
+                <attribute name="invisible">is_visible_sale_confirm_b == True or state != 'sent'</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm'][2]" position="attributes">
+                <attribute name="invisible">is_visible_sale_confirm_b == True or state != 'draft'</attribute>
+            </xpath>
+
+
+
+            <!--             approve button-->
+
+            <xpath expr="//button[@name='action_preview_sale_order']"
+                   position="after">
+                <button name="approver_button_one" type="object"
+                        string="Approver One"
+                        groups="so_purchase_limit.approver_one"
+                        invisible="is_visible_approve_button_one == False or is_click_approver_b_one == True"
+                />
+            </xpath>
+
+
+            <!--            approve button two-->
+
+            <xpath expr="//button[@name='action_preview_sale_order']"
+                   position="after">
+                <button name="approver_button_two" type="object"
+                        string="Approve Two"
+                        groups="so_purchase_limit.approver_two"
+                        invisible="is_click_approver_b_one == False or is_click_approver_b_two == True"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
