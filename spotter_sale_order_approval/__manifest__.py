@@ -21,7 +21,7 @@
         # 'views/res_partner_test_views.xml',
         'views/product_template_views.xml',
         # 'views/sale_order_views_test_three.xml',
-        # 'views/hr_employee_views.xml',
+        'views/hr_employee_views.xml',
         # 'views/sale_order_server_action.xml',
 
     ],

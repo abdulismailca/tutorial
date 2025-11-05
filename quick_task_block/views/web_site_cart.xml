@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--    iam adding a service menu inside web-->
+    <record id="website_service_request_menu" model="website.menu">
+        <field name="name">All Product Cart</field>
+        <!--       the below usrl is calling in controller-->
+        <field name="url">/servicerequest</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">90</field>
+    </record>
+
+
+    <!--service form-->
+    <template id="cart_form" name="Create Machine Service">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty"
+                 style="margin-top:50px">
+
+                <div class="container">
+                    <form action="/cart/create"
+                          enctype="multipart/form-data" class="o_mark_required"
+                          method="POST">
+                        <input type="hidden" name="csrf_token"
+                               t-att-value="request.csrf_token()"/>
+                        <div class="row">
+                            <!--                           machine name-->
+                            <div class="form-group col-12">
+                                <div class="row">
+                                    <label class="col-form-label col-sm-auto"
+                                           style="width: 200px;" for="machine">
+                                        Machine
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-sm"
+                                         style="margin-bottom:5px">
+                                        <select name="machine_id"
+                                                class="form-control"
+                                                required="required">
+                                            <option value="">Select a Machine
+                                            </option>
+                                            <t t-foreach="machines"
+                                               t-as="machine">
+                                                <option t-att-value="machine.id"
+                                                        t-esc="machine.name"/>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-form-label col-sm-auto"
+                                           style="width: 200px;"
+                                           for="description">
+                                        Description
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-sm" style="margin-top:5px">
+                                        <textarea id="description"
+                                                  class="form-control s_website_form_input"
+                                                  name="description" rows="8"/>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group col-12 s_website_form_submit"
+                                     data-name="Submit Button">
+                                    <div style="width: 200px margin-top:5px"
+                                         class="s_website_form_label"/>
+                                    <button type="submit"
+                                            class="btn btn-primary"
+                                            style="margin:5px 0 0 200px">
+                                        Submit
+                                    </button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </t>
+    </template>
+
+</odoo>
+

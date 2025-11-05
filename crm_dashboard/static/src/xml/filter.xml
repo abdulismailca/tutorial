@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="add_custom_currency_filter" inherit_id="account_reports.AccountReportFiltersCustomizable">
+        <xpath expr="//div[@id='filter_extra_options']" position="inside">
+            <div class="form-group" id="multi_currency_selection">
+                <label for="currency_dropdown">Select Currency:</label>
+                <select id="currency_dropdown" class="form-control">
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="GBP">GBP</option>
+                </select>
+            </div>
+        </xpath>
+    </template>
+</odoo>

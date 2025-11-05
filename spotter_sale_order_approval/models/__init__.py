@@ -16,4 +16,4 @@
 from . import product_template
 # from . import sale_order_test_three
 from . import stock_rules
-# from . import hr_employee
+from . import hr_employee

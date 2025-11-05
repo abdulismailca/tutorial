@@ -8,24 +8,18 @@ class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
 
-    state= fields.Selection([('on_board','On Board'),('off_board','Off Board')], default='on_board', compute="compute_hr_employee_deactivate")
+    state= fields.Selection([('on_board','On Board'),('off_board','Off Board')], default='on_board')
 
-
+    @api.onchange('resource_calendar_id')
     def compute_hr_employee_deactivate(self):
-
         for rec in self:
             if rec.resource_calendar_id:
-              rec.state = 'off_board'
-              print("helo")
+              rec.state = 'on_board'
               rec.action_unarchive()
-              # rec.active= True
-              break
             else:
-                print('hai')
-                rec.state = 'on_board'
+                rec.state = 'off_board'
                 rec.action_archive()
-                # rec.active = True
-                break
+
 
 
 
