@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <!--    iam adding a service menu inside web-->
+    <!--    iam product menu inside web-->
     <record id="website_service_request_menu" model="website.menu">
         <field name="name">All Product Cart</field>
         <!--       the below usrl is calling in controller-->
@@ -10,62 +10,64 @@
     </record>
 
     <template id="create_product_form" name="Create Customer">
-   <t t-call="website.layout">
-       <div id="wrap" class="oe_structure oe_empty">
-
-               <div class="container">
-                   <form action="/create/product" enctype="multipart/form-data" class="o_mark_required" method="POST">
-                       <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                       <div class="row">
-                           <!-- Name Field -->
-                           <div class="form-group col-12" style="margin-top:50px">
-                               <div class="row">
-                                   <label class="col-form-label col-sm-auto" style="width: 200px;" for="name">
-                                       Name<span class="text-danger"> *</span>
-                                   </label>
-                                   <div class="col-sm">
-                                       <input id="name" type="text" class="form-control" name="name" required="1"/>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="form-group col-12" style="margin-top:50px">
-                               <div class="row">
-                                   <label class="col-form-label col-sm-auto" style="width: 200px;" for="name">
-                                       Image<span class="text-danger"> *</span>
-                                   </label>
-                                   <div class="col-sm">
-                                       <input id="my_image" type="file" accept="image/*" class="form-control" name="name" required="1"/>
-                                   </div>
-                               </div>
-                           </div>
-
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <div class="container">
+                    <t t-if="request.session.get('success_message')">
+                        <div class="alert alert-success" role="alert">
+                            <t t-esc="request.session.get('success_message')"/>
+                        </div>
+                        <t t-set="dummy" t-value="request.session.pop('success_message')"/>
+                    </t>
+                    <form action="/create/product" enctype="multipart/form-data" class="o_mark_required" method="POST">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="row">
+                            <!-- Name Field -->
                             <div class="form-group col-12" style="margin-top:50px">
-                               <div class="row">
-                                   <label class="col-form-label col-sm-auto" style="width: 200px;" for="name">
-                                       Price<span class="text-danger"> *</span>
-                                   </label>
-                                   <div class="col-sm">
-                                       <input id="price" type="text" class="form-control" name="name" required="1"/>
-                                   </div>
-                               </div>
-                           </div>
+                                <div class="row">
+                                    <label class="col-form-label col-sm-auto" style="width: 200px;" for="name">
+                                        Name
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input id="name" type="text" class="form-control" name="name" required="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-12" style="margin-top:50px">
+                                <div class="row">
+                                    <label class="col-form-label col-sm-auto" style="width: 200px;" for="name">
+                                        Image
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input id="my_image" type="file" accept="image/*" class="form-control"
+                                               name="my_image" required="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-12" style="margin-top:50px">
+                                <div class="row">
+                                    <label class="col-form-label col-sm-auto" style="width: 200px;" for="name">
+                                        Price
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input id="price" type="text" class="form-control" name="price" required="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Submit Button -->
+                            <div class="form-group col-12" style="margin:10px 0 0 200px">
+                                <div style="width: 200px;"></div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
 
-                          <!-- Submit Button -->
-                           <div class="form-group col-12" style="margin:10px 0 0 200px">
-                               <div style="width: 200px;"></div>
-                               <button type="submit" class="btn btn-primary">Submit</button>
-                           </div>
-                       </div>
-                   </form>
-               </div>
-
-       </div>
-   </t>
-</template>
-
-
-
-
-
+            </div>
+        </t>
+    </template>
 </odoo>
 

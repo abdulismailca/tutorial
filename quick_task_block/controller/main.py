@@ -55,7 +55,7 @@ class XLSXReportController(http.Controller):
 
         name = post.get('name')
         my_image = post.get('my_image')
-        my_convert_img = base64.b64encode(my_image.read().decode('utf-8'))
+        my_convert_img = base64.b64encode(my_image.read())
         print("my_convert_img", my_convert_img)
 
         list_price =post.get('price')
@@ -70,7 +70,9 @@ class XLSXReportController(http.Controller):
 
         # return request.redirect("/shop/cart")
 
-        order = request.website.sale_get_order()
+        request.session['success_message'] = "Product Created Successfully!"
+
+        order = request.website.sale_get_order(force_create=True)
         print("order", order)
 
 
@@ -85,6 +87,6 @@ class XLSXReportController(http.Controller):
 
 
 
-        return request.redirect('/contactus-thank-you')
+        # return request.redirect('/contactus-thank-you')
     #
     #
