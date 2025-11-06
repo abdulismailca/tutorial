@@ -1,0 +1,12 @@
+<odoo>
+    <template id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript"
+                    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+            <!-- Or use a specific version like 3.9.1 if needed: -->
+            <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script> -->
+            <script type="text/javascript"
+                    src="/your_module/static/src/js/your_chart_code.js"></script>
+        </xpath>
+    </template>
+</odoo>

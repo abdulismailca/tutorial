@@ -5,7 +5,7 @@
             <xpath expr="//div[@class='oe_product_image position-relative flex-grow-0 overflow-hidden']" position="after">
 
                   <div class="clear-cart"/>
-                  <a href="/clear/cart" role="button" class="btn btn-secondary  w-100"><span t-esc="product.wh_count"/></a>
+                  <a href="#" role="button" class="btn btn-secondary  w-100"><span t-esc="product.wh_count"/></a>
             </xpath>
         </template>
 

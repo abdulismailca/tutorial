@@ -13,6 +13,7 @@
         'views/product_card_with_stock.xml',
         # 'views/web_site_cart.xml',
         'views/create_product_website_views.xml',
+        'views/product_template_views.xml',
     ],
 
     'installable': True,

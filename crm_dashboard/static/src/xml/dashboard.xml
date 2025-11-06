@@ -167,7 +167,7 @@
                                     </div>
                                     <div class="stat-head"
                                          style="font-size: 14px;">
-                                       My Lose
+                                        My Lose
                                     </div>
                                 </div>
                             </div>
@@ -175,8 +175,17 @@
                     </div>
                 </div>
             </div>
+<!--            chart_example-->
+<!--            <canvas id="chart_example" height="400px" width="400px"/>-->
 
-
+            <!--            here here-->
+        </div>
+        <div>
+            <div>
+                <center>
+                    <h1 style="margin:20px;">Opportunity/Lead - Graph</h1>
+                </center>
+            </div>
         </div>
     </t>
 </templates>
