@@ -17,7 +17,7 @@
         'web.assets_backend': [
             # 'crm_dashboard/static/src/js/dashboard.js',
             # 'crm_dashboard/static/src/xml/chart_js_including_views.xml',
-            'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js',
+            'crm_dashboard/static/src/js/lib/Chart.bundle.js',
             'crm_dashboard/static/src/xml/dashboard.xml',
             'crm_dashboard/static/src/js/lib/Chart.bundle.js',
             'crm_dashboard/static/src/js/tile.js',

@@ -17,6 +17,7 @@ class CrmLead(models.Model):
        currency = company_id.currency_id.symbol
        expected_revenue = sum(my_opportunity.mapped('expected_revenue'))
        my_lose = expected_revenue - user_all_invoices_amount
+       print("helo helo",len(my_leads))
 
 
        return {
