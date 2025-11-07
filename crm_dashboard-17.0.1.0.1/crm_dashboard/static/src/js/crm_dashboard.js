@@ -488,10 +488,12 @@ export class CRMDashboard extends Component {
             target: 'current',
         }, options)
     }
+
     /**
      * Initiates an action to display opportunity data.
      * @param {Event} e - The event object.
      */
+
     opportunity(e) {
         var self = this;
         e.stopPropagation();
