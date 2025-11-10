@@ -2,19 +2,25 @@
 <templates>
     <t t-name="crm_dashboard.CrmDashboard">
         <div class="container-fluid">
-            <center><h1 style="margin:20px;">CRM Dashboard</h1></center>
+            <center>
+                <h1 style="margin:20px;">CRM Dashboard</h1>
+            </center>
 
-            <div class="row main-section" style="margin-left: 80px; margin-right: 80px;">
+            <div class="row main-section"
+                 style="margin-left: 80px; margin-right: 80px;">
 
                 <!-- My Leads -->
                 <div class="col-md-4 col-sm-6 mb-4">
                     <div class="oh-card shadow-sm text-center p-3">
                         <div class="d-flex align-items-center">
                             <div style="background:#ff4d94; width:65px; text-align:center;">
-                                <i class="fa fa-tasks text-white" style="font-size:50px;"/>
+                                <i class="fa fa-tasks text-white"
+                                   style="font-size:50px;"/>
                             </div>
-                            <div class="flex-grow-1 text-center" style="padding-left:50px;">
-                                <div id="my_lead" style="font-size:18px; font-weight:bold;"></div>
+                            <div class="flex-grow-1 text-center"
+                                 style="padding-left:50px;">
+                                <div id="my_lead"
+                                     style="font-size:18px; font-weight:bold;"></div>
                                 <div style="font-size:14px;">My Leads</div>
                             </div>
                         </div>
@@ -26,11 +32,15 @@
                     <div class="oh-card shadow-sm text-center p-3">
                         <div class="d-flex align-items-center">
                             <div style="background:yellow; width:65px; text-align:center;">
-                                <i class="fa fa-trophy text-dark" style="font-size:50px;"/>
+                                <i class="fa fa-trophy text-dark"
+                                   style="font-size:50px;"/>
                             </div>
-                            <div class="flex-grow-1 text-center" style="padding-left:50px;">
-                                <div id="my_opportunity" style="font-size:18px; font-weight:bold;"></div>
-                                <div style="font-size:14px;">My Opportunities</div>
+                            <div class="flex-grow-1 text-center"
+                                 style="padding-left:50px;">
+                                <div id="my_opportunity"
+                                     style="font-size:18px; font-weight:bold;"></div>
+                                <div style="font-size:14px;">My Opportunities
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -41,11 +51,15 @@
                     <div class="oh-card shadow-sm text-center p-3">
                         <div class="d-flex align-items-center">
                             <div style="background:#bf80ff; width:65px; text-align:center;">
-                                <i class="fa fa-usd text-white" style="font-size:50px;"/>
+                                <i class="fa fa-usd text-white"
+                                   style="font-size:50px;"/>
                             </div>
-                            <div class="flex-grow-1 text-center" style="padding-left:50px;">
-                                <div id="future_revenue" style="font-size:18px; font-weight:bold;"></div>
-                                <div style="font-size:14px;">Expected Revenue</div>
+                            <div class="flex-grow-1 text-center"
+                                 style="padding-left:50px;">
+                                <div id="future_revenue"
+                                     style="font-size:18px; font-weight:bold;"></div>
+                                <div style="font-size:14px;">Expected Revenue
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -56,10 +70,13 @@
                     <div class="oh-card shadow-sm text-center p-3">
                         <div class="d-flex align-items-center">
                             <div style="background:#4caf50; width:65px; text-align:center;">
-                                <i class="fa fa-credit-card text-white" style="font-size:50px;"/>
+                                <i class="fa fa-credit-card text-white"
+                                   style="font-size:50px;"/>
                             </div>
-                            <div class="flex-grow-1 text-center" style="padding-left:50px;">
-                                <div id="user_invoiced_revenue" style="font-size:18px; font-weight:bold;"></div>
+                            <div class="flex-grow-1 text-center"
+                                 style="padding-left:50px;">
+                                <div id="user_invoiced_revenue"
+                                     style="font-size:18px; font-weight:bold;"></div>
                                 <div style="font-size:14px;">My Revenue</div>
                             </div>
                         </div>
@@ -71,10 +88,13 @@
                     <div class="oh-card shadow-sm text-center p-3">
                         <div class="d-flex align-items-center">
                             <div style="background:#e74c3c; width:65px; text-align:center;">
-                                <i class="fa fa-thumbs-down text-white" style="font-size:50px;"/>
+                                <i class="fa fa-thumbs-down text-white"
+                                   style="font-size:50px;"/>
                             </div>
-                            <div class="flex-grow-1 text-center" style="padding-left:50px;">
-                                <div id="my_lose_count" style="font-size:18px; font-weight:bold;"></div>
+                            <div class="flex-grow-1 text-center"
+                                 style="padding-left:50px;">
+                                <div id="my_lose_count"
+                                     style="font-size:18px; font-weight:bold;"></div>
                                 <div style="font-size:14px;">My Lose</div>
                             </div>
                         </div>
@@ -84,14 +104,17 @@
                 <!--            won_los_ration-->
 
 
-                 <div class="col-md-4 col-sm-6 mb-4">
+                <div class="col-md-4 col-sm-6 mb-4">
                     <div class="oh-card shadow-sm text-center p-3">
                         <div class="d-flex align-items-center">
                             <div style="background:#e74c3c; width:65px; text-align:center;">
-                                <i class="fa fa-trophy text-dark" style="font-size:50px;"/>
+                                <i class="fa fa-trophy text-dark"
+                                   style="font-size:50px;"/>
                             </div>
-                            <div class="flex-grow-1 text-center" style="padding-left:50px;">
-                                <div id="won_los_ration" style="font-size:18px; font-weight:bold;"></div>
+                            <div class="flex-grow-1 text-center"
+                                 style="padding-left:50px;">
+                                <div id="won_los_ration"
+                                     style="font-size:18px; font-weight:bold;"></div>
                                 <div style="font-size:14px;">Win Ratio</div>
                             </div>
                         </div>
@@ -99,26 +122,25 @@
                 </div>
             </div>
 
-
-
-
-            <!-- below for charts -->
-            <div class="text-center mt-4" id="parent_graph">
-
-                <div id="pie_chart_div">
-                    <h2>Opportunity / Lead - Graph</h2>
-                <canvas id="chart_example" width="100" height="50"></canvas>
-                </div>
-
-                <div id="table_div">
-                    <canvas id="table_div_canvas" width="400" height="200"></canvas>
-                </div>
-
-                <div id="doughnut_div">
-                    <canvas id="doughnut_div_canvas" width="400" height="200"></canvas>
-                </div>
-
-            </div>
+<!--            chart and table ann below-->
         </div>
+          <div style="position:relative">
+                <div id="div1" style="position:absolute; right:1053px; width:1000px"><canvas id="chart_example" width="50" height="25"></canvas></div>
+                <div id="div2" style="position:absolute; right:485px; width:1000px"><canvas id="doughnut_example" width="100" height="50"></canvas></div>
+                <div id="div3" style="position:absolute; right:251px;">
+                    <table  t-ref="leads_by_month_table" class="table table-borderless" style="text-align:center;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <th style="text-align:center;" class="fw-bold">Month</th>
+                                <th style="text-align:center;" class="fw-bold">Count</th>
+<!--                                <th style="text-align:center;" class="fw-bold">Transfer Type</th>-->
+<!--                                <th t-if="len(unique_customers) &gt; 1" style="text-align:center;" class="fw-bold">Customer</th>-->
+                            </tr>
+                        </thead>
+                        <tbody id="table_body">
+                        </tbody>
+                    </table></div>
+<!--                <div id="div4">Div 4</div>-->
+            </div>
     </t>
 </templates>
