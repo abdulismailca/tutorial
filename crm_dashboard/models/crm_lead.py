@@ -1,6 +1,7 @@
 import calendar
+import datetime
 
-from odoo import models, api
+from odoo import models, api, fields
 
 
 class CrmLead(models.Model):
@@ -110,72 +111,93 @@ class CrmLead(models.Model):
 
         return all_medium_lead_medium_list
 
-    # @api.model
-    # def lead_by_month_table(self):
-    #
-    #     company_id = self.env.company
-    #     # leads = self.search([('company_id', '=', company_id.id),
-    #     #                      ('user_id', '=', self.env.user.id)])
-    #
-    #     domain = [('create_date', '!=', False),('company_id', '=',company_id.id)]
-    #     fields = ['create_date:month', 'id:count']
-    #     leads_grouped = self.env['crm.lead'].read_group(
-    #
-    #         domain,
-    #         fields,
-    #         ['create_date:month'],
-    #         orderby='create_date:month'
-    #     )
-    #
-    #     for group in leads_grouped:
-    #         month_year = group['create_date:month']
-    #         lead_count = group['id_count']
-    #         print(f"Month: {month_year}, Leads Count: {lead_count}")
-    #
-    #     # return leads_grouped
 
     @api.model
-    def lead_by_month_table(self):
-        month_count = []
-        month_value = []
-        for rec in self.search([]):
-            month = rec.create_date.month
-            if month not in month_value:
-                month_value.append(month)
-            month_count.append(month)
-        month_val = [{'label': calendar.month_name[month],
-                      'value': month_count.count(month)} for month in
-                     month_value]
-        names = [record['label'] for record in month_val]
-        counts = [record['value'] for record in month_val]
-        month = [counts, names]
-        print("names", names)
-        print("counts", counts)
-        return month
+    def lead_by_month_table(self, period='monthly'):
+        """Return lead count grouped by selected period."""
+        leads = self.search([('create_date', '!=', False)])
+        now = fields.Datetime.now()
+
+        print("period", period)
+
+        grouped_data = {}
+
+        for rec in leads:
+            if period == 'weekly':
+                week = rec.create_date.strftime("Week %U (%b)")
+                grouped_data[week] = grouped_data.get(week, 0) + 1
+            elif period == 'quarterly':
+                q = (rec.create_date.month - 1) // 3 + 1
+                key = f"Q{q} {rec.create_date.year}"
+                grouped_data[key] = grouped_data.get(key, 0) + 1
+            elif period == 'yearly':
+                year = rec.create_date.year
+                grouped_data[year] = grouped_data.get(year, 0) + 1
+            else:  # monthly
+                month = calendar.month_name[rec.create_date.month]
+                grouped_data[month] = grouped_data.get(month, 0) + 1
+
+        names = list(grouped_data.keys())
+        counts = list(grouped_data.values())
+
+        print(f"Filter={period}, Data={grouped_data}")
+        return [counts, names]
 
     @api.model
-    def  leads_lost_by_month(self):
-
+    def get_lost_won_graph_data(self):
         company_id = self.env.company
+        user = self.env.user
+        domain = [('company_id', '=', company_id.id), ('user_id', '=', user.id)]
 
-        leads_lost_by_month = len(self.search([('company_id', '=', company_id.id),
-                                      ('user_id', '=', self.env.user.id),
-                                      ('stage_id.name', '=', 'Lost')],order='create_date'))
+        total_won = self.search_count(domain + [('stage_id.name', '=', 'Won')])
+        total_lost = self.search_count(
+            domain + [('stage_id.name', '=', 'Lost')])
+        total_open = self.search_count(
+            domain + [('stage_id.name', 'not in', ['Won', 'Lost'])])
 
-        plans_data = self._read_group(
-            domain=[('company_id', '=', company_id.id),  ('user_id', '=', self.env.user.id),('stage_id.name', '=', 'Lost') ],
-            groupby=['create_date'],
-            aggregates=['__count'],
-        )
+        return {
+            'labels': ['Won', 'Lost', 'Open'],
+            'values': [total_won, total_lost, total_open],
+        }
+
+    @api.model
+    def lead_by_campaign(self):
+        company_id = self.env.company
+        user = self.env.user
+        leads = self.search([
+            ('company_id', '=', company_id.id),
+            ('user_id', '=', user.id),
+            ('campaign_id', '!=', False)
+        ])
+
+        campaigns = leads.mapped('campaign_id.name')
+        result = {}
+        for c in campaigns:
+            result[c] = result.get(c, 0) + 1
+
+        return {
+            'labels': list(result.keys()),
+            'values': list(result.values()),
+        }
+
+    @api.model
+    def get_lost_won_graph_data(self):
+        company_id = self.env.company
+        user = self.env.user
+        domain = [('company_id', '=', company_id.id), ('user_id', '=', user.id)]
+
+        total_won = self.search_count(domain + [('stage_id.name', '=', 'Won')])
+        total_lost = self.search_count(
+            domain + [('stage_id.name', '=', 'Lost')])
+        total_open = self.search_count(
+            domain + [('stage_id.name', 'not in', ['Won', 'Lost'])])
+
+        return {
+            'labels': ['Won', 'Lost', 'Open'],
+            'values': [total_won, total_lost, total_open],
+        }
 
 
-        print("plans_data", plans_data)
-        print("leads_lost_by_month", leads_lost_by_month)
-        # plans_count = {department.id: count for department, count in plans_data}
-        # for department in self:
-        #     department.plans_count = plans_count.get(department.id,
-        #                                              0) + plans_count.get(False,
-        #                                                                   0)
 
 
 
