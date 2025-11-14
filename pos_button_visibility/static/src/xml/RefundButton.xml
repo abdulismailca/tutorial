@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+<!--   &lt;!&ndash; This is used to restrict the REFUND  button if it is restricted &ndash;&gt;-->
+    <t t-name="RefundButton" t-inherit="point_of_sale.ControlButtons"
+       t-inherit-mode="extension">
+        <xpath expr="//button[@t-on-click='() => this.clickRefund()']"
+               position="replace">
+                <t t-if="this.state.buttons and this.state.buttons.includes('Refund')">
+                    <button class="btn btn-secondary btn-lg py-5 disabled"
+                            t-on-click="() => this.clickRefund()">
+                         <i class="fa fa-undo me-1" role="img"
+                            aria-label="Refund"
+                            title="Refund"/>
+                        Refund
+                    </button>
+                </t>
+                <t t-else="">
+                    <button class="btn btn-secondary btn-lg py-5"
+                            t-on-click="() => this.clickRefund()">
+                        <i class="fa fa-undo me-1" role="img" aria-label="Refund"
+                        title="Refund"/>
+                        Refund
+                    </button>
+                </t>
+        </xpath>
+    </t>
+</templates>

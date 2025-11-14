@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+<!--    Inheriting ControlButtons template-->
+    <t t-name="RewardButton" t-inherit="point_of_sale.ControlButtons"
+       t-inherit-mode="extension">
+        <xpath expr="//button[@t-on-click='() => this.clickRewards()']"
+               position="replace">
+            <t t-if="this.state.buttons and this.state.buttons.includes('Reward')">
+                <button class="control-button disabled"
+                                    t-att-class="buttonClass"
+                                    t-attf-class="{{getPotentialRewards().length ? 'highlight text-action' : 'disabled'}}"
+                                    t-on-click="() => this.clickRewards()">
+                    <i class="fa fa-star me-1"/>Rewards
+                </button>
+            </t>
+            <t t-else="">
+                <button class="control-button"
+                                    t-att-class="buttonClass"
+                                    t-attf-class="{{getPotentialRewards().length ? 'highlight text-action' : 'disabled'}}"
+                                    t-on-click="() => this.clickRewards()">
+                    <i class="fa fa-star me-1"/>Rewards
+                </button>
+            </t>
+        </xpath>
+    </t>
+</templates>
