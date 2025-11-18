@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="DemoTimerComponent">
+        <div class="alert alert-info mt-3">
+            Timer Mixin Demo Loaded — check console logs!
+        </div>
+    </t>
+</templates>

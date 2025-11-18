@@ -19,6 +19,12 @@
             'pos_purchase_limit/static/src/js/popup_component.js',
             'pos_purchase_limit/static/src/xml/popup.xml',
 
+            'pos_purchase_limit/static/src/js/timer_mixin.js',
+            'pos_purchase_limit/static/src/js/demo_component.js',
+            'pos_purchase_limit/static/src/js/demo_mount.js',
+            'pos_purchase_limit/static/src/xml/demo_template.xml',
+
+
         ]
     },
 
