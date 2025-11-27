@@ -3,7 +3,7 @@
     'version': '1.0',
     'summary': 'From machine creation to transfer',
     'description': 'Easy mangment of machines',
-    'author': 'ismail C A',
+    'author': 'ISMAIL C A',
     'website': 'www.isa.com',
     'category': 'Management',
     'depends': ['base', 'mail', 'product', 'account', 'website','website_sale'],
