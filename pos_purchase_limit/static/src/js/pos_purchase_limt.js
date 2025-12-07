@@ -8,6 +8,8 @@ import { makeAwaitable } from "@point_of_sale/app/store/make_awaitable_dialog";
 patch(PosStore.prototype, {
 
     async pay(...args) {
+
+
         const order = this.get_order();
         console.log("Order", order)
         console.log("this ann", this.config.is_activate_purchase_limit_pos_settings);
@@ -67,4 +69,7 @@ patch(PosStore.prototype, {
 
         return super.pay(...args);
     }
+
+
+
 });
